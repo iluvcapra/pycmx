@@ -1,7 +1,6 @@
 # pycmx
-Python CMX3600 Edit Decision List Parser
 
-The `pycmx` package provides a basic interface for parsing a CMX3600 EDL.
+The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and its most most common variations.
 
 ## Features
 
@@ -48,7 +47,8 @@ May not be addressed:
 * Does not parse source list at end of EDL.
 
 Probably beyond the scope of this module:
-* Does not parse timecode entries
+* Does not parse timecode entries.
+* Does not parse color correction notes. For this functionality we refer you to [pycdl](https://pypi.org/project/pycdl/) or [cdl-convert](https://pypi.org/project/cdl-convert/).
 
 ## Should I Use This?
 
