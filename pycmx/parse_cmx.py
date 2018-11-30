@@ -80,7 +80,13 @@ def parse_cmx3600(file):
     parser.expect('Title')
     title = parser.current_token.title
     return event_list(title, parser)
-    
+   
+
+CmxEvent = namedtuple('CmxEvent',['title','number','clip_name',
+    'source_name','channels','source_start','source_finish','record_start',
+    'record_finish','fcm_drop'])
+
+
 def event_list(title, parser):
     state = {"fcm_drop" : False}
 
@@ -92,7 +98,8 @@ def event_list(title, parser):
             state['fcm_drop'] = parser.current_token.drop
         elif parser.accept('Event'):
             if this_event != None:
-                events_result.append(this_event)
+                event_t = CmxEvent(**this_event)
+                events_result.append(event_t)
 
             raw_event = parser.current_token
             channels = CmxChannelMap()
@@ -118,7 +125,8 @@ def event_list(title, parser):
             parser.next_token()
     
     if this_event != None:
-        events_result.append(this_event)
+        event_t = CmxEvent(**this_event)
+        events_result.append(event_t)
 
     return events_result
 
