@@ -3,7 +3,8 @@ Python CMX3600 Edit Decision List Parser
 
 The `pycmx` package provides a basic interface for parsing a CMX3600 EDL.
 
-Features:
+## Features
+
 * The major variations of the CMX3600, the standard, "File32" and "File128" 
   formats are automatically detected and properly read.
 * Remark or comment fields with common recognized forms are read and 
@@ -34,6 +35,20 @@ print(events[5:8])
         record_start='01:01:44:04', record_finish='01:01:57:14', 
         fcm_drop=False)]
 ```
+
+## Known Issues/Roadmap
+
+To be addressed:
+* Does not decode transitions.
+* Does not decode "M2" speed changes.
+* Does not decode repair notes, audio notes or other Avid-specific notes.
+
+May not be addressed:
+
+* Does not parse source list at end of EDL.
+
+Probably beyond the scope of this module:
+* Does not parse timecode entries
 
 ## Should I Use This?
 
