@@ -16,6 +16,7 @@ StmtAudioExt = namedtuple("AudioExt",["audio3","audio4"])
 StmtClipName = namedtuple("ClipName",["name"])
 StmtSourceFile = namedtuple("SourceFile",["filename"])
 StmtRemark = namedtuple("Remark",["text"])
+StmtTrailer = namedtuple("Trailer",["text"])
 StmtUnrecognized = namedtuple("Unrecognized",["content"])
 
 
@@ -55,6 +56,8 @@ def parse_cmx3600_line(line):
             return parse_extended_audio_channels(line)
         elif line.startswith("*"):
             return parse_remark( line[1:].strip())
+        elif line.startswith(">>>"):
+            return parse_trailer_statement(line)
         else:
             return parse_unrecognized(line)
 
@@ -116,4 +119,8 @@ def parse_columns_for_standard_form(line, event_field_length, source_field_lengt
                      record_in=column_strings[14].strip(),
                      record_out=column_strings[16].strip())
 
+
+def parse_trailer_statement(line):
+    trimmed = line[3:].strip()
+    return StmtTrailer(trimmed)
 
