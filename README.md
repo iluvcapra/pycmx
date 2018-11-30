@@ -1,6 +1,6 @@
 # pycmx
 
-The `pycmx` package provides a basic interface for parsing a CMX3600 EDL.
+The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and its most most common variations.
 
 ## Features
 
