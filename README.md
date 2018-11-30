@@ -47,7 +47,7 @@ May not be addressed:
 * Does not parse source list at end of EDL.
 
 Probably beyond the scope of this module:
-* Does not parse timecode entries. For this we recommend [timecode](https://pypi.org/project/timecode/).
+* Does not parse timecode entries.
 * Does not parse color correction notes. For this functionality we refer you to [pycdl](https://pypi.org/project/pycdl/) or [cdl-convert](https://pypi.org/project/cdl-convert/).
 
 ## Should I Use This?
