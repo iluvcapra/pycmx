@@ -40,8 +40,8 @@ class CmxChannelMap:
                 "A2" :   (False,  False,   True),
                 "AA" :   (False,  True,    True),
                 "B" :    (True,   True,    False),
-                "V/AA" : (True,   True,    True),
-                "V/A2" : (True,   False,   True)
+                "AA/V" : (True,   True,    True),
+                "A2/V" : (True,   False,   True)
         }
 
 
