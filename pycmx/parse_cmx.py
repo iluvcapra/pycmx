@@ -80,6 +80,7 @@ Cmx3600Event = namedtuple("Cmx3600Event",['title','number','clip_name', 'source_
                                           'fcm_drop'])
     
 def parse_cmx3600(file):
+    """Accepts the path to a CMX EDL and returns a list of all events contained therein."""
     statements = parse_cmx3600_statements(file)
     parser = NamedTupleParser(statements)
     parser.expect('Title')
