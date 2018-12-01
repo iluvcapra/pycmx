@@ -23,5 +23,12 @@ class TestParse(TestCase):
         self.assertTrue(events[0].channels.a2)
         self.assertFalse(events[0].channels.a1)
         self.assertTrue(events[2].channels.get_audio_channel(7))
-
+        self.assertFalse(events[2].channels.get_audio_channel(1))
+        self.assertFalse(events[2].channels.get_audio_channel(2))
+        self.assertFalse(events[2].channels.get_audio_channel(3))
+        self.assertFalse(events[2].channels.get_audio_channel(4))
+        self.assertFalse(events[2].channels.get_audio_channel(10))
+        self.assertFalse(events[2].channels.get_audio_channel(11))
+        self.assertFalse(events[2].channels.get_audio_channel(12))
+        self.assertFalse(events[2].channels.get_audio_channel(13))
 
