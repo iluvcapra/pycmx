@@ -16,6 +16,7 @@ StmtAudioExt = namedtuple("AudioExt",["audio3","audio4"])
 StmtClipName = namedtuple("ClipName",["name"])
 StmtSourceFile = namedtuple("SourceFile",["filename"])
 StmtRemark = namedtuple("Remark",["text"])
+StmtEffectsName = namedtuple("EffectsName",["name"])
 StmtTrailer = namedtuple("Trailer",["text"])
 StmtUnrecognized = namedtuple("Unrecognized",["content"])
 
@@ -58,6 +59,8 @@ def parse_cmx3600_line(line):
             return parse_remark( line[1:].strip())
         elif line.startswith(">>>"):
             return parse_trailer_statement(line)
+        elif line.startswith("EFFECTS NAME IS"):
+            return parse_effects_name(line)
         else:
             return parse_unrecognized(line)
 
@@ -97,6 +100,10 @@ def parse_remark(line):
         return StmtSourceFile(filename=line[12:].strip() )
     else:
         return StmtRemark(text=line)
+
+def parse_effects_name(line):
+    name = line[16:].strip()
+    return StmtEffectsName(name=name)
 
 def parse_unrecognized(line):
     return StmtUnrecognized(content=line)

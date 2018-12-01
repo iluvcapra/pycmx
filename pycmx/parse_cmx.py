@@ -2,6 +2,7 @@
 # (c) 2018 Jamie Hardt
 
 from .parse_cmx_statements import parse_cmx3600_statements
+from .cmx_event import CmxEvent, CmxTransition
 from collections import namedtuple
 
 from re import compile, match
@@ -129,11 +130,6 @@ def parse_cmx3600(file):
     return event_list(title, parser)
    
 
-CmxEvent = namedtuple('CmxEvent',['title','number','clip_name',
-    'source_name','channels','source_start','source_finish','record_start',
-    'record_finish','fcm_drop'])
-
-
 def event_list(title, parser):
     state = {"fcm_drop" : False}
 
@@ -155,6 +151,7 @@ def event_list(title, parser):
             this_event = {'title': title, 'number': raw_event.event, 'clip_name': None ,
                                             'source_name': raw_event.source, 
                                             'channels': channels,
+                                            'transition': CmxTransition(raw_event.trans, raw_event.trans_op),
                                             'source_start': raw_event.source_in,
                                             'source_finish': raw_event.source_out,
                                             'record_start': raw_event.record_in,
