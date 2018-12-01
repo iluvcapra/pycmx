@@ -117,11 +117,7 @@ class CmxChannelMap:
         self.a4 = ext.audio4
 
     def __repr__(self):
-        return "CmxChannelMap(v="+ self.v.__repr__( ) + \
-                ",a1=" + self.a1.__repr__() + \
-                ",a2=" + self.a2.__repr__() + \
-                ",a3=" + self.a3.__repr__() + \
-                ",a4=" + self.a4.__repr__() +")"
+        return f"CmxChannelMap(v={self.v}, audio_channels={self._audio_channel_set})"
         
             
 def parse_cmx3600(file):
@@ -153,7 +149,7 @@ def event_list(title, parser):
                 events_result.append(event_t)
 
             raw_event = parser.current_token
-            channels = CmxChannelMap({})
+            channels = CmxChannelMap(v=False, audio_channels=set([]))
             channels.appendEvent(raw_event.channels)
 
             this_event = {'title': title, 'number': raw_event.event, 'clip_name': None ,
