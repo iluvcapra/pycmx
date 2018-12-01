@@ -4,6 +4,8 @@
 from .parse_cmx_statements import parse_cmx3600_statements
 from collections import namedtuple
 
+from re import compile, match
+
 class NamedTupleParser:
     
     def __init__(self, tuple_list):
@@ -34,6 +36,9 @@ class NamedTupleParser:
 
 
 class CmxChannelMap:
+    """
+    Represents a set of all the channels to which an event applies.
+    """
 
     chan_map = {     "V" :    (True,   False,   False),
                 "A" :    (False,  True,    False),
@@ -46,19 +51,69 @@ class CmxChannelMap:
 
 
     def __init__(self, v=False, a1=False, a2=False, a3=False, a4=False):
+        self._audio_channel_set = set()
         self.v = v
         self.a1 = a1
         self.a2 = a2
         self.a3 = a3
         self.a4 = a4
 
+    @property
+    def a1(self):
+        return self.get_audio_channel(1)
+
+    @a1.setter
+    def a1(self,val):
+        self.set_audio_channel(1,val)
+
+    @property
+    def a2(self):
+        return self.get_audio_channel(2)
+
+    @a1.setter
+    def a2(self,val):
+        self.set_audio_channel(2,val)
+
+    @property
+    def a3(self):
+        return self.get_audio_channel(3)
+
+    @a1.setter
+    def a3(self,val):
+        self.set_audio_channel(3,val)
+    
+    @property
+    def a4(self):
+        return self.get_audio_channel(4)
+
+    @a1.setter
+    def a4(self,val):
+        self.set_audio_channel(4,val)
+
+
+    def get_audio_channel(self,chan_num):
+        return (chan_num in self._audio_channel_set)
+
+    def set_audio_channel(self,chan_num,enabled):
+        if enabled:
+            self._audio_channel_set.add(chan_num)
+        elif self.get_audio_channel(chan_num):
+            self._audio_channel_set.remove(chan_num)
+            
 
     def appendEvent(self, event_str):
+        alt_channel_re = compile('^A(\d+)')
         if event_str in self.chan_map:
             channels = self.chan_map[event_str]
             self.v = channels[0]
             self.a1 = channels[1]
             self.a2 = channels[2]
+        else:
+            matchresult = match(alt_channel_re, event_str)
+            if matchresult:
+                self.set_audio_channel(int( matchresult.group(1)), True )
+
+            
 
 
     def appendExt(self, audio_ext):
