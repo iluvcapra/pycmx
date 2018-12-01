@@ -43,6 +43,7 @@ To be addressed:
 * Does not decode transitions.
 * Does not decode "M2" speed changes.
 * Does not decode repair notes, audio notes or other Avid-specific notes.
+* Does not decode Avid marker list.
 
 May not be addressed:
 
