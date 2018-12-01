@@ -21,7 +21,7 @@ StmtUnrecognized = namedtuple("Unrecognized",["content"])
 
 
 def parse_cmx3600_statements(path):
-    with open(path,'rU') as file:
+    with open(path,'r') as file:
         lines = file.readlines()
         return [parse_cmx3600_line(line.strip()) for line in lines]
     

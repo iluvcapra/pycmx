@@ -18,4 +18,10 @@ class TestParse(TestCase):
             events = pycmx.parse_cmx3600(f"tests/edls/{fn}" )
             self.assertTrue( len(events) == count , f"expected {len(events)} but found {count}")
 
+    def test_audio_channels(self):
+        events = pycmx.parse_cmx3600(f"tests/edls/TEST.edl" )
+        self.assertTrue(events[0].channels.a2)
+        self.assertFalse(events[0].channels.a1)
+        self.assertTrue(events[2].channels.get_audio_channel(7))
+
 

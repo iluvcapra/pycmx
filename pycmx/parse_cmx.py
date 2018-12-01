@@ -50,13 +50,9 @@ class CmxChannelMap:
         }
 
 
-    def __init__(self, v=False, a1=False, a2=False, a3=False, a4=False):
-        self._audio_channel_set = set()
+    def __init__(self, v=False, audio_channels=set()):
+        self._audio_channel_set = audio_channels 
         self.v = v
-        self.a1 = a1
-        self.a2 = a2
-        self.a3 = a3
-        self.a4 = a4
 
     @property
     def a1(self):
@@ -70,7 +66,7 @@ class CmxChannelMap:
     def a2(self):
         return self.get_audio_channel(2)
 
-    @a1.setter
+    @a2.setter
     def a2(self,val):
         self.set_audio_channel(2,val)
 
@@ -78,7 +74,7 @@ class CmxChannelMap:
     def a3(self):
         return self.get_audio_channel(3)
 
-    @a1.setter
+    @a3.setter
     def a3(self,val):
         self.set_audio_channel(3,val)
     
@@ -86,7 +82,7 @@ class CmxChannelMap:
     def a4(self):
         return self.get_audio_channel(4)
 
-    @a1.setter
+    @a4.setter
     def a4(self,val):
         self.set_audio_channel(4,val)
 
@@ -157,7 +153,7 @@ def event_list(title, parser):
                 events_result.append(event_t)
 
             raw_event = parser.current_token
-            channels = CmxChannelMap()
+            channels = CmxChannelMap({})
             channels.appendEvent(raw_event.channels)
 
             this_event = {'title': title, 'number': raw_event.event, 'clip_name': None ,
