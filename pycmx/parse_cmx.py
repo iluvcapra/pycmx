@@ -141,36 +141,32 @@ def event_list(title, parser):
             state['fcm_drop'] = parser.current_token.drop
         elif parser.accept('Event'):
             if this_event != None:
-                event_t = CmxEvent(**this_event)
-                events_result.append(event_t)
+                events_result.append(this_event)
 
             raw_event = parser.current_token
             channels = CmxChannelMap(v=False, audio_channels=set([]))
             channels.appendEvent(raw_event.channels)
 
-            this_event = {'title': title, 'number': raw_event.event, 'clip_name': None ,
-                                            'source_name': raw_event.source, 
-                                            'channels': channels,
-                                            'transition': CmxTransition(raw_event.trans, raw_event.trans_op),
-                                            'source_start': raw_event.source_in,
-                                            'source_finish': raw_event.source_out,
-                                            'record_start': raw_event.record_in,
-                                            'record_finish': raw_event.record_out,
-                                            'fcm_drop': state['fcm_drop']}
-        elif parser.accept('AudioExt'):
-            this_event['channels'].appendExt(parser.current_token)
-        elif parser.accept('ClipName'):
-            this_event['clip_name'] = parser.current_token.name
-        elif parser.accept('SourceFile'):
-            this_event['source_name'] = parser.current_token.filename
+            this_event = CmxEvent(title=title,number=int(raw_event.event), clip_name=None ,
+                                            source_name=raw_event.source, 
+                                            channels=channels,
+                                            transition=CmxTransition(raw_event.trans, raw_event.trans_op),
+                                            source_start= raw_event.source_in,
+                                            source_finish= raw_event.source_out,
+                                            record_start= raw_event.record_in,
+                                            record_finish= raw_event.record_out,
+                                            fcm_drop= state['fcm_drop'])
+        elif parser.accept('AudioExt') or parser.accept('ClipName') or \
+        parser.accept('SourceFile') or parser.accept('EffectsName') or \
+        parser.accept('Remark'):
+            this_event.accept_statement(parser.current_token)
         elif parser.accept('Trailer'):
             break
         else:
             parser.next_token()
     
     if this_event != None:
-        event_t = CmxEvent(**this_event)
-        events_result.append(event_t)
+        events_result.append(this_event)
 
     return events_result
 

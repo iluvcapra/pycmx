@@ -20,8 +20,11 @@ class CmxEvent:
         self.aux_source = (source_name == 'AX')
 
 
-    def accept_statement(statement):
-        atement_type = type(statement).__name__ 
+    def can_accept(self):
+        return {'AudioExt','Remark','SourceFile','ClipName','EffectsName'}
+
+    def accept_statement(self, statement):
+        statement_type = type(statement).__name__ 
         if statement_type == 'AudioExt':
             self.channels.appendExt(statement)
         elif statement_type == 'Remark':
@@ -34,7 +37,7 @@ class CmxEvent:
             self.transition.name = statement.name
         
     def __repr__(self):
-        return f"""CmxEvent(title="{self.title}",number="{self.number}",\
+        return f"""CmxEvent(title="{self.title}",number={self.number},\
 clip_name="{self.clip_name}",source_name="{self.source_name}",\
 channels={self.channels},transition={self.transition},\
 source_start="{self.source_start}",source_finish="{self.source_finish}",\
