@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/iluvcapra/pycmx.svg?branch=master)](https://travis-ci.com/iluvcapra/pycmx)
+
 # pycmx
 
 The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and its most most common variations.
