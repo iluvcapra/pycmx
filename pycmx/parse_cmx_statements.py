@@ -7,11 +7,12 @@ from .util import collimate
 import re
 import sys
 from collections import namedtuple
+from itertools import count
 
 
-StmtTitle = namedtuple("Title",["title"])
-StmtFCM = namedtuple("FCM",["drop"])
-StmtEvent = namedtuple("Event",["event","source","channels","trans","trans_op","source_in","source_out","record_in","record_out"])
+StmtTitle = namedtuple("Title",["title","line_number"])
+StmtFCM = namedtuple("FCM",["drop","line_number"])
+StmtEvent = namedtuple("Event",["event","source","channels","trans","trans_op","source_in","source_out","record_in","record_out","line_number"])
 StmtAudioExt = namedtuple("AudioExt",["audio3","audio4"])
 StmtClipName = namedtuple("ClipName",["name"])
 StmtSourceFile = namedtuple("SourceFile",["filename"])
@@ -24,7 +25,8 @@ StmtUnrecognized = namedtuple("Unrecognized",["content"])
 def parse_cmx3600_statements(path):
     with open(path,'r') as file:
         lines = file.readlines()
-        return [parse_cmx3600_line(line.strip()) for line in lines]
+        line_numbers = count() 
+        return [parse_cmx3600_line(line.strip(), line_number) for (line, line_number) in zip(lines,line_numbers)]
     
 def edl_column_widths(event_field_length, source_field_length):
     return [event_field_length,2, source_field_length,1,
@@ -36,23 +38,23 @@ def edl_column_widths(event_field_length, source_field_length):
                             11,1,
                             11]
     
-def parse_cmx3600_line(line):
+def parse_cmx3600_line(line, line_number):
     long_event_num_p  = re.compile("^[0-9]{6} ")
     short_event_num_p = re.compile("^[0-9]{3} ")
     
     if isinstance(line,str):
         if line.startswith("TITLE:"):
-            return parse_title(line)
+            return parse_title(line,line_number)
         elif line.startswith("FCM:"):
-            return parse_fcm(line)
+            return parse_fcm(line, line_number)
         elif long_event_num_p.match(line) != None:
             length_file_128 = sum(edl_column_widths(6,128))
             if len(line) < length_file_128:
-                return parse_long_standard_form(line, 32)
+                return parse_long_standard_form(line, 32, line_number)
             else:
-                return parse_long_standard_form(line, 128)
+                return parse_long_standard_form(line, 128, line_number)
         elif short_event_num_p.match(line) != None:
-            return parse_standard_form(line)
+            return parse_standard_form(line, line_number)
         elif line.startswith("AUD"):
             return parse_extended_audio_channels(line)
         elif line.startswith("*"):
@@ -65,22 +67,22 @@ def parse_cmx3600_line(line):
             return parse_unrecognized(line)
 
     
-def parse_title(line):
+def parse_title(line, line_num):
     title = line[6:].strip()
-    return StmtTitle(title=title)
+    return StmtTitle(title=title,line_number=line_num)
 
-def parse_fcm(line):
+def parse_fcm(line, line_num):
     val = line[4:].strip()
     if val == "DROP FRAME":
-        return StmtFCM(drop= True)
+        return StmtFCM(drop= True, line_number=line_num)
     else:
-        return StmtFCM(drop= False)
+        return StmtFCM(drop= False, line_number=line_num)
 
-def parse_long_standard_form(line,source_field_length):
-    return parse_columns_for_standard_form(line, 6, source_field_length)
+def parse_long_standard_form(line,source_field_length, line_number):
+    return parse_columns_for_standard_form(line, 6, source_field_length, line_number)
     
-def parse_standard_form(line):
-    return parse_columns_for_standard_form(line, 3, 8)
+def parse_standard_form(line, line_number):
+    return parse_columns_for_standard_form(line, 3, 8, line_number)
     
 def parse_extended_audio_channels(line):
     content = line.strip()
@@ -108,7 +110,7 @@ def parse_effects_name(line):
 def parse_unrecognized(line):
     return StmtUnrecognized(content=line)
 
-def parse_columns_for_standard_form(line, event_field_length, source_field_length):
+def parse_columns_for_standard_form(line, event_field_length, source_field_length, line_number):
     col_widths = edl_column_widths(event_field_length, source_field_length)
     
     if sum(col_widths) > len(line):
@@ -124,7 +126,8 @@ def parse_columns_for_standard_form(line, event_field_length, source_field_lengt
                      source_in=column_strings[10].strip(),
                      source_out=column_strings[12].strip(),
                      record_in=column_strings[14].strip(),
-                     record_out=column_strings[16].strip())
+                     record_out=column_strings[16].strip(),
+		    line_number=line_number)
 
 
 def parse_trailer_statement(line):
