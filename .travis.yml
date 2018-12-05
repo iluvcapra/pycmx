@@ -1,6 +1,6 @@
 langauge: python
 python:
-  - "3.6"
+    - "3.6"
 script:
-  - "python setup.py test"
+    - "python3 setup.py test"
 
