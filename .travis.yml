@@ -2,7 +2,7 @@ langauge: python
 python:
   - "3.7"
 script:
-  - "./setup.py test"
+  - "python setup.py test"
 install:
-  - "./setup.py install"
+  - "python setup.py install"
 
