@@ -1,7 +1,7 @@
 langauge: python
 python:
-    - "3.6"
+  - "3.6"
 script:
-    - "python3 setup.py test"
+  - "python3 setup.py test"
 install:
-    - "pip3 install setuptools"
+  - "pip3 install setuptools"
