@@ -3,4 +3,5 @@ python:
     - "3.6"
 script:
     - "python3 setup.py test"
-
+install:
+    - "pip3 install setuptools"
