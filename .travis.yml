@@ -3,6 +3,4 @@ python:
   - "3.7"
 script:
   - "python setup.py test"
-install:
-  - "python setup.py install"
 
