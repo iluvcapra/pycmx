@@ -13,13 +13,13 @@ from itertools import count
 StmtTitle = namedtuple("Title",["title","line_number"])
 StmtFCM = namedtuple("FCM",["drop","line_number"])
 StmtEvent = namedtuple("Event",["event","source","channels","trans","trans_op","source_in","source_out","record_in","record_out","line_number"])
-StmtAudioExt = namedtuple("AudioExt",["audio3","audio4"])
-StmtClipName = namedtuple("ClipName",["name"])
-StmtSourceFile = namedtuple("SourceFile",["filename"])
-StmtRemark = namedtuple("Remark",["text"])
-StmtEffectsName = namedtuple("EffectsName",["name"])
-StmtTrailer = namedtuple("Trailer",["text"])
-StmtUnrecognized = namedtuple("Unrecognized",["content"])
+StmtAudioExt = namedtuple("AudioExt",["audio3","audio4","line_number"])
+StmtClipName = namedtuple("ClipName",["name","line_number"])
+StmtSourceFile = namedtuple("SourceFile",["filename","line_number"])
+StmtRemark = namedtuple("Remark",["text","line_number"])
+StmtEffectsName = namedtuple("EffectsName",["name","line_number"])
+StmtTrailer = namedtuple("Trailer",["text","line_number"])
+StmtUnrecognized = namedtuple("Unrecognized",["content","line_number"])
 
 
 def parse_cmx3600_statements(path):
@@ -56,15 +56,15 @@ def parse_cmx3600_line(line, line_number):
         elif short_event_num_p.match(line) != None:
             return parse_standard_form(line, line_number)
         elif line.startswith("AUD"):
-            return parse_extended_audio_channels(line)
+            return parse_extended_audio_channels(line,line_number)
         elif line.startswith("*"):
-            return parse_remark( line[1:].strip())
+            return parse_remark( line[1:].strip(), line_number)
         elif line.startswith(">>>"):
-            return parse_trailer_statement(line)
+            return parse_trailer_statement(line, line_number)
         elif line.startswith("EFFECTS NAME IS"):
-            return parse_effects_name(line)
+            return parse_effects_name(line, line_number)
         else:
-            return parse_unrecognized(line)
+            return parse_unrecognized(line, line_number)
 
     
 def parse_title(line, line_num):
@@ -84,37 +84,37 @@ def parse_long_standard_form(line,source_field_length, line_number):
 def parse_standard_form(line, line_number):
     return parse_columns_for_standard_form(line, 3, 8, line_number)
     
-def parse_extended_audio_channels(line):
+def parse_extended_audio_channels(line, line_number):
     content = line.strip()
     if content == "AUD   3":
-        return StmtAudioExt(audio3=True, audio4=False)
+        return StmtAudioExt(audio3=True, audio4=False, line_number=line_number)
     elif content == "AUD   4":
-        return StmtAudioExt(audio3=False, audio4=True)
+        return StmtAudioExt(audio3=False, audio4=True, line_number=line_number)
     elif content == "AUD   3     4":
-        return StmtAudioExt(audio3=True, audio4=True)
+        return StmtAudioExt(audio3=True, audio4=True, line_number=line_number)
     else:
-        return StmtUnrecognized(content=line)
+        return StmtUnrecognized(content=line, line_number=line_number)
     
-def parse_remark(line):
+def parse_remark(line, line_number):
     if line.startswith("FROM CLIP NAME:"):
-        return StmtClipName(name=line[15:].strip() )
+        return StmtClipName(name=line[15:].strip() , line_number=line_number)
     elif line.startswith("SOURCE FILE:"):
-        return StmtSourceFile(filename=line[12:].strip() )
+        return StmtSourceFile(filename=line[12:].strip() , line_number=line_number)
     else:
-        return StmtRemark(text=line)
+        return StmtRemark(text=line, line_number=line_number)
 
-def parse_effects_name(line):
+def parse_effects_name(line, line_number):
     name = line[16:].strip()
-    return StmtEffectsName(name=name)
+    return StmtEffectsName(name=name, line_number=line_number)
 
-def parse_unrecognized(line):
-    return StmtUnrecognized(content=line)
+def parse_unrecognized(line, line_number):
+    return StmtUnrecognized(content=line, line_number=line_number)
 
 def parse_columns_for_standard_form(line, event_field_length, source_field_length, line_number):
     col_widths = edl_column_widths(event_field_length, source_field_length)
     
     if sum(col_widths) > len(line):
-        return StmtUnrecognized(content=line)
+        return StmtUnrecognized(content=line, line_number=line_number)
     
     column_strings = collimate(line,col_widths)
         
@@ -130,7 +130,7 @@ def parse_columns_for_standard_form(line, event_field_length, source_field_lengt
 		    line_number=line_number)
 
 
-def parse_trailer_statement(line):
+def parse_trailer_statement(line, line_number):
     trimmed = line[3:].strip()
-    return StmtTrailer(trimmed)
+    return StmtTrailer(trimmed, line_number=line_number)
 

@@ -2,7 +2,7 @@ class CmxEvent:
     def __init__(self,title,number,clip_name,source_name,channels, 
             transition,source_start,source_finish,
             record_start, record_finish, fcm_drop, remarks = [] , 
-            unrecognized = []):
+            unrecognized = [], line_number = None):
         self.title = title
         self.number = number
         self.clip_name = clip_name
@@ -18,6 +18,7 @@ class CmxEvent:
         self.unrecgonized = unrecognized
         self.black = (source_name == 'BL')
         self.aux_source = (source_name == 'AX')
+        self.line_number = line_number
 
 
     def can_accept(self):
