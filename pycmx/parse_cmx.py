@@ -110,15 +110,12 @@ class CmxChannelMap:
             if matchresult:
                 self.set_audio_channel(int( matchresult.group(1)), True )
 
-            
-
-
     def appendExt(self, audio_ext):
         self.a3 = ext.audio3
         self.a4 = ext.audio4
 
     def __repr__(self):
-        return f"CmxChannelMap(v={self.v}, audio_channels={self._audio_channel_set})"
+        return f"CmxChannelMap(v={self.v.__repr__()}, audio_channels={self._audio_channel_set.__repr__()})"
         
             
 def parse_cmx3600(file):
@@ -155,7 +152,8 @@ def event_list(title, parser):
                                             source_finish= raw_event.source_out,
                                             record_start= raw_event.record_in,
                                             record_finish= raw_event.record_out,
-                                            fcm_drop= state['fcm_drop'])
+                                            fcm_drop= state['fcm_drop'],
+					    line_number = raw_event.line_number)
         elif parser.accept('AudioExt') or parser.accept('ClipName') or \
         parser.accept('SourceFile') or parser.accept('EffectsName') or \
         parser.accept('Remark'):
