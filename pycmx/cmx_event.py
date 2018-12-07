@@ -56,20 +56,44 @@ fcm_drop={self.fcm_drop.__repr__()},remarks={self.remarks.__repr__()},line_numbe
 
 class CmxTransition:
     """Represents a CMX transition, a wipe, dissolve or cut."""
+
+    Cut = "C"
+    Dissolve = "V"
+    Wipe = "W"
+    KeyBackground = "KB"
+    Key = "K"
+    KeyOut = "KO"
+
     def __init__(self, transition, operand):
         self.transition = transition
         self.operand = operand
         self.name = ''
 
+
+    @property
+    def kind(self):
+        if self.cut:
+            return Cut
+        elif self.dissove:
+            return Dissolve
+        elif self.wipe:
+            return Wipe
+        elif self.key_background:
+            return KeyBackground
+        elif self.key_foreground:
+            return Key
+        elif self.key_out:
+            return KeyOut
+
     @property
     def cut(self):
         "`True` if this transition is a cut."
-        return self.transition == 'C'
+        return self.transition == Cut 
 
     @property
     def dissolve(self):
         "`True` if this traansition is a dissolve."
-        return self.transition == 'D'
+        return self.transition == Dissolve
 
 
     @property
@@ -97,17 +121,17 @@ class CmxTransition:
     @property
     def key_background(self):
         "`True` if this is a key background event."
-        return self.transition == 'KB'
+        return self.transition == KeyBackground
 
     @property
     def key_foreground(self):
         "`True` if this is a key foreground event."
-        return self.transition == 'K'
+        return self.transition == Key
 
     @property
     def key_out(self):
         "`True` if this is a key out event."
-        return self.transition == 'KO'
+        return self.transition == KeyOut
 
     def __repr__(self):
         return f"""CmxTransition(transition={self.transition.__repr__()},operand={self.operand.__repr__()})"""
