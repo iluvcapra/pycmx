@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/iluvcapra/pycmx.svg?branch=master)](https://travis-ci.com/iluvcapra/pycmx)
+
 # pycmx
 
 The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and its most most common variations.
@@ -8,39 +10,44 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
   formats are automatically detected and properly read.
 * Remark or comment fields with common recognized forms are read and 
   available to the client, including clip name and source file data.
+* Symbolically decodes transitions
 
 ## Usage
 
 ```
 
 >>> import pycmx
->>> events = pycmx.parse_cmx3600("INS4_R1_010417.edl") 
->>> print(events[5:8])
-	[CmxEvent(title='INS4_R1_010417', number='000006', 
-	clip_name='V1A-6A', source_name='A192C008_160909_R1BY', 
-	channels=CmxChannelMap(v=True, audio_channels=set()), 
-	source_start='19:26:38:13', source_finish='19:27:12:03', 
-	record_start='01:00:57:15', record_finish='01:01:31:05', 
-	fcm_drop=False), 
-	CmxEvent(title='INS4_R1_010417', number='000007', 
-	clip_name='1-4A', source_name='A188C004_160908_R1BY', 
-	channels=CmxChannelMap(v=True, audio_channels=set()), 
-	source_start='19:29:48:01', source_finish='19:30:01:00', 
-	record_start='01:01:31:05', record_finish='01:01:44:04', 
-	fcm_drop=False), 
-	CmxEvent(title='INS4_R1_010417', number='000008', 
-	clip_name='2G-3', source_name='A056C007_160819_R1BY', 
-	channels=CmxChannelMap(v=True, audio_channels=set()), 
-	source_start='19:56:27:14', source_finish='19:56:41:00', 
-	record_start='01:01:44:04', record_finish='01:01:57:14', 
-	fcm_drop=False)]
-
+>>> result = pycmx.parse_cmx3600("STP R1 v082517.edl")
+>>> print(resul[0:3])
+[CmxEvent(title='STP_Reel 1_082517',number=1,
+    clip_name='FKI_LEADER_HEAD_1920X1080.MOV',
+    source_name='FKI_LEADER_HEAD_1920X1080.MOV',
+    channels=CmxChannelMap(v=True, audio_channels=set()),
+    transition=CmxTransition(transition='C',operand=''),
+    source_start='01:00:00:00',source_finish='01:00:08:00',
+    record_start='01:00:00:00',record_finish='01:00:08:00',
+    fcm_drop=False,remarks=[],line_number=2), 
+CmxEvent(title='STP_Reel 1_082517',number=2,
+    clip_name='BH_PRODUCTIONS_1.85_PRORES.MOV',
+    source_name='BH_PRODUCTIONS_1.85_PRORES.MOV',
+    channels=CmxChannelMap(v=True, audio_channels=set()),
+    transition=CmxTransition(transition='C',operand=''),
+    source_start='01:00:00:00',source_finish='01:00:14:23',
+    record_start='01:00:00:00',record_finish='01:00:23:00',
+    fcm_drop=False,remarks=[],line_number=5), 
+CmxEvent(title='STP_Reel 1_082517',number=3,
+    clip_name='V4L-1*',
+    source_name='B116C001_150514_R0UR',
+    channels=CmxChannelMap(v=True, audio_channels=set()),
+    transition=CmxTransition(transition='C',operand=''),
+    source_start='16:37:29:06',source_finish='16:37:40:22',
+    record_start='16:37:29:06',record_finish='01:00:50:09',
+    fcm_drop=False,remarks=[],line_number=8)]
 ```
 
 ## Known Issues/Roadmap
 
 To be addressed:
-* Does not decode transitions.
 * Does not decode "M2" speed changes.
 * Does not decode repair notes, audio notes or other Avid-specific notes.
 * Does not decode Avid marker list.
