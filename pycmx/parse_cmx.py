@@ -8,22 +8,33 @@ from collections import namedtuple
 from re import compile, match
 
 class NamedTupleParser:
+    """
+Accepts a list of namedtuple and the client can step through the list with
+parser operations such as `accept()` and `expect()`
+    """
     
+
     def __init__(self, tuple_list):
         self.tokens = tuple_list
         self.current_token = None
     
     def peek(self):
+        """Returns the token to come after the `current_token` without
+popping the current token."""
         return self.tokens[0]
     
     def at_end(self):
+        "`True` if the `current_token` is the last one."
         return len(self.tokens) == 0
     
     def next_token(self):
+        "Sets `current_token` to the next token popped from the list"
         self.current_token = self.peek()
         self.tokens = self.tokens[1:]        
     
     def accept(self, type_name):
+        """If the next token.__name__ is `type_name`, returns true and advances 
+to the next token with `next_token()`."""
         if self.at_end(): 
             return False
         elif (type(self.peek()).__name__ == type_name ):
@@ -33,6 +44,9 @@ class NamedTupleParser:
             return False
     
     def expect(self, type_name):
+        """
+If the next token.__name__ is `type_name`, the parser is advanced. 
+If it is not, an assertion failure occurs."""
         assert( self.accept(type_name) )
 
 
