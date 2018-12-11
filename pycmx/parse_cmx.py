@@ -13,7 +13,6 @@ Accepts a list of namedtuple and the client can step through the list with
 parser operations such as `accept()` and `expect()`
     """
     
-
     def __init__(self, tuple_list):
         self.tokens = tuple_list
         self.current_token = None
@@ -64,7 +63,6 @@ class CmxChannelMap:
                 "A2/V" : (True,   False,   True)
         }
 
-
     def __init__(self, v=False, audio_channels=set()):
         self._audio_channel_set = audio_channels 
         self.v = v
@@ -101,7 +99,6 @@ class CmxChannelMap:
     def a4(self,val):
         self.set_audio_channel(4,val)
 
-
     def get_audio_channel(self,chan_num):
         return (chan_num in self._audio_channel_set)
 
@@ -110,8 +107,7 @@ class CmxChannelMap:
             self._audio_channel_set.add(chan_num)
         elif self.get_audio_channel(chan_num):
             self._audio_channel_set.remove(chan_num)
-            
-
+    
     def appendEvent(self, event_str):
         alt_channel_re = compile('^A(\d+)')
         if event_str in self.chan_map:
@@ -140,7 +136,6 @@ def parse_cmx3600(file):
     title = parser.current_token.title
     return event_list(title, parser)
    
-
 def event_list(title, parser):
     state = {"fcm_drop" : False}
 
