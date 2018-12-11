@@ -15,7 +15,6 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 ## Usage
 
 ```
-
 >>> import pycmx
 >>> result = pycmx.parse_cmx3600("STP R1 v082517.edl")
 >>> print(result[0:3])

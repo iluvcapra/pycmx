@@ -1,12 +1,11 @@
+
 class CmxEvent:
     """Represents a source-record event.
 
-    Aside from exposing properites related to the raw CMX event itself,
-    (the `source_start`, `source_finish`, `transition` etc.) the event
-    also contains contextual information from the parsed CMX list, such as 
-    `clip_name` and the frame counting mode in effect on the event.
-    
-
+Aside from exposing properites related to the raw CMX event itself,
+(the `source_start`, `source_finish`, `transition` etc.) the event
+also contains contextual information from the parsed CMX list, such as 
+`clip_name` and the frame counting mode in effect on the event.
     """
     
     def __init__(self,title,number,clip_name,source_name,channels, 
