@@ -18,7 +18,7 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 
 >>> import pycmx
 >>> result = pycmx.parse_cmx3600("STP R1 v082517.edl")
->>> print(resul[0:3])
+>>> print(result[0:3])
 [CmxEvent(title='STP_Reel 1_082517',number=1,
     clip_name='FKI_LEADER_HEAD_1920X1080.MOV',
     source_name='FKI_LEADER_HEAD_1920X1080.MOV',
