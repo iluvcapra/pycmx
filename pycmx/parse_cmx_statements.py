@@ -19,6 +19,8 @@ StmtSourceFile = namedtuple("SourceFile",["filename","line_number"])
 StmtRemark = namedtuple("Remark",["text","line_number"])
 StmtEffectsName = namedtuple("EffectsName",["name","line_number"])
 StmtTrailer = namedtuple("Trailer",["text","line_number"])
+StmtSplitEdit = namedtuple("SplitEdit",["video","magnitue", "line_number"])
+StmtMotionMemory = namedtuple("MotionMemory",["source","fps"]) # FIXME needs more fields
 StmtUnrecognized = namedtuple("Unrecognized",["content","line_number"])
 
 
@@ -37,7 +39,13 @@ def edl_column_widths(event_field_length, source_field_length):
                             11,1,
                             11,1,
                             11]
-    
+
+def edl_m2_column_widths():
+    return [2, # "M2"
+            3,3, #
+            8,8,1,4,2,1,4,13,3,1,1]
+
+
 def parse_cmx3600_line(line, line_number):
     long_event_num_p  = re.compile("^[0-9]{6} ")
     short_event_num_p = re.compile("^[0-9]{3} ")
@@ -63,6 +71,10 @@ def parse_cmx3600_line(line, line_number):
             return parse_trailer_statement(line, line_number)
         elif line.startswith("EFFECTS NAME IS"):
             return parse_effects_name(line, line_number)
+        elif line.startswith("SPLIT:"):
+            return parse_split(line, line_number)
+        elif line.startswith("M2"):
+            return parse_motion_memory(line, line_number)
         else:
             return parse_unrecognized(line, line_number)
 
@@ -106,6 +118,20 @@ def parse_remark(line, line_number):
 def parse_effects_name(line, line_number):
     name = line[16:].strip()
     return StmtEffectsName(name=name, line_number=line_number)
+
+def parse_split(line, line_number):
+    split_type = line[10:21]
+    is_video = False
+    if split_type.startswith("VIDEO"):
+        is_video = True
+
+    split_mag  = line[24:35]
+    return StmtSplitEdit(video=is_video, magnitude=split_mag, line_number=line_number)
+
+
+def parse_motion_memory(line, line_number):
+    return StmtMotionMemory(source = "", fps="")
+
 
 def parse_unrecognized(line, line_number):
     return StmtUnrecognized(content=line, line_number=line_number)
