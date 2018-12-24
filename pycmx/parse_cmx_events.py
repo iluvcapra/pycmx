@@ -4,6 +4,8 @@
 from .parse_cmx_statements import (parse_cmx3600_statements, 
         StmtEvent, StmtFCM, StmtTitle, StmtClipName, StmtSourceFile, StmtAudioExt)
 
+from .channel_map import ChannelMap
+
 from collections import namedtuple
 
 def parse_cmx3600(path):
@@ -54,6 +56,14 @@ class Edit:
         self.audio_ext = audio_ext_statement
         self.clip_name_statement = clip_name_statement
         self.source_file_statement = source_file_statement
+
+    @property
+    def channels(self):
+        cm = ChannelMap()
+        cm.append_event(self.edit_statement.channels)
+        if self.audio_ext != None:
+            cm.append_ext(self.audio_ext)
+        return cm
 
     @property
     def transition(self):
