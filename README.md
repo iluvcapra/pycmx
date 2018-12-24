@@ -23,19 +23,33 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 >>> edl = pycmx.parse_cmx3600("tests/edls/TEST.edl")
 >>> edl.title
 'DC7 R1_v8.2'
->>> events = list( edl.events ) # the event list is a generator
+>>> events = list( edl.events )  
+              # the event list is a generator
 >>> len(events)
 120
 >>> events[43].number 
 '044'
->>> events[43].edits[0].source_in # events contain multiple 
-                                  # edits to preserve A/B dissolves 
-                                  # and key backgrounds
+>>> events[43].edits[0].source_in 
 '00:00:00:00'
 >>> events[43].edits[0].transition.cut
 True
 >>> events[43].edits[0].record_out
 '01:10:21:10'
+              # events contain multiple  
+              # edits to preserve A/B dissolves 
+              # and key backgrounds
+>>> events[41].edits[0].source_file
+'TC R1 V1.2 TEMP1 DX M.WAV'
+>>> events[41].edits[1].source_file
+'TC R1 V1.2 TEMP1 DX M.WAV'
+>>> events[41].edits[1].transition.dissolve
+True
+>>> events[41].edits[0].transition.dissolve
+False
+>>> events[41].edits[0].clip_name
+'TC R1 V1.2 TEMP1 DX M.WAV'
+>>> events[41].edits[1].clip_name
+'TC R1 V6 TEMP2 M DX.WAV'
 ```
 
 ## Should I Use This?
