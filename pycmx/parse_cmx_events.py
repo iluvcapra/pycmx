@@ -40,7 +40,7 @@ class EditList:
                 return ( rem, curr_event_num, statements_event + [stmt],events, is_drop)
 
         
-        result = events_p(self.event_statements, None, [], [], False)
+        result = (self.event_statements, None, [], [], False)
         while True:
             if len(result[0]) == 0:
                 return result[3]
