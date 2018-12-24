@@ -11,24 +11,13 @@ class TestParse(TestCase):
                   "TEST.edl"
                 ]
         
-        counts = [ 287, 250 , 376, 148  ]
+        counts = [ 287, 250 , 376, 120  ]
 
 
         for fn, count in zip(files, counts):
-            events = pycmx.parse_cmx3600(f"tests/edls/{fn}" )
-            self.assertTrue( len(events) == count , f"expected {len(events)} but found {count}")
+            edl = pycmx.parse_cmx3600(f"tests/edls/{fn}" )
+            actual = len(edl.events())
+            self.assertTrue( actual == count , f"expected {count} but found {actual}")
 
-    def test_audio_channels(self):
-        events = pycmx.parse_cmx3600(f"tests/edls/TEST.edl" )
-        self.assertTrue(events[0].channels.a2)
-        self.assertFalse(events[0].channels.a1)
-        self.assertTrue(events[2].channels.get_audio_channel(7))
-        self.assertFalse(events[2].channels.get_audio_channel(1))
-        self.assertFalse(events[2].channels.get_audio_channel(2))
-        self.assertFalse(events[2].channels.get_audio_channel(3))
-        self.assertFalse(events[2].channels.get_audio_channel(4))
-        self.assertFalse(events[2].channels.get_audio_channel(10))
-        self.assertFalse(events[2].channels.get_audio_channel(11))
-        self.assertFalse(events[2].channels.get_audio_channel(12))
-        self.assertFalse(events[2].channels.get_audio_channel(13))
+
 
