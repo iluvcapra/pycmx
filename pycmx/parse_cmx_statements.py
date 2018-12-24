@@ -1,7 +1,5 @@
-
-# Parsed Statement Data Structures
-# 
-# These represent individual lines that have been typed and have undergone some light symbolic parsing.
+# pycmx
+# (c) 2018 Jamie Hardt
 
 from .util import collimate
 import re
@@ -29,7 +27,8 @@ def parse_cmx3600_statements(path):
     with open(path,'r') as file:
         lines = file.readlines()
         line_numbers = count() 
-        return [parse_cmx3600_line(line.strip(), line_number) for (line, line_number) in zip(lines,line_numbers)]
+        return [parse_cmx3600_line(line.strip(), line_number) \
+                for (line, line_number) in zip(lines,line_numbers)]
     
 def edl_column_widths(event_field_length, source_field_length):
     return [event_field_length,2, source_field_length,1,

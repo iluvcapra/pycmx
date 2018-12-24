@@ -17,8 +17,8 @@ def collimate(a_string, column_widths):
 
 class NamedTupleParser:
     """
-Accepts a list of namedtuple and the client can step through the list with
-parser operations such as `accept()` and `expect()`
+    Accepts a list of namedtuple and the client can step through the list with
+    parser operations such as `accept()` and `expect()`
     """
     
     def __init__(self, tuple_list):
@@ -26,8 +26,10 @@ parser operations such as `accept()` and `expect()`
         self.current_token = None
     
     def peek(self):
-        """Returns the token to come after the `current_token` without
-popping the current token."""
+        """
+        Returns the token to come after the `current_token` without
+        popping the current token.
+        """
         return self.tokens[0]
     
     def at_end(self):
@@ -40,8 +42,10 @@ popping the current token."""
         self.tokens = self.tokens[1:]        
     
     def accept(self, type_name):
-        """If the next token.__name__ is `type_name`, returns true and advances 
-to the next token with `next_token()`."""
+        """
+        If the next token.__name__ is `type_name`, returns true and advances 
+        to the next token with `next_token()`.
+        """
         if self.at_end(): 
             return False
         elif (type(self.peek()).__name__ == type_name ):
@@ -52,8 +56,9 @@ to the next token with `next_token()`."""
     
     def expect(self, type_name):
         """
-If the next token.__name__ is `type_name`, the parser is advanced. 
-If it is not, an assertion failure occurs."""
+        If the next token.__name__ is `type_name`, the parser is advanced. 
+        If it is not, an assertion failure occurs.
+        """
         assert( self.accept(type_name) )
 
 
