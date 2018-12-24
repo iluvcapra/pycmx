@@ -4,6 +4,8 @@
 from .parse_cmx_statements import (parse_cmx3600_statements, 
         StmtEvent, StmtFCM, StmtTitle)
 
+from collections import namedtuple
+
 def parse_cmx3600(path):
     statements = parse_cmx3600_statements(path)
     return EditList(statements)
@@ -39,13 +41,16 @@ class EditList:
             else:
                 return ( rem, curr_event_num, statements_event + [stmt],events, is_drop)
 
-        
         result = (self.event_statements, None, [], [], False)
         while True:
-            if len(result[0]) == 0:
+	    if len(result[0]) == 0:
                 return result[3]
             else:
                 result = events_p(*result)
+
+
+
+Edit = namedtuple("Edit","channels transition source_ref source_start source_finish record_start record_finish")
 
 
 class Event:
@@ -54,6 +59,10 @@ class Event:
 
     def number():
         return statements[0].event
+
+    def edits():
+	for statement in self.statements:
+	    
 
 
 
