@@ -1,7 +1,7 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
-from re import compile
+from re import (compile, match)
 
 class ChannelMap:
 
