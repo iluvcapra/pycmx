@@ -10,15 +10,16 @@ from collections import namedtuple
 from itertools import count
 
 
-StmtTitle = namedtuple("Title",["title","line_number"])
-StmtFCM = namedtuple("FCM",["drop","line_number"])
-StmtEvent = namedtuple("Event",["event","source","channels","trans","trans_op","source_in","source_out","record_in","record_out","line_number"])
-StmtAudioExt = namedtuple("AudioExt",["audio3","audio4","line_number"])
-StmtClipName = namedtuple("ClipName",["name","line_number"])
+StmtTitle =     namedtuple("Title",["title","line_number"])
+StmtFCM =       namedtuple("FCM",["drop","line_number"])
+StmtEvent =     namedtuple("Event",["event","source","channels","trans",\
+        "trans_op","source_in","source_out","record_in","record_out","line_number"])
+StmtAudioExt =  namedtuple("AudioExt",["audio3","audio4","line_number"])
+StmtClipName =  namedtuple("ClipName",["name","line_number"])
 StmtSourceFile = namedtuple("SourceFile",["filename","line_number"])
-StmtRemark = namedtuple("Remark",["text","line_number"])
+StmtRemark =    namedtuple("Remark",["text","line_number"])
 StmtEffectsName = namedtuple("EffectsName",["name","line_number"])
-StmtTrailer = namedtuple("Trailer",["text","line_number"])
+StmtTrailer =   namedtuple("Trailer",["text","line_number"])
 StmtSplitEdit = namedtuple("SplitEdit",["video","magnitue", "line_number"])
 StmtMotionMemory = namedtuple("MotionMemory",["source","fps"]) # FIXME needs more fields
 StmtUnrecognized = namedtuple("Unrecognized",["content","line_number"])
