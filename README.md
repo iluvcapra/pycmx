@@ -35,17 +35,15 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 True
 >>> events[43].edits[0].record_out
 '01:10:21:10'
+
               # events contain multiple  
               # edits to preserve A/B dissolves 
               # and key backgrounds
->>> events[41].edits[0].source_file
-'TC R1 V1.2 TEMP1 DX M.WAV'
->>> events[41].edits[1].source_file
-'TC R1 V1.2 TEMP1 DX M.WAV'
->>> events[41].edits[1].transition.dissolve
-True
+              
 >>> events[41].edits[0].transition.dissolve
 False
+>>> events[41].edits[1].transition.dissolve
+True
 >>> events[41].edits[0].clip_name
 'TC R1 V1.2 TEMP1 DX M.WAV'
 >>> events[41].edits[1].clip_name
