@@ -2,7 +2,7 @@
 # (c) 2018 Jamie Hardt
 
 from .parse_cmx_statements import (parse_cmx3600_statements, 
-        StmtEvent, StmtFCM, StmtTitle)
+        StmtEvent, StmtFCM, StmtTitle, StmtClipName, StmtSourceFile, StmtAudioExt)
 
 from collections import namedtuple
 
@@ -20,49 +20,114 @@ class EditList:
         'The title of the edit list'
         return self.title_statement.title
 
+    @property
     def events(self):
-        'Each event in the edit list'
-        def events_p(statements_rest, curr_event_num, 
-            statements_event, events, is_drop):
-
-            stmt = statements_rest[0]
-            rem  = statements_rest[1:]
-                
-            
-            if type(stmt) is StmtEvent:
-                if stmt.event == curr_event_num:
-                    return ( rem,curr_event_num,statements_event + [stmt],events,is_drop)
+        'A generator for all the events in the edit list'
+        is_drop = None
+        current_event_num = None
+        event_statements = []
+        for stmt in self.event_statements:
+            if type(stmt) is StmtFCM:
+                is_drop = stmt.drop
+            elif type(stmt) is StmtEvent:
+                if current_event_num is None:
+                    current_event_num = stmt.event
+                    event_statements.append(stmt)
                 else:
-                    new_event = Event(statements_event)
-                    return ( rem,stmt.event, [stmt], events + [new_event],is_drop )
-                    
-            elif type(stmt) is StmtFCM:
-                return ( rem, curr_event_num, statements_event, events,stmt.drop)
+                    if current_event_num != stmt.event:
+                        yield Event(statements=event_statements)
+                        event_statements = [stmt]
+                        current_event_num = stmt.event
+                    else:
+                        event_statements.append(stmt)
+
             else:
-                return ( rem, curr_event_num, statements_event + [stmt],events, is_drop)
+                event_statements.append(stmt)
 
-        result = (self.event_statements, None, [], [], False)
-        while True:
-	    if len(result[0]) == 0:
-                return result[3]
-            else:
-                result = events_p(*result)
+        yield Event(statements=event_statements)
 
 
+class Edit:
+    def __init__(self, edit_statement, audio_ext_statement, clip_name_statement, source_file_statement):
+        self.edit_statement = edit_statement
+        self.audio_ext = audio_ext_statement
+        self.clip_name_statement = clip_name_statement
+        self.source_file_statement = source_file_statement
 
-Edit = namedtuple("Edit","channels transition source_ref source_start source_finish record_start record_finish")
+    @property
+    def source(self):
+        return self.edit_statement.source
+
+    @property
+    def clip_name(self):
+        if self.clip_name_statement != None:
+            return self.clip_name_statement.name
+        else:
+            return None
+        
 
 
 class Event:
     def __init__(self, statements):
         self.statements = statements
+    
+    @property
+    def number(self):
+        return self._edit_statements()[0].event
 
-    def number():
-        return statements[0].event
+    @property
+    def edits(self):
+        edits_audio = list( self._statements_with_audio_ext() )
+        clip_names  = self._clip_name_statements()
+        source_files= self._source_file_statements()
+        
+        the_zip = [edits_audio]
 
-    def edits():
-	for statement in self.statements:
-	    
+        if len(edits_audio) == 2:
+            cn = [None, None]
+            for clip_name in clip_names:
+                if clip_name.affect == 'from':
+                    cn[0] = clip_name
+                elif clip_name.affect == 'to':
+                    cn[1] = clip_name
+
+            the_zip.append(cn)
+
+        else:    
+            if len(edits_audio) == len(clip_names):
+                the_zip.append(clip_names)
+            else:
+                the_zip.append([None] * len(edits_audio) )
+
+        if len(edits_audio) == len(source_files):
+            the_zip.append(source_files)
+        elif len(source_files) == 1:
+            the_zip.append( source_files * len(edits_audio) )
+        else:
+            the_zip.append([None] * len(edits_audio) )
 
 
+        return [ Edit(e1[0],e1[1],n1,s1) for (e1,n1,s1) in zip(*the_zip) ]
+            
+                
+
+    def _edit_statements(self):
+        return [s for s in self.statements if type(s) is StmtEvent]
+
+    def _clip_name_statements(self):
+        return [s for s in self.statements if type(s) is StmtClipName]
+    
+    def _source_file_statements(self):
+        return [s for s in self.statements if type(s) is StmtSourceFile]
+    
+    def _statements_with_audio_ext(self):
+        for (s1, s2) in zip(self.statements, self.statements[1:]):
+            if type(s1) is StmtEvent and type(s2) is StmtAudioExt:
+                yield (s1,s2)
+            elif type(s1) is StmtEvent:
+                yield (s1, None)
+
+    
+
+ 
 

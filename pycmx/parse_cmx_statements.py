@@ -13,7 +13,7 @@ StmtFCM =       namedtuple("FCM",["drop","line_number"])
 StmtEvent =     namedtuple("Event",["event","source","channels","trans",\
         "trans_op","source_in","source_out","record_in","record_out","line_number"])
 StmtAudioExt =  namedtuple("AudioExt",["audio3","audio4","line_number"])
-StmtClipName =  namedtuple("ClipName",["name","line_number"])
+StmtClipName =  namedtuple("ClipName",["name","affect","line_number"])
 StmtSourceFile = namedtuple("SourceFile",["filename","line_number"])
 StmtRemark =    namedtuple("Remark",["text","line_number"])
 StmtEffectsName = namedtuple("EffectsName",["name","line_number"])
@@ -109,7 +109,9 @@ def parse_extended_audio_channels(line, line_number):
     
 def parse_remark(line, line_number):
     if line.startswith("FROM CLIP NAME:"):
-        return StmtClipName(name=line[15:].strip() , line_number=line_number)
+        return StmtClipName(name=line[15:].strip() , affect="from", line_number=line_number)
+    elif line.startswith("TO CLIP NAME:"):
+        return StmtClipName(name=line[13:].strip(), affect="to", line_number=line_number)
     elif line.startswith("SOURCE FILE:"):
         return StmtSourceFile(filename=line[12:].strip() , line_number=line_number)
     else:
