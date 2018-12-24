@@ -16,6 +16,7 @@ class EditList:
         self.title_statement = statements[0]
         self.event_statements = statements[1:]
 
+    @property
     def title(self):
         'The title of the edit list'
         return self.title_statement.title
@@ -233,7 +234,4 @@ class Transition:
     def key_out(self):
         "`True` if this is a key out event."
         return self.transition == KeyOut
-
-    def __repr__(self):
-        return f"""CmxTransition(transition={self.transition.__repr__()},operand={self.operand.__repr__()})""" 
 
