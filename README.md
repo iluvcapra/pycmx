@@ -48,6 +48,20 @@ True
 'TC R1 V1.2 TEMP1 DX M.WAV'
 >>> events[41].edits[1].clip_name
 'TC R1 V6 TEMP2 M DX.WAV'
+   
+              # parsed channel maps are also
+              # available to the client
+>>> events[2].edits[0].channels.get_audio_channel(7)
+True
+>>> events[2].edits[0].channels.get_audio_channel(6)
+False
+>>> for c in events[2].edits[0].channels.channels:
+...     print(f"Audio channel {c} is present")
+... 
+Audio channel 7 is present
+>>> events[2].edits[0].channels.video
+False
+
 ```
 
 ## Should I Use This?
