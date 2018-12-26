@@ -8,9 +8,9 @@ copy and reuse this software, refer to the LICENSE file included with the
 distribution.
 """
 
-
+__version__ = '0.7'
+__author__  = 'Jamie Hardt'
 
 from .parse_cmx_events import parse_cmx3600, Transition, Event, Edit
 from . import parse_cmx_events
 
-__version__ = '0.7'
