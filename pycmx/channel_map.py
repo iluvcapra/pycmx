@@ -9,7 +9,7 @@ class ChannelMap:
     Represents a set of all the channels to which an event applies.
     """
 
-    chan_map = {     "V" :    (True,   False,   False),
+    _chan_map = {     "V" :    (True,   False,   False),
                 "A" :    (False,  True,    False),
                 "A2" :   (False,  False,   True),
                 "AA" :   (False,  True,    True),
@@ -35,6 +35,7 @@ class ChannelMap:
 
     @property
     def a1(self):
+        """True if A1 is included."""
         return self.get_audio_channel(1)
 
     @a1.setter
@@ -43,6 +44,7 @@ class ChannelMap:
 
     @property
     def a2(self):
+        """True if A2 is included."""
         return self.get_audio_channel(2)
 
     @a2.setter
@@ -51,6 +53,7 @@ class ChannelMap:
 
     @property
     def a3(self):
+        """True if A3 is included."""
         return self.get_audio_channel(3)
 
     @a3.setter
@@ -59,6 +62,7 @@ class ChannelMap:
     
     @property
     def a4(self):
+        """True if A4 is included."""
         return self.get_audio_channel(4)
 
     @a4.setter
@@ -66,18 +70,20 @@ class ChannelMap:
         self.set_audio_channel(4,val)
 
     def get_audio_channel(self,chan_num):
+        """True if chan_num is included."""
         return (chan_num in self._audio_channel_set)
 
     def set_audio_channel(self,chan_num,enabled):
+        """If enabled is true, chan_num will be included."""
         if enabled:
             self._audio_channel_set.add(chan_num)
         elif self.get_audio_channel(chan_num):
             self._audio_channel_set.remove(chan_num)
     
-    def append_event(self, event_str):
+    def _append_event(self, event_str):
         alt_channel_re = compile('^A(\d+)')
-        if event_str in self.chan_map:
-            channels = self.chan_map[event_str]
+        if event_str in self._chan_map:
+            channels = self._chan_map[event_str]
             self.v = channels[0]
             self.a1 = channels[1]
             self.a2 = channels[2]
@@ -86,7 +92,7 @@ class ChannelMap:
             if matchresult:
                 self.set_audio_channel(int( matchresult.group(1)), True )
 
-    def append_sxt(self, audio_ext):
+    def _append_sxt(self, audio_ext):
         self.a3 = ext.audio3
         self.a4 = ext.audio4
 

@@ -8,18 +8,35 @@ from .channel_map import ChannelMap
 
 from collections import namedtuple
 
-def parse_cmx3600(path):
-    statements = parse_cmx3600_statements(path)
+def parse_cmx3600(f):
+    """
+    Parse a CMX 3600 EDL.
+
+    Args:
+        f : a file-like object, anything that's readlines-able.
+
+    Returns:
+        An :obj:`EditList`.
+    """
+    statements = parse_cmx3600_statements(f)
     return EditList(statements)
     
     
 class EditList:
+    """
+    Represents an entire edit decision list as returned by `parse_cmx3600()`.
+    
+    """
     def __init__(self, statements):
         self.title_statement = statements[0]
         self.event_statements = statements[1:]
 
     @property
     def title(self):
+        """
+        The title of this edit list, as attensted by the 'TITLE:' statement on 
+        the first line.
+        """
         'The title of the edit list'
         return self.title_statement.title
 
@@ -59,44 +76,81 @@ class Edit:
 
     @property
     def channels(self):
+        """
+        Get the :obj:`ChannelMap` object associated with this Edit.
+        """
         cm = ChannelMap()
-        cm.append_event(self.edit_statement.channels)
+        cm._append_event(self.edit_statement.channels)
         if self.audio_ext != None:
-            cm.append_ext(self.audio_ext)
+            cm._append_ext(self.audio_ext)
         return cm
 
     @property
     def transition(self):
+        """
+        Get the :obj:`Transition` object associated with this edit.
+        """
         return Transition(self.edit_statement.trans, self.edit_statement.trans_op)
    
     @property
     def source_in(self):
+        """
+        Get the source in timecode.
+        """
         return self.edit_statement.source_in
 
     @property
     def source_out(self):
+        """
+        Get the source out timecode.
+        """
+
         return self.edit_statement.source_out
 
     @property
     def record_in(self):
+        """
+        Get the record in timecode.
+        """
+
         return self.edit_statement.record_in
 
     @property
     def record_out(self):
+        """
+        Get the record out timecode.
+        """
+
         return self.edit_statement.record_out
 
     @property
     def source(self):
+        """
+        Get the source column. This is the 8, 32 or 128-character string on the
+        event record line, this usually references the tape name of the source.
+        """
         return self.edit_statement.source
 
 
     @property
     def source_file(self):
-        return self.source_file_statement.filename
+        """
+        Get the source file, as attested by a "* SOURCE FILE" remark on the
+        EDL. This will return None if the information is not present.
+        """
+        if self.source_file_statement is None:
+            return None
+        else:
+            return self.source_file_statement.filename
 
 
     @property
     def clip_name(self):
+        """
+        Get the clip name, as attested by a "* FROM CLIP NAME" or "* TO CLIP 
+        NAME" remark on the EDL. This will return None if the information is
+        not present.
+        """
         if self.clip_name_statement != None:
             return self.clip_name_statement.name
         else:
@@ -110,10 +164,16 @@ class Event:
     
     @property
     def number(self):
-        return self._edit_statements()[0].event
+        """Return the event number."""
+        return int(self._edit_statements()[0].event)
 
     @property
     def edits(self):
+        """
+        Returns the edits. Most events will have a single edit, a single event
+        will have multiple edits when a dissolve, wipe or key transition needs
+        to be performed.
+        """
         edits_audio = list( self._statements_with_audio_ext() )
         clip_names  = self._clip_name_statements()
         source_files= self._source_file_statements()
@@ -170,11 +230,17 @@ class Transition:
     """Represents a CMX transition, a wipe, dissolve or cut."""
 
     Cut = "C"
+
     Dissolve = "D"
+
     Wipe = "W"
+
     KeyBackground = "KB"
+
     Key = "K"
+
     KeyOut = "KO"
+
 
     def __init__(self, transition, operand):
         self.transition = transition
@@ -184,6 +250,9 @@ class Transition:
 
     @property
     def kind(self):
+        """
+        Return the kind of transition: Cut, Wipe, etc
+        """
         if self.cut:
             return Transition.Cut
         elif self.dissolve:
@@ -216,7 +285,7 @@ class Transition:
 
     @property
     def effect_duration(self):
-        """"`The duration of this transition, in frames of the record target.
+        """The duration of this transition, in frames of the record target.
         
         In the event of a key event, this is the duration of the fade in.
         """

@@ -23,14 +23,16 @@ StmtMotionMemory = namedtuple("MotionMemory",["source","fps"]) # FIXME needs mor
 StmtUnrecognized = namedtuple("Unrecognized",["content","line_number"])
 
 
-def parse_cmx3600_statements(path):
-    with open(path,'r') as file:
-        lines = file.readlines()
-        line_numbers = count() 
-        return [parse_cmx3600_line(line.strip(), line_number) \
-                for (line, line_number) in zip(lines,line_numbers)]
+def parse_cmx3600_statements(file):
+    """
+    Return a list of every statement in the file argument.
+    """
+    lines = file.readlines()
+    line_numbers = count() 
+    return [_parse_cmx3600_line(line.strip(), line_number) \
+            for (line, line_number) in zip(lines,line_numbers)]
     
-def edl_column_widths(event_field_length, source_field_length):
+def _edl_column_widths(event_field_length, source_field_length):
     return [event_field_length,2, source_field_length,1,
                             4,2, # chans
                             4,1, # trans
@@ -40,63 +42,63 @@ def edl_column_widths(event_field_length, source_field_length):
                             11,1,
                             11]
 
-def edl_m2_column_widths():
+def _edl_m2_column_widths():
     return [2, # "M2"
             3,3, #
             8,8,1,4,2,1,4,13,3,1,1]
 
 
-def parse_cmx3600_line(line, line_number):
+def _parse_cmx3600_line(line, line_number):
     long_event_num_p  = re.compile("^[0-9]{6} ")
     short_event_num_p = re.compile("^[0-9]{3} ")
     
     if isinstance(line,str):
         if line.startswith("TITLE:"):
-            return parse_title(line,line_number)
+            return _parse_title(line,line_number)
         elif line.startswith("FCM:"):
-            return parse_fcm(line, line_number)
+            return _parse_fcm(line, line_number)
         elif long_event_num_p.match(line) != None:
-            length_file_128 = sum(edl_column_widths(6,128))
+            length_file_128 = sum(_edl_column_widths(6,128))
             if len(line) < length_file_128:
-                return parse_long_standard_form(line, 32, line_number)
+                return _parse_long_standard_form(line, 32, line_number)
             else:
-                return parse_long_standard_form(line, 128, line_number)
+                return _parse_long_standard_form(line, 128, line_number)
         elif short_event_num_p.match(line) != None:
-            return parse_standard_form(line, line_number)
+            return _parse_standard_form(line, line_number)
         elif line.startswith("AUD"):
-            return parse_extended_audio_channels(line,line_number)
+            return _parse_extended_audio_channels(line,line_number)
         elif line.startswith("*"):
-            return parse_remark( line[1:].strip(), line_number)
+            return _parse_remark( line[1:].strip(), line_number)
         elif line.startswith(">>>"):
-            return parse_trailer_statement(line, line_number)
+            return _parse_trailer_statement(line, line_number)
         elif line.startswith("EFFECTS NAME IS"):
-            return parse_effects_name(line, line_number)
+            return _parse_effects_name(line, line_number)
         elif line.startswith("SPLIT:"):
-            return parse_split(line, line_number)
+            return _parse_split(line, line_number)
         elif line.startswith("M2"):
-            return parse_motion_memory(line, line_number)
+            return _parse_motion_memory(line, line_number)
         else:
-            return parse_unrecognized(line, line_number)
+            return _parse_unrecognized(line, line_number)
 
     
-def parse_title(line, line_num):
+def _parse_title(line, line_num):
     title = line[6:].strip()
     return StmtTitle(title=title,line_number=line_num)
 
-def parse_fcm(line, line_num):
+def _parse_fcm(line, line_num):
     val = line[4:].strip()
     if val == "DROP FRAME":
         return StmtFCM(drop= True, line_number=line_num)
     else:
         return StmtFCM(drop= False, line_number=line_num)
 
-def parse_long_standard_form(line,source_field_length, line_number):
-    return parse_columns_for_standard_form(line, 6, source_field_length, line_number)
+def _parse_long_standard_form(line,source_field_length, line_number):
+    return _parse_columns_for_standard_form(line, 6, source_field_length, line_number)
     
-def parse_standard_form(line, line_number):
-    return parse_columns_for_standard_form(line, 3, 8, line_number)
+def _parse_standard_form(line, line_number):
+    return _parse_columns_for_standard_form(line, 3, 8, line_number)
     
-def parse_extended_audio_channels(line, line_number):
+def _parse_extended_audio_channels(line, line_number):
     content = line.strip()
     if content == "AUD   3":
         return StmtAudioExt(audio3=True, audio4=False, line_number=line_number)
@@ -107,7 +109,7 @@ def parse_extended_audio_channels(line, line_number):
     else:
         return StmtUnrecognized(content=line, line_number=line_number)
     
-def parse_remark(line, line_number):
+def _parse_remark(line, line_number):
     if line.startswith("FROM CLIP NAME:"):
         return StmtClipName(name=line[15:].strip() , affect="from", line_number=line_number)
     elif line.startswith("TO CLIP NAME:"):
@@ -117,11 +119,11 @@ def parse_remark(line, line_number):
     else:
         return StmtRemark(text=line, line_number=line_number)
 
-def parse_effects_name(line, line_number):
+def _parse_effects_name(line, line_number):
     name = line[16:].strip()
     return StmtEffectsName(name=name, line_number=line_number)
 
-def parse_split(line, line_number):
+def _parse_split(line, line_number):
     split_type = line[10:21]
     is_video = False
     if split_type.startswith("VIDEO"):
@@ -131,15 +133,15 @@ def parse_split(line, line_number):
     return StmtSplitEdit(video=is_video, magnitude=split_mag, line_number=line_number)
 
 
-def parse_motion_memory(line, line_number):
+def _parse_motion_memory(line, line_number):
     return StmtMotionMemory(source = "", fps="")
 
 
-def parse_unrecognized(line, line_number):
+def _parse_unrecognized(line, line_number):
     return StmtUnrecognized(content=line, line_number=line_number)
 
-def parse_columns_for_standard_form(line, event_field_length, source_field_length, line_number):
-    col_widths = edl_column_widths(event_field_length, source_field_length)
+def _parse_columns_for_standard_form(line, event_field_length, source_field_length, line_number):
+    col_widths = _edl_column_widths(event_field_length, source_field_length)
     
     if sum(col_widths) > len(line):
         return StmtUnrecognized(content=line, line_number=line_number)
@@ -158,7 +160,7 @@ def parse_columns_for_standard_form(line, event_field_length, source_field_lengt
 		    line_number=line_number)
 
 
-def parse_trailer_statement(line, line_number):
+def _parse_trailer_statement(line, line_number):
     trimmed = line[3:].strip()
     return StmtTrailer(trimmed, line_number=line_number)
 
