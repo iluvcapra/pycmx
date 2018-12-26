@@ -6,7 +6,7 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 
 ## Features
 
-* The major variations of the CMX3600, the standard, "File32" and "File128" 
+* The major variations of the CMX 3600: the standard, "File32" and "File128" 
   formats are automatically detected and properly read.
 * Preserves relationship between events and individual edits/clips.
 * Remark or comment fields with common recognized forms are read and 
@@ -15,6 +15,10 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 * Does not parse or validate timecodes, does not enforce framerates, does not
   parameterize timecode or framerates in any way. This makes the parser more
   tolerant of EDLs with mixed rates.
+* Unrecognized lines are accessible on the `EditList` and `Event` classes
+  along with the line numbers, to help the client diagnose problems with a
+  list and give the client the ability to extend the package with their own
+  parsing code.
 
 ## Usage
 
