@@ -22,6 +22,7 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 
 ## Usage
 
+### Opening and Parsing EDL Files
 ```
 >>> import pycmx
 >>> with open("tests/edls/TEST.edl") as f
@@ -29,8 +30,14 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 ...
 >>> edl.title
 'DC7 R1_v8.2'
+```
+
+### Reading Events and Edits
+
+`EditList.events` is a generator...
+
+```
 >>> events = list( edl.events )  
-              # the event list is a generator
 >>> len(events)
 120
 >>> events[43].number 
@@ -41,11 +48,11 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 True
 >>> events[43].edits[0].record_out
 '01:10:21:10'
+```
 
-              # events contain multiple  
-              # edits to preserve A/B dissolves 
-              # and key backgrounds
-              
+### Acessing Transitions and Enabled Channel
+
+```           
 >>> events[41].edits[0].transition.dissolve
 False
 >>> events[41].edits[1].transition.dissolve
@@ -67,7 +74,6 @@ False
 Audio channel 7 is present
 >>> events[2].edits[0].channels.video
 False
-
 ```
 
 ## How is this different from `python-edl`?
