@@ -20,7 +20,9 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 
 ```
 >>> import pycmx
->>> edl = pycmx.parse_cmx3600("tests/edls/TEST.edl")
+>>> with open("tests/edls/TEST.edl") as f
+... 	edl = pycmx.parse_cmx3600(f)
+...
 >>> edl.title
 'DC7 R1_v8.2'
 >>> events = list( edl.events )  
