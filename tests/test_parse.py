@@ -9,10 +9,12 @@ class TestParse(TestCase):
                 "INS4_R1_DX_092117.edl",
                   "STP R1 v082517.edl",
                   "ToD_R4_LOCK3.1_030618_Video.edl",
-                  "TEST.edl"
+                  "TEST.edl",
+                  "test_edl_cdl.edl",
+                  "INS4_R1_DX_092117.edl"
                 ]
         
-        counts = [ 287, 466,  250 , 376, 120  ]
+        counts = [ 287, 466, 250 , 376, 120 , 3 , 466 ]
 
         for fn, count in zip(files, counts):
             with open(f"tests/edls/{fn}" ,'r') as f:
