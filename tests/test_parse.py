@@ -17,7 +17,7 @@ class TestParse(TestCase):
         for fn, count in zip(files, counts):
             with open(f"tests/edls/{fn}" ,'r') as f:
                 edl = pycmx.parse_cmx3600(f)
-                actual = len(list(edl.events ))
+                actual = len( list( edl.events ))
                 self.assertTrue( actual == count , f"expected {count} in file {fn} but found {actual}")
 
 
