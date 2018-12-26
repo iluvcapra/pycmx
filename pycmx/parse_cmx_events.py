@@ -2,7 +2,7 @@
 # (c) 2018 Jamie Hardt
 
 from .parse_cmx_statements import (parse_cmx3600_statements, 
-        StmtEvent, StmtFCM, StmtTitle, StmtClipName, StmtSourceFile, StmtAudioExt)
+        StmtEvent, StmtFCM, StmtTitle, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized)
 
 from .channel_map import ChannelMap
 
@@ -39,6 +39,17 @@ class EditList:
         """
         'The title of the edit list'
         return self.title_statement.title
+
+    
+    @property
+    def unrecognized_statements(self):
+        """
+        A generator for all the unrecognized statements in the list.
+        """
+        for s in self.event_statements:
+            if type(s) is StmtUnrecognized:
+                yield s
+        
 
     @property
     def events(self):
@@ -82,9 +93,7 @@ class Edit:
         this edit. Line numbers a zero-indexed, such that the 
         "TITLE:" record is line zero.
         """
-
         return self.edit_statement.line_number
-
 
     @property
     def channels(self):
@@ -171,6 +180,10 @@ class Edit:
 
 
 class Event:
+    """
+    Represents a collection of :obj:`Edit`s, all with the same event number.
+    """
+
     def __init__(self, statements):
         self.statements = statements
     
@@ -218,7 +231,14 @@ class Event:
 
         return [ Edit(e1[0],e1[1],n1,s1) for (e1,n1,s1) in zip(*the_zip) ]
             
-                
+    @property
+    def unrecognized_statements(self):
+        """
+        A generator for all the unrecognized statements in the event.
+        """
+        for s in self.statements:
+            if type(s) is StmtUnrecognized:
+                yield s            
 
     def _edit_statements(self):
         return [s for s in self.statements if type(s) is StmtEvent]
