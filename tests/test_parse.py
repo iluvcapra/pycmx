@@ -26,7 +26,7 @@ class TestParse(TestCase):
             edl = pycmx.parse_cmx3600(f)
             events = list( edl.events  )
         
-            self.assertEqual( int(events[0].number) , 1)
+            self.assertEqual( events[0].number , 1)
             self.assertEqual( events[0].edits[0].source , "OY_HEAD_")
             self.assertEqual( events[0].edits[0].clip_name , "HEAD LEADER MONO")
             self.assertEqual( events[0].edits[0].source_file , "OY_HEAD_LEADER.MOV")
@@ -51,7 +51,7 @@ class TestParse(TestCase):
             edl = pycmx.parse_cmx3600(f)
             events = list( edl.events )
 
-            self.assertEqual( int(events[42].number) , 43)
+            self.assertEqual( events[42].number , 43)
             self.assertEqual( len(events[42].edits), 2)
 
             self.assertEqual( events[42].edits[0].source , "TC_R1_V1")
