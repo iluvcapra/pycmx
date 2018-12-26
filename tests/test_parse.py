@@ -70,5 +70,13 @@ class TestParse(TestCase):
             self.assertEqual( events[42].edits[1].record_out , "01:08:56:11")
             self.assertTrue( events[42].edits[1].transition.kind == pycmx.Transition.Dissolve)
 
+    def test_line_numbers(self):
+        with open("tests/edls/ToD_R4_LOCK3.1_030618_Video.edl") as f:
+            edl = pycmx.parse_cmx3600(f)
+
+            events = list( edl.events )
+            self.assertEqual( events[0].edits[0].line_number, 2)
+            self.assertEqual( events[14].edits[0].line_number, 45)
+            self.assertEqual( events[180].edits[0].line_number, 544)
 
 

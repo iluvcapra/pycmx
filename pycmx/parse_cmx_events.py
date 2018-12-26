@@ -68,11 +68,23 @@ class EditList:
 
 
 class Edit:
-    def __init__(self, edit_statement, audio_ext_statement, clip_name_statement, source_file_statement):
+    def __init__(self, edit_statement, audio_ext_statement, clip_name_statement, source_file_statement, other_statements = []):
         self.edit_statement = edit_statement
         self.audio_ext = audio_ext_statement
         self.clip_name_statement = clip_name_statement
         self.source_file_statement = source_file_statement
+        self.other_statements = other_statements
+
+    @property
+    def line_number(self):
+        """
+        Get the line number for the "standard form" statement associated with
+        this edit. Line numbers a zero-indexed, such that the 
+        "TITLE:" record is line zero.
+        """
+
+        return self.edit_statement.line_number
+
 
     @property
     def channels(self):
