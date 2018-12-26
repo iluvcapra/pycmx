@@ -36,7 +36,7 @@ class TestParse(TestCase):
             self.assertEqual( events[0].edits[0].record_out , "01:00:08:00")
             self.assertTrue( events[0].edits[0].transition.kind == pycmx.Transition.Cut)
 
-    def test_channel_mop(self):
+    def test_channel_map(self):
         with open("tests/edls/TEST.edl",'r') as f:
             edl = pycmx.parse_cmx3600(f)
             events = list( edl.events  )
