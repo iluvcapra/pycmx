@@ -3,6 +3,15 @@ import re
 import argparse
 import sys
 
+import logging
+
+
+FORMAT = '%(asctime)-15s %(message)s'
+logging.basicConfig(format=FORMAT)
+
+
+log = logging.getLogger(__name__)
+
 def all_video_edits(edl):
     for event in edl.events:
         for edit in event.edits:
@@ -63,8 +72,11 @@ def scene_list(infile, outfile, out_format, pattern):
     
     if out_format == 'cmx':
         output_cmx(outfile, out_list)
-    elif out_format == 'cols':
+    if out_format == 'cols':
         output_cols(outfile, out_list)
+    else:
+        log.warning(f"Format {out_format} unrecognized. Will use cmx.\n")
+        output_cmx(outfile, out_list)
 
 
 def scene_list_cli():
