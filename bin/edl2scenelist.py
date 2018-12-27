@@ -30,9 +30,10 @@ def output_cmx(outfile, out_list):
         outfile.write(line)
         outfile.write("* FROM CLIP NAME: %s\r\n" % (o['scene']) )
 
+
 def output_cols(outfile, out_list):
     for o in out_list:
-        outfile.write("%15s %15s %s\n" (o['start'], o['end'], o['scene'] )
+        outfile.write("%-12s\t%-12s\t%s\n" % (o['start'], o['end'], o['scene'] ))
 
 
 def scene_list(infile, outfile, out_format, pattern):
