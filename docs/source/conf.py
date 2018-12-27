@@ -12,21 +12,21 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../pycmx'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'pycmx'
-copyright = '2018, Jamie Hardt'
-author = 'Jamie Hardt'
+project = u'pycmx'
+copyright = u'2018, Jamie Hardt'
+author = u'Jamie Hardt'
 
 # The short X.Y version
-version = '0.7'
+version = u''
 # The full version, including alpha/beta/rc tags
-release = '0.6'
+release = u''
 
 
 # -- General configuration ---------------------------------------------------
@@ -40,6 +40,10 @@ release = '0.6'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -81,7 +85,7 @@ html_theme = 'sphinx_rtd_theme'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {'collapse_navigation': False}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -129,8 +133,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'pycmx.tex', 'pycmx Documentation',
-     'Jamie Hardt', 'manual'),
+    (master_doc, 'pycmx.tex', u'pycmx Documentation',
+     u'Jamie Hardt', 'manual'),
 ]
 
 
@@ -139,7 +143,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pycmx', 'pycmx Documentation',
+    (master_doc, 'pycmx', u'pycmx Documentation',
      [author], 1)
 ]
 
@@ -150,7 +154,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'pycmx', 'pycmx Documentation',
+    (master_doc, 'pycmx', u'pycmx Documentation',
      author, 'pycmx', 'One line description of project.',
      'Miscellaneous'),
 ]
@@ -176,33 +180,7 @@ epub_exclude_files = ['search.html']
 
 # -- Extension configuration -------------------------------------------------
 
-autodoc_member_order = 'bysource'
-autodoc_default_flags = ['show-inheritance']
+# -- Options for todo extension ----------------------------------------------
 
-def run_apidoc(_):
-    """This method is required by the setup method below."""
-    import os
-    dirname = os.path.dirname(__file__)
-    ignore_paths = [os.path.join(dirname, '../../aaf2/model'),]
-    # https://github.com/sphinx-doc/sphinx/blob/master/sphinx/ext/apidoc.py
-    argv = [
-        '--force',
-        '--no-toc',
-        '--separate',
-        '--module-first',
-        '--output-dir',
-        os.path.join(dirname, 'api'),
-        os.path.join(dirname, '../../aaf2'),
-     ] + ignore_paths
-
-    from sphinx.ext import apidoc
-    apidoc.main(argv)
-
-
-def setup(app):
-    """This method is a hook into the Sphinx builder system and injects the
-    apidoc module into it so it runs autodoc before running build.
-    If you mess with this, you may not see any effect in a local build, this
-    was added to get api documentation building on the ReadTheDocs server.
-    """
-    app.connect('builder-inited', run_apidoc)
+# If true, `todo` and `todoList` produce output, else they produce nothing.
+todo_include_todos = True
