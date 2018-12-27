@@ -10,7 +10,7 @@ Welcome to pycmx's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   pycmx/
+   ../../pycmx/pycmx
 
 
 Indices and tables
