@@ -55,7 +55,7 @@ True
 '01:10:21:10'
 ```
 
-### Acessing Transitions and Enabled Channel
+### Acessing Transitions and Enabled Channels
 
 ```           
 >>> events[41].edits[0].transition.dissolve
