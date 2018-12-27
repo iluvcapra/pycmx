@@ -9,7 +9,7 @@ Welcome to pycmx's documentation!
 .. toctree::
    :maxdepth: 5
    :caption: API Reference:
-
+   
    pycmx
 
 Indices and tables
