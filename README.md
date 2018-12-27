@@ -42,6 +42,11 @@ The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and it
 120
 >>> events[43].number 
 '044'
+```
+
+...and events contain 1...n edits.
+
+```
 >>> events[43].edits[0].source_in 
 '00:00:00:00'
 >>> events[43].edits[0].transition.cut
