@@ -30,6 +30,9 @@ def output_cmx(outfile, out_list):
         outfile.write(line)
         outfile.write("* FROM CLIP NAME: %s\r\n" % (o['scene']) )
 
+def output_cols(outfile, out_list):
+    for o in out_list:
+        outfile.write("%15s %15s %s\n" (o['start'], o['end'], o['scene'] )
 
 
 def scene_list(infile, outfile, out_format, pattern):
@@ -59,15 +62,17 @@ def scene_list(infile, outfile, out_format, pattern):
     
     if out_format == 'cmx':
         output_cmx(outfile, out_list)
+    elif out_format == 'cols':
+        output_cols(outfile, out_list)
 
 
 def scene_list_cli():
     parser = argparse.ArgumentParser(description=
-            'Read video events from an input CMX EDL and output events merged into scehes.')
+            'Read video events from an input CMX EDL and output events merged into scenes.')
     parser.add_argument('-o','--outfile', default=sys.stdout, type=argparse.FileType('w'), 
             help='Output file. Default is stdout.')
     parser.add_argument('-f','--format', default='cmx', type=str, 
-            help='Output format. Options are json and cmx, cmx is the default.')
+            help='Output format. Options are cols and cmx, cmx is the default.')
     parser.add_argument('-p','--pattern', default='V?([A-Z]*[0-9]+)',
             help='RE pattern for extracting scene name from clip name. The default is "V?([A-Z]*[0-9]+)". ' + \
                     'This pattern will be matched case-insensitively.')
