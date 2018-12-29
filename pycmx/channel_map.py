@@ -92,7 +92,7 @@ class ChannelMap:
             if matchresult:
                 self.set_audio_channel(int( matchresult.group(1)), True )
 
-    def _append_sxt(self, audio_ext):
+    def _append_ext(self, audio_ext):
         self.a3 = ext.audio3
         self.a4 = ext.audio4
 
