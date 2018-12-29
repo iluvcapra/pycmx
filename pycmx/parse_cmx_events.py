@@ -19,5 +19,3 @@ def parse_cmx3600(f):
     statements = parse_cmx3600_statements(f)
     return EditList(statements)
     
-    
-

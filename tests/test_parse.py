@@ -98,4 +98,3 @@ class TestParse(TestCase):
             self.assertEqual( events[14].edits[0].line_number, 45)
             self.assertEqual( events[180].edits[0].line_number, 544)
 
-
