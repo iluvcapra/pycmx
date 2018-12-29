@@ -28,6 +28,7 @@ class TestParse(TestCase):
             with open(f"tests/edls/{fn}" ,'r') as f:
                 edl = pycmx.parse_cmx3600(f)
                 self.assertTrue( type(edl.title) is str )
+                self.assertTrue( len(edl.title) > 0 )
     
 
     def test_event_sanity(self):
