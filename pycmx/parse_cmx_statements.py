@@ -11,13 +11,13 @@ from .util import collimate
 StmtTitle =     namedtuple("Title",["title","line_number"])
 StmtFCM =       namedtuple("FCM",["drop","line_number"])
 StmtEvent =     namedtuple("Event",["event","source","channels","trans",\
-        "trans_op","source_in","source_out","record_in","record_out","line_number"])
+        "trans_op","source_in","source_out","record_in","record_out","format","line_number"])
 StmtAudioExt =  namedtuple("AudioExt",["audio3","audio4","line_number"])
 StmtClipName =  namedtuple("ClipName",["name","affect","line_number"])
 StmtSourceFile = namedtuple("SourceFile",["filename","line_number"])
 StmtRemark =    namedtuple("Remark",["text","line_number"])
 StmtEffectsName = namedtuple("EffectsName",["name","line_number"])
-StmtTrailer =   namedtuple("Trailer",["text","line_number"])
+StmtSourceUMID =   namedtuple("Source",["name","umid","line_number"])
 StmtSplitEdit = namedtuple("SplitEdit",["video","magnitue", "line_number"])
 StmtMotionMemory = namedtuple("MotionMemory",["source","fps"]) # FIXME needs more fields
 StmtUnrecognized = namedtuple("Unrecognized",["content","line_number"])
@@ -69,8 +69,8 @@ def _parse_cmx3600_line(line, line_number):
             return _parse_extended_audio_channels(line,line_number)
         elif line.startswith("*"):
             return _parse_remark( line[1:].strip(), line_number)
-        elif line.startswith(">>>"):
-            return _parse_trailer_statement(line, line_number)
+        elif line.startswith(">>> SOURCE"):
+            return _parse_source_umid_statement(line, line_number)
         elif line.startswith("EFFECTS NAME IS"):
             return _parse_effects_name(line, line_number)
         elif line.startswith("SPLIT:"):
@@ -157,10 +157,11 @@ def _parse_columns_for_standard_form(line, event_field_length, source_field_leng
                      source_out=column_strings[12].strip(),
                      record_in=column_strings[14].strip(),
                      record_out=column_strings[16].strip(),
-		    line_number=line_number)
+		    line_number=line_number,
+                    format=source_field_length)
 
 
-def _parse_trailer_statement(line, line_number):
+def _parse_source_umid_statement(line, line_number):
     trimmed = line[3:].strip()
-    return StmtTrailer(trimmed, line_number=line_number)
+    return StmtSourceUMID(name=None, umid=None, line_number=line_number)
 
