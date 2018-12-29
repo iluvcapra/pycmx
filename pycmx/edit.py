@@ -82,6 +82,19 @@ class Edit:
         """
         return self.edit_statement.source
 
+    @property
+    def black(self):
+        """
+        Black video or silence should be used as the source for this event.
+        """
+        return self.source == "BL"
+
+    @property
+    def aux_source(self):
+        """
+        An auxiliary source is the source of this event.
+        """
+        return self.source == "AX"
 
     @property
     def source_file(self):
@@ -102,7 +115,7 @@ class Edit:
         NAME" remark on the EDL. This will return None if the information is
         not present.
         """
-        if self.clip_name_statement != None:
-            return self.clip_name_statement.name
-        else:
+        if self.clip_name_statement is None:
             return None
+        else:
+            return self.clip_name_statement.name
