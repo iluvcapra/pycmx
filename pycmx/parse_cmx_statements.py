@@ -1,12 +1,12 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
-from .util import collimate
 import re
 import sys
 from collections import namedtuple
 from itertools import count
 
+from .util import collimate
 
 StmtTitle =     namedtuple("Title",["title","line_number"])
 StmtFCM =       namedtuple("FCM",["drop","line_number"])

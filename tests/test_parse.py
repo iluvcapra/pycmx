@@ -99,4 +99,8 @@ class TestParse(TestCase):
             self.assertEqual( events[14].edits[0].line_number, 45)
             self.assertEqual( events[180].edits[0].line_number, 544)
 
-
+    def test_transition_name(self):
+        with open("tests/edls/test_25.edl","r") as f:
+            edl = pycmx.parse_cmx3600(f)
+            events = list(edl.events)
+            self.assertEqual( events[4].edits[1].transition.name ,  "CROSS DISSOLVE" )
