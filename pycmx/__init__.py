@@ -11,6 +11,7 @@ distribution.
 __version__ = '0.8'
 __author__  = 'Jamie Hardt'
 
-from .parse_cmx_events import parse_cmx3600, Transition, Event, Edit
-from . import parse_cmx_events
-
+from .parse_cmx_events import parse_cmx3600 
+from .transition import Transition
+from .event import Event
+from .edit import Edit

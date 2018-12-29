@@ -4,12 +4,12 @@
 from re import (compile, match)
 
 class ChannelMap:
-
     """
     Represents a set of all the channels to which an event applies.
     """
 
-    _chan_map = {     "V" :    (True,   False,   False),
+    _chan_map = {     
+                "V" :    (True,   False,   False),
                 "A" :    (False,  True,    False),
                 "A2" :   (False,  False,   True),
                 "AA" :   (False,  True,    True),
