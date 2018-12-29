@@ -1,7 +1,7 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
-from .parse_cmx_statements import (StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized)
+from .parse_cmx_statements import (StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized, StmtEffectsName)
 from .edit import Edit
 
 class Event:
@@ -29,7 +29,7 @@ class Event:
         edits_audio = list( self._statements_with_audio_ext() )
         clip_names  = self._clip_name_statements()
         source_files= self._source_file_statements()
-        
+         
         the_zip = [edits_audio]
 
         if len(edits_audio) == 2:
@@ -41,7 +41,6 @@ class Event:
                     cn[1] = clip_name
 
             the_zip.append(cn)
-
         else:    
             if len(edits_audio) == len(clip_names):
                 the_zip.append(clip_names)
@@ -54,9 +53,18 @@ class Event:
             the_zip.append( source_files * len(edits_audio) )
         else:
             the_zip.append([None] * len(edits_audio) )
+        
+        # attach trans name to last event
+        try:
+            trans_statement = self._trans_name_statements()[0]
+            trans_names = [None] * (len(edits_audio) - 1)
+            trans_names.append(trans_statement)
+            the_zip.append(trans_names)
+        except IndexError:
+            the_zip.append([None] * len(edits_audio) )
 
 
-        return [ Edit(e1[0],e1[1],n1,s1) for (e1,n1,s1) in zip(*the_zip) ]
+        return [ Edit(e1[0],e1[1],n1,s1,u1) for (e1,n1,s1,u1) in zip(*the_zip) ]
             
     @property
     def unrecognized_statements(self):
@@ -65,7 +73,10 @@ class Event:
         """
         for s in self.statements:
             if type(s) is StmtUnrecognized:
-                yield s            
+                yield s
+    
+    def _trans_name_statements(self):
+        return [s for s in self.statements if type(s) is StmtEffectsName]
 
     def _edit_statements(self):
         return [s for s in self.statements if type(s) is StmtEvent]

@@ -3,18 +3,19 @@
 
 from .transition import Transition
 from .channel_map import ChannelMap
+from .parse_cmx_statements import StmtEffectsName
 
 class Edit:
     """
     An individual source-to-record operation, with a source roll, source and 
     recorder timecode in and out, a transition and channels.
     """
-    def __init__(self, edit_statement, audio_ext_statement, clip_name_statement, source_file_statement, other_statements = []):
+    def __init__(self, edit_statement, audio_ext_statement, clip_name_statement, source_file_statement, trans_name_statement = None):
         self.edit_statement = edit_statement
         self.audio_ext = audio_ext_statement
         self.clip_name_statement = clip_name_statement
         self.source_file_statement = source_file_statement
-        self.other_statements = other_statements
+        self.trans_name_statement = trans_name_statement 
 
     @property
     def line_number(self):
@@ -41,8 +42,11 @@ class Edit:
         """
         Get the :obj:`Transition` object associated with this edit.
         """
-        return Transition(self.edit_statement.trans, self.edit_statement.trans_op)
-   
+        if self.trans_name_statement:
+            return Transition(self.edit_statement.trans, self.edit_statement.trans_op, self.trans_name_statement.name)
+        else:
+            return Transition(self.edit_statement.trans, self.edit_statement.trans_op, None)
+    
     @property
     def source_in(self):
         """
@@ -107,7 +111,6 @@ class Edit:
         else:
             return self.source_file_statement.filename
 
-
     @property
     def clip_name(self):
         """
@@ -119,3 +122,5 @@ class Edit:
             return None
         else:
             return self.clip_name_statement.name
+
+

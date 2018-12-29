@@ -13,9 +13,10 @@ class Transition:
     Key = "K"
     KeyOut = "KO"
 
-    def __init__(self, transition, operand):
+    def __init__(self, transition, operand, name=None):
         self.transition = transition
         self.operand = operand
+        self.name = name
 
     @property
     def kind(self):
