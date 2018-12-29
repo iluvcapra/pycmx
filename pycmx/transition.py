@@ -1,12 +1,11 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
-
 class Transition:
     """
     A CMX transition: a wipe, dissolve or cut.
     """
-
+    
     Cut = "C"
     Dissolve = "D"
     Wipe = "W"
@@ -14,12 +13,9 @@ class Transition:
     Key = "K"
     KeyOut = "KO"
 
-
     def __init__(self, transition, operand):
         self.transition = transition
         self.operand = operand
-        self.name = ''
-
 
     @property
     def kind(self):
@@ -49,12 +45,10 @@ class Transition:
         "`True` if this traansition is a dissolve."
         return self.transition == 'D'
 
-
     @property
     def wipe(self):
         "`True` if this transition is a wipe."
         return self.transition.startswith('W')
-
 
     @property
     def effect_duration(self):

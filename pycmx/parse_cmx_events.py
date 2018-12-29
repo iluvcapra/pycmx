@@ -2,6 +2,7 @@
 # (c) 2018 Jamie Hardt
 
 from collections import namedtuple
+
 from .parse_cmx_statements import (parse_cmx3600_statements, StmtEvent,StmtFCM )
 from .edit_list import EditList
 
