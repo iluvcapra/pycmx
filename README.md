@@ -83,28 +83,6 @@ Audio channel 7 is present
 False
 ```
 
-## How is this different from `python-edl`?
-
-There are two important differences between `import edl` and `import pycmx` 
-and motivated my development of this module.
-
-1. The `pycmx` parser doesn't take timecode or framerates into account, 
-   and strictly treats timecodes like opaque values. As far as `pycmx` is 
-   concerend, they're just strings. This was done because in my experience, 
-   the frame rate of an EDL is often difficult to precisely determine and 
-   often the frame rate of various sources is different from the frame rate 
-   of the target track.
-   
-   In any event, timecodes in an EDL are a kind of *address* and are not
-   exactly scalar, they're meant to point to a particular block of video or 
-   audio data on a medium and presuming that they refer to a real time, or 
-   duration, or are convertible, etc. isn't always safe.
-
-2. The `pycmx` parser reads event numbers and keeps track of which EDL rows
-   are meant to happen "at the same time," with two decks. This makes it 
-   easier to reconstruct transition A/B clips, and read clip names from
-   such events appropriately.
- 
 ## Should I Use This?
 
 At this time, this is (at best) beta software. I feel like the interface is 
