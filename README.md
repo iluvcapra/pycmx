@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.com/iluvcapra/pycmx.svg?branch=master)](https://travis-ci.com/iluvcapra/pycmx) [![Documentation Status](https://readthedocs.org/projects/pycmx/badge/?version=latest)](https://pycmx.readthedocs.io/en/latest/?badge=latest) ![PyPi version](https://pypip.in/v/pycmx/badge.png)
+[![Build Status](https://travis-ci.com/iluvcapra/pycmx.svg?branch=master)](https://travis-ci.com/iluvcapra/pycmx) [![Documentation Status](https://readthedocs.org/projects/pycmx/badge/?version=latest)](https://pycmx.readthedocs.io/en/latest/?badge=latest)  ![](https://img.shields.io/github/license/iluvcapra/pycmx.svg) 
+
+![](https://img.shields.io/pypi/pyversions/pycmx.svg) ![](https://img.shields.io/pypi/wheel/pycmx.svg)
 
 
 # pycmx
