@@ -18,7 +18,7 @@ class TestParse(TestCase):
         counts = [ 287, 466, 250 , 376, 120 , 3 , 466 ]
 
         for fn, count in zip(type(self).files, counts):
-            with open(f"tests/edls/{fn}" ,'r') as f:
+            with open(f"tests/edls/" + fn ,'r') as f:
                 edl = pycmx.parse_cmx3600(f)
                 actual = len( list( edl.events ))
                 self.assertTrue( actual == count ,
@@ -26,7 +26,7 @@ class TestParse(TestCase):
 
     def test_list_sanity(self):
         for fn in type(self).files:
-            with open(f"tests/edls/{fn}" ,'r') as f:
+            with open(f"tests/edls/" + fn ,'r') as f:
                 edl = pycmx.parse_cmx3600(f)
                 self.assertTrue( type(edl.title) is str )
                 self.assertTrue( len(edl.title) > 0 )
