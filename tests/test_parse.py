@@ -34,7 +34,8 @@ class TestParse(TestCase):
 
     def test_event_sanity(self):
         for fn in type(self).files:
-            with open(f"tests/edls/{fn}" ,'r') as f:
+            path = "tests/edls/" + fn
+            with open(path ,'r') as f:
                 edl = pycmx.parse_cmx3600(f)
                 for index, event in enumerate(edl.events):
                     self.assertTrue( len(event.edits) > 0 )
