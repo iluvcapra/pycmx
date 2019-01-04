@@ -82,11 +82,3 @@ Audio channel 7 is present
 >>> events[2].edits[0].channels.video
 False
 ```
-
-## Should I Use This?
-
-At this time, this is (at best) beta software. I feel like the interface is 
-about where where I'd like it to be but more testing is required.
-
-Contributions are welcome and will make this module production-ready all the
-faster! Please reach out or file a ticket! 
