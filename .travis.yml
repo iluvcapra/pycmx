@@ -4,6 +4,6 @@ python:
   - "3.5"
   - "2.7"
 script:
-  - "python3 setup.py test"
+  - "python setup.py test"
 install:
   - "pip install setuptools"
