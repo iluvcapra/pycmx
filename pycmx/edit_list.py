@@ -3,6 +3,7 @@
 
 from .parse_cmx_statements import (StmtUnrecognized, StmtFCM, StmtEvent, StmtSourceUMID)
 from .event import Event
+from .channel_map import ChannelMap
 
 class EditList:
     """
@@ -33,6 +34,20 @@ class EditList:
                 return 'unknown'
         else:
             return 'unknown'
+        
+
+    @property
+    def channels(self):
+        """
+        Return the union of every channel channel.
+        """
+
+        retval = ChannelMap()
+        for event in self.events:
+            for edit in event.edits:
+                retval = retval | edit.channels
+
+        return retval
         
 
     @property

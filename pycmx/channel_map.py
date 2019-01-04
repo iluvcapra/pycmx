@@ -96,3 +96,11 @@ class ChannelMap:
         self.a3 = ext.audio3
         self.a4 = ext.audio4
 
+    def __or__(self, other):
+        """
+        Return the logical union of this channel map with another
+        """
+        out_v = self.video | other.video
+        out_a = self._audio_channel_set | other._audio_channel_set
+
+        return ChannelMap(v=out_v,audio_channels = out_a)

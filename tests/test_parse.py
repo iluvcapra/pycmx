@@ -21,7 +21,8 @@ class TestParse(TestCase):
             with open(f"tests/edls/{fn}" ,'r') as f:
                 edl = pycmx.parse_cmx3600(f)
                 actual = len( list( edl.events ))
-                self.assertTrue( actual == count , f"expected {count} in file {fn} but found {actual}")
+                self.assertTrue( actual == count ,
+                        "expected %i in file %s but found %i" % (count, fn, actual))
 
     def test_list_sanity(self):
         for fn in type(self).files:
@@ -29,7 +30,7 @@ class TestParse(TestCase):
                 edl = pycmx.parse_cmx3600(f)
                 self.assertTrue( type(edl.title) is str )
                 self.assertTrue( len(edl.title) > 0 )
-    
+
 
     def test_event_sanity(self):
         for fn in type(self).files:
@@ -45,7 +46,7 @@ class TestParse(TestCase):
         with open("tests/edls/TEST.edl",'r') as f:
             edl = pycmx.parse_cmx3600(f)
             events = list( edl.events  )
-        
+
             self.assertEqual( events[0].number , 1)
             self.assertEqual( events[0].edits[0].source , "OY_HEAD_")
             self.assertEqual( events[0].edits[0].clip_name , "HEAD LEADER MONO")
@@ -104,3 +105,7 @@ class TestParse(TestCase):
             edl = pycmx.parse_cmx3600(f)
             events = list(edl.events)
             self.assertEqual( events[4].edits[1].transition.name ,  "CROSS DISSOLVE" )
+
+
+    # add test for edit_list.channels
+
