@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='pycmx',
-      version='0.9',
+      version='1.0',
       author='Jamie Hardt',
       author_email='jamiehardt@me.com',
       description='CMX 3600 Edit Decision List Parser',
       long_description_content_type="text/markdown",
       long_description=long_description,
       url='https://github.com/iluvcapra/pycmx',
-      classifiers=['Development Status :: 4 - Beta',
+      classifiers=['Development Status :: 5 - Production/Stable',
           'License :: OSI Approved :: MIT License',
           'Topic :: Multimedia',
           'Topic :: Multimedia :: Video',
