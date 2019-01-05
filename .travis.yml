@@ -11,5 +11,6 @@ install:
 before_install:
   - "pip install coverage"
   - "pip install codecov"
+  - "pip install pytest-cov==2.5.0"
 after_success:
   - "codecov"
