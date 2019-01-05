@@ -7,3 +7,9 @@ script:
   - "python setup.py test"
 install:
   - "pip install setuptools"
+before_install:
+    - "pip install coverage"
+    - "pip install pytest-cov==2.5.0"
+    - "pip install python-coveralls"
+after_success:
+    - coveralls
