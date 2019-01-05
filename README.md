@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/iluvcapra/pycmx.svg?branch=master)](https://travis-ci.com/iluvcapra/pycmx)
-[![Coverage Status](https://coveralls.io/repos/github/iluvcapra/pycmx/badge.svg?branch=master)](https://coveralls.io/github/iluvcapra/pycmx?branch=master)
+[![codecov](https://codecov.io/gh/iluvcapra/pycmx/branch/master/graph/badge.svg)](https://codecov.io/gh/iluvcapra/pycmx)
 [![Documentation Status](https://readthedocs.org/projects/pycmx/badge/?version=latest)](https://pycmx.readthedocs.io/en/latest/?badge=latest) ![](https://img.shields.io/github/license/iluvcapra/pycmx.svg) ![](https://img.shields.io/pypi/pyversions/pycmx.svg) [![](https://img.shields.io/pypi/v/pycmx.svg)](https://pypi.org/project/pycmx/) ![](https://img.shields.io/pypi/wheel/pycmx.svg)
 
 
