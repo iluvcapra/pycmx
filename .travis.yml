@@ -5,6 +5,7 @@ python:
   - "2.7"
 script:
   - "python setup.py test"
+  - "py.test tests/ -v --cov pycmx --cov-report term-missing"
 install:
   - "pip install setuptools"
 before_install:
