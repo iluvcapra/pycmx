@@ -66,6 +66,7 @@ class TestParse(TestCase):
             self.assertFalse( events[0].edits[0].channels.a1)
             self.assertTrue( events[0].edits[0].channels.a2)
             self.assertTrue( events[2].edits[0].channels.get_audio_channel(7) )
+            self.assertTrue( events[2].edits[0].channels.audio)
 
 
     def test_multi_edit_events(self):

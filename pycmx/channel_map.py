@@ -28,6 +28,11 @@ class ChannelMap:
         return self.v
 
     @property
+    def audio(self):
+        'True if an audio channel is included'
+        return len(self._audio_channel_set) > 0
+
+    @property
     def channels(self):
         'A generator for each audio channel'
         for c in self._audio_channel_set:

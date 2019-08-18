@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='pycmx',
-      version='1.0.1',
+      version='1.1.0',
       author='Jamie Hardt',
       author_email='jamiehardt@me.com',
       description='CMX 3600 Edit Decision List Parser',
