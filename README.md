@@ -83,3 +83,7 @@ Audio channel 7 is present
 >>> events[2].edits[0].channels.video
 False
 ```
+
+## Platform Lifecycle Stuff
+
+Python 2 and Python 3.5 support are deprecated.
