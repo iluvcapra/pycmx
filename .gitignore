@@ -10,3 +10,4 @@
 
 # Vim Swapfiles
 *.swp
+.DS_Store
