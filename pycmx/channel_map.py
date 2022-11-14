@@ -98,8 +98,8 @@ class ChannelMap:
                 self.set_audio_channel(int( matchresult.group(1)), True )
 
     def _append_ext(self, audio_ext):
-        self.a3 = ext.audio3
-        self.a4 = ext.audio4
+        self.a3 = audio_ext.audio3
+        self.a4 = audio_ext.audio4
 
     def __or__(self, other):
         """
