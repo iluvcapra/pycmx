@@ -86,7 +86,7 @@ class ChannelMap:
             self._audio_channel_set.remove(chan_num)
     
     def _append_event(self, event_str):
-        alt_channel_re = compile('^A(\d+)')
+        alt_channel_re = compile(r'^A(\d+)')
         if event_str in self._chan_map:
             channels = self._chan_map[event_str]
             self.v = channels[0]
