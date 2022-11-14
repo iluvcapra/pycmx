@@ -84,6 +84,4 @@ Audio channel 7 is present
 False
 ```
 
-## Platform Lifecycle Stuff
 
-Python 2 and Python 3.5 support are deprecated.
