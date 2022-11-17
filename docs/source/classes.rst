@@ -3,5 +3,7 @@ pycmx classes
 
 
 
-autoclass:: EditList 
+.. autoclass:: EditList 
+
+.. autoclass:: Event 
 
