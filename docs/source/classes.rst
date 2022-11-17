@@ -1,0 +1,6 @@
+pycmx classes
+=============
+
+
+
+autoclass:: EditList 

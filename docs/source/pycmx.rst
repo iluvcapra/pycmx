@@ -37,10 +37,3 @@ pycmx.util module
     :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: pycmx
-    :members:
-    :undoc-members:
-    :show-inheritance:
