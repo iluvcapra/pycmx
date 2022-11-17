@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('../../pycmx'))
 # -- Project information -----------------------------------------------------
 
 project = u'pycmx'
-copyright = u'2018, Jamie Hardt'
+copyright = u'2022, Jamie Hardt'
 author = u'Jamie Hardt'
 
 # The short X.Y version

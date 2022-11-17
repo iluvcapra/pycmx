@@ -2,6 +2,10 @@ pycmx Classes
 =============
 
 
+.. automodule:: pycmx.edit_list
+   :members:
+
+
 .. autoclass:: pycmx.edit_list.EditList 
    :members:
 
