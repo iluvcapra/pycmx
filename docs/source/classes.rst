@@ -2,14 +2,14 @@ pycmx Classes
 =============
 
 
-.. autoclass:: EditList 
+.. autoclass:: pycmx.edit_list.EditList 
    :members:
 
 
-.. autoclass:: Event 
+.. autoclass:: pycmx.event.Event 
    :members:
 
 
-.. autoclass:: Edit  
+.. autoclass:: pycmx.edit.Edit  
    :members:
 
