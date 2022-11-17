@@ -11,3 +11,8 @@
 # Vim Swapfiles
 *.swp
 .DS_Store
+
+venv/
+.coverage
+lcov.info
+
