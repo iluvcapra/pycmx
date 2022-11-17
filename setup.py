@@ -10,6 +10,14 @@ setup(name='pycmx',
       description='CMX 3600 Edit Decision List Parser',
       long_description_content_type="text/markdown",
       long_description=long_description,
+      project_urls={
+          'Source':
+              'https://github.com/iluvcapra/pycmx',
+          'Documentation':
+              'https://pycmx.readthedocs.io/',
+          'Issues':
+              'https://github.com/iluvcapra/pycmx/issues',
+      }
       url='https://github.com/iluvcapra/pycmx',
       classifiers=['Development Status :: 5 - Production/Stable',
           'License :: OSI Approved :: MIT License',
