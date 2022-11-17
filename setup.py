@@ -17,7 +17,7 @@ setup(name='pycmx',
               'https://pycmx.readthedocs.io/',
           'Issues':
               'https://github.com/iluvcapra/pycmx/issues',
-      }
+      },
       url='https://github.com/iluvcapra/pycmx',
       classifiers=['Development Status :: 5 - Production/Stable',
           'License :: OSI Approved :: MIT License',
