@@ -12,3 +12,13 @@ pycmx Classes
 .. autoclass:: pycmx.edit.Edit  
    :members:
 
+
+.. autoclass:: pycmx.transition.Transition
+   :members:
+
+
+.. autoclass:: pycmx.channel_map.ChannelMap
+   :members:
+
+
+
