@@ -2,8 +2,9 @@ pycmx classes
 =============
 
 
+.. autoclass:: pycmx.EditList 
 
-.. autoclass:: EditList 
+.. autoclass:: pycmx.Event 
 
-.. autoclass:: Event 
+.. autoclass:: Edit   
 
