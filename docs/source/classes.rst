@@ -4,3 +4,4 @@ pycmx classes
 
 
 autoclass:: EditList 
+
