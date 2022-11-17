@@ -2,13 +2,14 @@
 # (c) 2018 Jamie Hardt
 
 from re import (compile, match)
+from typing import Dict, Tuple
 
 class ChannelMap:
     """
     Represents a set of all the channels to which an event applies.
     """
 
-    _chan_map = {     
+    _chan_map : Dict[str, Tuple] = {     
                 "V" :    (True,   False,   False),
                 "A" :    (False,  True,    False),
                 "A2" :   (False,  False,   True),
@@ -109,3 +110,4 @@ class ChannelMap:
         out_a = self._audio_channel_set | other._audio_channel_set
 
         return ChannelMap(v=out_v,audio_channels = out_a)
+
