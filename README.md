@@ -1,5 +1,5 @@
 [![Documentation Status](https://readthedocs.org/projects/pycmx/badge/?version=latest)](https://pycmx.readthedocs.io/en/latest/?badge=latest) ![](https://img.shields.io/github/license/iluvcapra/pycmx.svg) ![](https://img.shields.io/pypi/pyversions/pycmx.svg) [![](https://img.shields.io/pypi/v/pycmx.svg)](https://pypi.org/project/pycmx/) ![](https://img.shields.io/pypi/wheel/pycmx.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/iluvcapra/bwavfile)
+![GitHub last commit](https://img.shields.io/github/last-commit/iluvcapra/pycmx)
 [![Lint and Test](https://github.com/iluvcapra/pycmx/actions/workflows/python-package.yml/badge.svg)](https://github.com/iluvcapra/pycmx/actions/workflows/python-package.yml)
 
 
