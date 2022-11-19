@@ -14,7 +14,7 @@ def parse_cmx3600(f):
         f : a file-like object, anything that's readlines-able.
 
     Returns:
-        An :class:`EditList`.
+        An :class:`pycmx.edit_list.EditList`.
     """
     statements = parse_cmx3600_statements(f)
     return EditList(statements)

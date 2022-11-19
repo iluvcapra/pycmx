@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.com/iluvcapra/pycmx.svg?branch=master)](https://travis-ci.com/iluvcapra/pycmx)
 [![Documentation Status](https://readthedocs.org/projects/pycmx/badge/?version=latest)](https://pycmx.readthedocs.io/en/latest/?badge=latest) ![](https://img.shields.io/github/license/iluvcapra/pycmx.svg) ![](https://img.shields.io/pypi/pyversions/pycmx.svg) [![](https://img.shields.io/pypi/v/pycmx.svg)](https://pypi.org/project/pycmx/) ![](https://img.shields.io/pypi/wheel/pycmx.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/iluvcapra/pycmx)
+[![Lint and Test](https://github.com/iluvcapra/pycmx/actions/workflows/python-package.yml/badge.svg)](https://github.com/iluvcapra/pycmx/actions/workflows/python-package.yml)
 
 
 # pycmx
@@ -83,10 +84,4 @@ Audio channel 7 is present
 False
 ```
 
-## Should I Use This?
 
-At this time, this is (at best) beta software. I feel like the interface is 
-about where where I'd like it to be but more testing is required.
-
-Contributions are welcome and will make this module production-ready all the
-faster! Please reach out or file a ticket! 

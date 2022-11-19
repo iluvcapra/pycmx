@@ -53,10 +53,8 @@ class EditList:
     @property
     def title(self):
         """
-        The title of this edit list, as attensted by the 'TITLE:' statement on 
-        the first line.
+        The title of this edit list.
         """
-        'The title of the edit list'
         return self.title_statement.title
 
     

@@ -70,12 +70,12 @@ class Transition:
     @property
     def key_background(self):
         "`True` if this edit is a key background."
-        return self.transition == KeyBackground
+        return self.transition == Transition.KeyBackground
 
     @property
     def key_foreground(self):
         "`True` if this edit is a key foreground."
-        return self.transition == Key
+        return self.transition == Transition.Key
 
     @property
     def key_out(self):
@@ -83,4 +83,4 @@ class Transition:
         `True` if this edit is a key out. This material will removed from
         the key foreground and replaced with the key background.
         """
-        return self.transition == KeyOut
+        return self.transition == Transition.KeyOut

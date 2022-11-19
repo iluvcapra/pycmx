@@ -8,13 +8,13 @@ Welcome to pycmx's documentation!
 
 .. toctree::
    :maxdepth: 5
-   :caption: API Reference:
-   
-   pycmx
+   :caption: API Reference
+
+   function
+   classes
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
