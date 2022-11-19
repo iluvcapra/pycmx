@@ -76,11 +76,11 @@ class ChannelMap:
         self.set_audio_channel(4,val)
 
     def get_audio_channel(self,chan_num):
-        """True if chan_num is included."""
+        """True if chan_num is included"""
         return (chan_num in self._audio_channel_set)
 
     def set_audio_channel(self,chan_num,enabled):
-        """If enabled is true, chan_num will be included."""
+        """If enabled is true, chan_num will be included"""
         if enabled:
             self._audio_channel_set.add(chan_num)
         elif self.get_audio_channel(chan_num):
