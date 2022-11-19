@@ -13,6 +13,10 @@
 .DS_Store
 
 venv/
+
 .coverage
 lcov.info
 
+
+# venv
+venv/
