@@ -10,3 +10,10 @@
 
 # Vim Swapfiles
 *.swp
+
+# venv
+venv/
+
+.DS_Store
+.coverage
+lcov.info
