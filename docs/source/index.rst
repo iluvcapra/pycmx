@@ -8,7 +8,7 @@ Welcome to pycmx's documentation!
 
 .. toctree::
    :maxdepth: 5
-   :caption: API Reference:
+   :caption: API Reference
 
    function
    classes
