@@ -41,7 +41,7 @@ class ChannelMap:
 
     @property
     def a1(self):
-        """True if A1 is included."""
+        """True if A1 is included"""
         return self.get_audio_channel(1)
 
     @a1.setter
@@ -50,7 +50,7 @@ class ChannelMap:
 
     @property
     def a2(self):
-        """True if A2 is included."""
+        """True if A2 is included"""
         return self.get_audio_channel(2)
 
     @a2.setter
@@ -59,7 +59,7 @@ class ChannelMap:
 
     @property
     def a3(self):
-        """True if A3 is included."""
+        """True if A3 is included"""
         return self.get_audio_channel(3)
 
     @a3.setter
@@ -68,7 +68,7 @@ class ChannelMap:
     
     @property
     def a4(self):
-        """True if A4 is included."""
+        """True if A4 is included"""
         return self.get_audio_channel(4)
 
     @a4.setter
@@ -104,7 +104,7 @@ class ChannelMap:
 
     def __or__(self, other):
         """
-        Return the logical union of this channel map with another
+        the logical union of this channel map with another
         """
         out_v = self.video | other.video
         out_a = self._audio_channel_set | other._audio_channel_set
