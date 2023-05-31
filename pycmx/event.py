@@ -1,26 +1,28 @@
 # pycmx
-# (c) 2018 Jamie Hardt
+# (c) 2023 Jamie Hardt
 
 from .parse_cmx_statements import (StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized, StmtEffectsName)
 from .edit import Edit
 
+from typing import List, Generator
+
 class Event:
     """
-    Represents a collection of :class:`Edit`s, all with the same event number.
+    Represents a collection of :class:`~pycmx.edit.Edit` s, all with the same event number.
     """
 
     def __init__(self, statements):
         self.statements = statements
     
     @property
-    def number(self):
+    def number(self) -> int:
         """
         Return the event number.
         """
         return int(self._edit_statements()[0].event)
 
     @property
-    def edits(self):
+    def edits(self) -> List[Edit]:
         """
         Returns the edits. Most events will have a single edit, a single event
         will have multiple edits when a dissolve, wipe or key transition needs
@@ -63,11 +65,10 @@ class Event:
         except IndexError:
             the_zip.append([None] * len(edits_audio) )
 
-
         return [ Edit(e1[0],e1[1],n1,s1,u1) for (e1,n1,s1,u1) in zip(*the_zip) ]
             
     @property
-    def unrecognized_statements(self):
+    def unrecognized_statements(self) -> Generator[StmtUnrecognized, None, None]:
         """
         A generator for all the unrecognized statements in the event.
         """

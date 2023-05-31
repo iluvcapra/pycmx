@@ -5,21 +5,21 @@ from .parse_cmx_statements import (StmtUnrecognized, StmtFCM, StmtEvent, StmtSou
 from .event import Event
 from .channel_map import ChannelMap
 
+from typing import Generator
+
 class EditList:
     """
-    Represents an entire edit decision list as returned by `parse_cmx3600()`.
-    
+    Represents an entire edit decision list as returned by :func:`~pycmx.parse_cmx3600()`.
     """
     def __init__(self, statements):
         self.title_statement = statements[0]
         self.event_statements = statements[1:]
 
-    
     @property
-    def format(self):
+    def format(self) -> str:
         """
-        The detected format of the EDL. Possible values are: `3600`,`File32`,
-        `File128`, and `unknown`
+        The detected format of the EDL. Possible values are: "3600", "File32",
+        "File128", and "unknown".
         """
         first_event = next( (s for s in self.event_statements if type(s) is StmtEvent), None)
 
@@ -37,7 +37,7 @@ class EditList:
         
 
     @property
-    def channels(self):
+    def channels(self) -> ChannelMap:
         """
         Return the union of every channel channel.
         """
@@ -51,7 +51,7 @@ class EditList:
         
 
     @property
-    def title(self):
+    def title(self) -> str:
         """
         The title of this edit list.
         """
@@ -59,7 +59,7 @@ class EditList:
 
     
     @property
-    def unrecognized_statements(self):
+    def unrecognized_statements(self) -> Generator[StmtUnrecognized, None, None]:
         """
         A generator for all the unrecognized statements in the list.
         """
@@ -69,7 +69,7 @@ class EditList:
         
 
     @property
-    def events(self):
+    def events(self) -> Generator[Event, None, None]:
         'A generator for all the events in the edit list'
         is_drop = None
         current_event_num = None
@@ -97,7 +97,7 @@ class EditList:
         yield Event(statements=event_statements)
 
     @property
-    def sources(self):
+    def sources(self) -> Generator[StmtSourceUMID, None, None]:
         """
         A generator for all of the sources in the list
         """
