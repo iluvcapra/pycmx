@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-pycmx is a module for parsing CMX 3600-style EDLs. For more information and
-examples see README.md
+pycmx is a parser for CMX 3600-style EDLs.
 
 This module (c) 2022 Jamie Hardt. For more information on your rights to
 copy and reuse this software, refer to the LICENSE file included with the
