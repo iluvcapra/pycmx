@@ -2,9 +2,9 @@
 # (c) 2023 Jamie Hardt
 
 from .parse_cmx_statements import (StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized, StmtEffectsName)
-from .edit import Edit
+from .edit import Edit 
 
-from typing import List, Generator
+from typing import List, Generator, Optional, Tuple, Any
 
 class Event:
     """
@@ -32,17 +32,19 @@ class Event:
         clip_names  = self._clip_name_statements()
         source_files= self._source_file_statements()
          
-        the_zip = [edits_audio]
+        the_zip: List[List[Any]] = [edits_audio]
 
         if len(edits_audio) == 2:
-            cn = [None, None]
+            start_name: Optional[StmtClipName] = None
+            end_name: Optional[StmtClipName] = None
+
             for clip_name in clip_names:
                 if clip_name.affect == 'from':
-                    cn[0] = clip_name
+                    start_name = clip_name
                 elif clip_name.affect == 'to':
-                    cn[1] = clip_name
+                    end_name = clip_name
 
-            the_zip.append(cn)
+            the_zip.append([start_name, end_name])
         else:    
             if len(edits_audio) == len(clip_names):
                 the_zip.append(clip_names)
@@ -59,13 +61,17 @@ class Event:
         # attach trans name to last event
         try:
             trans_statement = self._trans_name_statements()[0]
-            trans_names = [None] * (len(edits_audio) - 1)
+            trans_names: List[Optional[Any]] = [None] * (len(edits_audio) - 1)
             trans_names.append(trans_statement)
             the_zip.append(trans_names)
         except IndexError:
             the_zip.append([None] * len(edits_audio) )
 
-        return [ Edit(e1[0],e1[1],n1,s1,u1) for (e1,n1,s1,u1) in zip(*the_zip) ]
+        return [ Edit(edit_statement=e1[0],
+                      audio_ext_statement=e1[1],
+                      clip_name_statement=n1,
+                      source_file_statement=s1,
+                      trans_name_statement=u1) for (e1,n1,s1,u1) in zip(*the_zip) ]
             
     @property
     def unrecognized_statements(self) -> Generator[StmtUnrecognized, None, None]:
@@ -76,19 +82,19 @@ class Event:
             if type(s) is StmtUnrecognized:
                 yield s
     
-    def _trans_name_statements(self):
+    def _trans_name_statements(self) -> List[StmtEffectsName]:
         return [s for s in self.statements if type(s) is StmtEffectsName]
 
-    def _edit_statements(self):
+    def _edit_statements(self) -> List[StmtEvent]:
         return [s for s in self.statements if type(s) is StmtEvent]
 
-    def _clip_name_statements(self):
+    def _clip_name_statements(self) -> List[StmtClipName]:
         return [s for s in self.statements if type(s) is StmtClipName]
     
-    def _source_file_statements(self):
+    def _source_file_statements(self) -> List[StmtSourceFile]:
         return [s for s in self.statements if type(s) is StmtSourceFile]
     
-    def _statements_with_audio_ext(self):
+    def _statements_with_audio_ext(self) -> Generator[Tuple[StmtEvent, Optional[StmtAudioExt]], None, None]:
         for (s1, s2) in zip(self.statements, self.statements[1:]):
             if type(s1) is StmtEvent and type(s2) is StmtAudioExt:
                 yield (s1,s2)
