@@ -5,6 +5,8 @@ import re
 import sys
 from collections import namedtuple
 from itertools import count
+from typing import TextIO, List
+
 
 from .util import collimate
 
@@ -18,12 +20,12 @@ StmtSourceFile = namedtuple("SourceFile",["filename","line_number"])
 StmtRemark =    namedtuple("Remark",["text","line_number"])
 StmtEffectsName = namedtuple("EffectsName",["name","line_number"])
 StmtSourceUMID =   namedtuple("Source",["name","umid","line_number"])
-StmtSplitEdit = namedtuple("SplitEdit",["video","magnitue", "line_number"])
+StmtSplitEdit = namedtuple("SplitEdit",["video","magnitude", "line_number"])
 StmtMotionMemory = namedtuple("MotionMemory",["source","fps"]) # FIXME needs more fields
 StmtUnrecognized = namedtuple("Unrecognized",["content","line_number"])
 
 
-def parse_cmx3600_statements(file):
+def parse_cmx3600_statements(file: TextIO) -> List[object]:
     """
     Return a list of every statement in the file argument.
     """
@@ -109,7 +111,7 @@ def _parse_extended_audio_channels(line, line_number):
     else:
         return StmtUnrecognized(content=line, line_number=line_number)
     
-def _parse_remark(line, line_number):
+def _parse_remark(line, line_number) -> object:
     if line.startswith("FROM CLIP NAME:"):
         return StmtClipName(name=line[15:].strip() , affect="from", line_number=line_number)
     elif line.startswith("TO CLIP NAME:"):
@@ -119,7 +121,7 @@ def _parse_remark(line, line_number):
     else:
         return StmtRemark(text=line, line_number=line_number)
 
-def _parse_effects_name(line, line_number):
+def _parse_effects_name(line, line_number) -> StmtEffectsName:
     name = line[16:].strip()
     return StmtEffectsName(name=name, line_number=line_number)
 

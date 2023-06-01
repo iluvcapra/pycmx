@@ -2,7 +2,7 @@
 # (c) 2018 Jamie Hardt
 
 from re import (compile, match)
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Generator
 
 class ChannelMap:
     """
@@ -24,62 +24,62 @@ class ChannelMap:
         self.v = v
 
     @property
-    def video(self):
+    def video(self) -> bool:
         'True if video is included'
         return self.v
 
     @property
-    def audio(self):
+    def audio(self) -> bool:
         'True if an audio channel is included'
         return len(self._audio_channel_set) > 0
 
     @property
-    def channels(self):
+    def channels(self) -> Generator[int, None, None]:
         'A generator for each audio channel'
         for c in self._audio_channel_set:
             yield c
 
     @property
-    def a1(self):
+    def a1(self) -> bool:
         """True if A1 is included"""
         return self.get_audio_channel(1)
 
     @a1.setter
-    def a1(self,val):
+    def a1(self, val: bool):
         self.set_audio_channel(1,val)
 
     @property
-    def a2(self):
+    def a2(self) -> bool:
         """True if A2 is included"""
         return self.get_audio_channel(2)
 
     @a2.setter
-    def a2(self,val):
+    def a2(self, val: bool):
         self.set_audio_channel(2,val)
 
     @property
-    def a3(self):
+    def a3(self) -> bool:
         """True if A3 is included"""
         return self.get_audio_channel(3)
 
     @a3.setter
-    def a3(self,val):
+    def a3(self, val: bool):
         self.set_audio_channel(3,val)
     
     @property
-    def a4(self):
+    def a4(self) -> bool:
         """True if A4 is included"""
         return self.get_audio_channel(4)
 
     @a4.setter
-    def a4(self,val):
+    def a4(self,val: bool):
         self.set_audio_channel(4,val)
 
-    def get_audio_channel(self,chan_num):
+    def get_audio_channel(self, chan_num) -> bool:
         """True if chan_num is included"""
         return (chan_num in self._audio_channel_set)
 
-    def set_audio_channel(self,chan_num,enabled):
+    def set_audio_channel(self,chan_num, enabled: bool):
         """If enabled is true, chan_num will be included"""
         if enabled:
             self._audio_channel_set.add(chan_num)

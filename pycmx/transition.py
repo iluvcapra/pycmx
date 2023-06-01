@@ -1,5 +1,7 @@
 # pycmx
-# (c) 2018 Jamie Hardt
+# (c) 2023 Jamie Hardt
+
+from typing import Optional
 
 class Transition:
     """
@@ -19,7 +21,7 @@ class Transition:
         self.name = name
 
     @property
-    def kind(self):
+    def kind(self) -> Optional[str]:
         """
         Return the kind of transition: Cut, Wipe, etc
         """
@@ -37,22 +39,22 @@ class Transition:
             return Transition.KeyOut
 
     @property
-    def cut(self):
+    def cut(self) -> bool:
         "`True` if this transition is a cut."
         return self.transition == 'C' 
 
     @property
-    def dissolve(self):
+    def dissolve(self) -> bool:
         "`True` if this traansition is a dissolve."
         return self.transition == 'D'
 
     @property
-    def wipe(self):
+    def wipe(self) -> bool:
         "`True` if this transition is a wipe."
         return self.transition.startswith('W')
 
     @property
-    def effect_duration(self):
+    def effect_duration(self) -> int:
         """The duration of this transition, in frames of the record target.
         
         In the event of a key event, this is the duration of the fade in.
@@ -60,7 +62,7 @@ class Transition:
         return int(self.operand)
 
     @property
-    def wipe_number(self):
+    def wipe_number(self) -> Optional[int]:
         "Wipes are identified by a particular number."
         if self.wipe:
             return int(self.transition[1:])
@@ -68,19 +70,21 @@ class Transition:
             return None
 
     @property
-    def key_background(self):
+    def key_background(self) -> bool:
         "`True` if this edit is a key background."
         return self.transition == Transition.KeyBackground
 
     @property
-    def key_foreground(self):
+    def key_foreground(self) -> bool:
         "`True` if this edit is a key foreground."
         return self.transition == Transition.Key
 
     @property
-    def key_out(self):
+    def key_out(self) -> bool:
         """
         `True` if this edit is a key out. This material will removed from
         the key foreground and replaced with the key background.
         """
         return self.transition == Transition.KeyOut
+
+

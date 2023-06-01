@@ -15,18 +15,19 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
-print(sys.path)
+
+import pycmx
 
 # -- Project information -----------------------------------------------------
 
 project = u'pycmx'
-copyright = u'2022, Jamie Hardt'
+copyright = u'(c) 2023, Jamie Hardt'
 author = u'Jamie Hardt'
 
 # The short X.Y version
-version = u''
+version = pycmx.__version__
 # The full version, including alpha/beta/rc tags
-release = u''
+release = pycmx.__version__
 
 
 # -- General configuration ---------------------------------------------------
