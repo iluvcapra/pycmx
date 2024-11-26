@@ -16,7 +16,6 @@ classifiers = [
   'Topic :: Multimedia',
   'Topic :: Multimedia :: Video',
   'Topic :: Text Processing',
-  'Programming Language :: Python :: 3.7',
   'Programming Language :: Python :: 3.8',
   'Programming Language :: Python :: 3.9',
   'Programming Language :: Python :: 3.10',
@@ -29,7 +28,7 @@ repository = "https://github.com/iluvcapra/pycmx.git"
 urls.Tracker = "https://github.com/iluvcapra/pycmx/issues" 
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 
 [tool.poetry.extras]
 doc = ['sphinx', 'sphinx_rtd_theme']
