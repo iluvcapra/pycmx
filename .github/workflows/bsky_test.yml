@@ -18,7 +18,7 @@ jobs:
       with:
         text: |
           This is a test post!
-        link-preview-url: ${{ github.server_url }}/${{repository}}
+        link-preview-url: ${{ github.server_url }}/${{ github.repository }}
         identifier: ${{ secrets.BLUESKY_APP_USER }}  
         password: ${{ secrets.BLUESKY_APP_PASSWORD }}
         service: bsky.social    
