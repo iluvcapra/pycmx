@@ -29,14 +29,14 @@ jobs:
       uses: pypa/gh-action-pypi-publish@v1.12.2
       with:
         password: ${{ secrets.PYPI_APIKEY }}
-    # - name: Send Bluesky Post
-    #   uses: myConsciousness/bluesky-post@v5
-    #   with:
-    #     text: |
-    #       I've released a new version of pycmx, my module for 
-    #       reading CMX EDLs.
-    #     link-preview-url: ${{ github.server_url }}/${{ github.repository }}
-    #     identifier: ${{ secrets.BLUESKY_APP_USER }}  
-    #     password: ${{ secrets.BLUESKY_APP_PASSWORD }}
-    #     service: bsky.social    
-    #     retry-count: 1
+    - name: Send Bluesky Post
+      uses: myConsciousness/bluesky-post@v5
+      with:
+        text: |
+          I've released a new version of pycmx, my module for 
+          reading CMX EDLs.
+        link-preview-url: ${{ github.server_url }}/${{ github.repository }}
+        identifier: ${{ secrets.BLUESKY_APP_USER }}  
+        password: ${{ secrets.BLUESKY_APP_PASSWORD }}
+        service: bsky.social    
+        retry-count: 1
