@@ -33,7 +33,7 @@ jobs:
       uses: myConsciousness/bluesky-post@v5
       with:
         text: |
-          I've released a new version of pycmx, my module for 
+          I've released a new version of pycmx, my python module for 
           reading CMX EDLs.
         link-preview-url: ${{ github.server_url }}/${{ github.repository }}
         identifier: ${{ secrets.BLUESKY_APP_USER }}  
