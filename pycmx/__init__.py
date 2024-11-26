@@ -7,7 +7,7 @@ copy and reuse this software, refer to the LICENSE file included with the
 distribution.
 """
 
-__version__ = '1.2.1'
+__version__ = '1.2.2'
 
 from .parse_cmx_events import parse_cmx3600
 from .transition import Transition
