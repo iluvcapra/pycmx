@@ -1,0 +1,25 @@
+name: Upload Python Package
+
+on:
+  workflow_dispatch:
+    
+# permissions:
+#   contents: read
+#   id-token: write
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: release
+    steps:
+    - name: Send Bluesky Post
+      uses: myConsciousness/bluesky-post@v5
+      with:
+        text: |
+          This is a test post!
+        link-preview-url: ${{ github.server_url }}/${{ github.repository }}
+        identifier: ${{ secrets.BLUESKY_APP_USER }}  
+        password: ${{ secrets.BLUESKY_APP_PASSWORD }}
+        service: bsky.social    
+        retry-count: 1
