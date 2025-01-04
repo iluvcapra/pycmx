@@ -53,7 +53,8 @@ def _edl_m2_column_widths():
 def _parse_cmx3600_line(line, line_number):
     long_event_num_p  = re.compile("^[0-9]{6} ")
     short_event_num_p = re.compile("^[0-9]{3} ")
-    
+    x_event_form_p = re.compile("^([0-9]{4,5}) ")
+
     if isinstance(line,str):
         if line.startswith("TITLE:"):
             return _parse_title(line,line_number)
@@ -67,6 +68,11 @@ def _parse_cmx3600_line(line, line_number):
                 return _parse_long_standard_form(line, 128, line_number)
         elif short_event_num_p.match(line) != None:
             return _parse_standard_form(line, line_number)
+        elif (m := x_event_form_p.match(line)) != None:
+            assert m is not None
+            event_field_length = len(m[1])
+            return _parse_columns_for_standard_form(line, event_field_length, 
+                                                    8, line_number)
         elif line.startswith("AUD"):
             return _parse_extended_audio_channels(line,line_number)
         elif line.startswith("*"):
