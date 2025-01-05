@@ -3,11 +3,12 @@
 
 from typing import Optional
 
+
 class Transition:
     """
     A CMX transition: a wipe, dissolve or cut.
     """
-    
+
     Cut = "C"
     Dissolve = "D"
     Wipe = "W"
@@ -41,7 +42,7 @@ class Transition:
     @property
     def cut(self) -> bool:
         "`True` if this transition is a cut."
-        return self.transition == 'C' 
+        return self.transition == 'C'
 
     @property
     def dissolve(self) -> bool:
@@ -56,7 +57,7 @@ class Transition:
     @property
     def effect_duration(self) -> int:
         """The duration of this transition, in frames of the record target.
-        
+
         In the event of a key event, this is the duration of the fade in.
         """
         return int(self.operand)
@@ -86,5 +87,3 @@ class Transition:
         the key foreground and replaced with the key background.
         """
         return self.transition == Transition.KeyOut
-
-

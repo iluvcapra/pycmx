@@ -1,16 +1,20 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
-from .parse_cmx_statements import (StmtUnrecognized, StmtFCM, StmtEvent, StmtSourceUMID)
+from .parse_cmx_statements import (
+    StmtUnrecognized, StmtEvent, StmtSourceUMID)
 from .event import Event
 from .channel_map import ChannelMap
 
 from typing import Generator
 
+
 class EditList:
     """
-    Represents an entire edit decision list as returned by :func:`~pycmx.parse_cmx3600()`.
+    Represents an entire edit decision list as returned by
+    :func:`~pycmx.parse_cmx3600()`.
     """
+
     def __init__(self, statements):
         self.title_statement = statements[0]
         self.event_statements = statements[1:]
@@ -23,7 +27,8 @@ class EditList:
 
         Adobe EDLs with more than 999 events will be reported as "3600".
         """
-        first_event = next( (s for s in self.event_statements if type(s) is StmtEvent), None)
+        first_event = next(
+            (s for s in self.event_statements if type(s) is StmtEvent), None)
 
         if first_event:
             if first_event.format == 8:
@@ -36,7 +41,6 @@ class EditList:
                 return 'unknown'
         else:
             return 'unknown'
-        
 
     @property
     def channels(self) -> ChannelMap:
@@ -50,7 +54,6 @@ class EditList:
                 retval = retval | edit.channels
 
         return retval
-        
 
     @property
     def title(self) -> str:
@@ -59,27 +62,23 @@ class EditList:
         """
         return self.title_statement.title
 
-    
     @property
-    def unrecognized_statements(self) -> Generator[StmtUnrecognized, None, None]:
+    def unrecognized_statements(self) -> Generator[StmtUnrecognized,
+                                                   None, None]:
         """
         A generator for all the unrecognized statements in the list.
         """
         for s in self.event_statements:
             if type(s) is StmtUnrecognized:
                 yield s
-        
 
     @property
     def events(self) -> Generator[Event, None, None]:
         'A generator for all the events in the edit list'
-        is_drop = None
         current_event_num = None
         event_statements = []
         for stmt in self.event_statements:
-            if type(stmt) is StmtFCM:
-                is_drop = stmt.drop
-            elif type(stmt) is StmtEvent:
+            if type(stmt) is StmtEvent:
                 if current_event_num is None:
                     current_event_num = stmt.event
                     event_statements.append(stmt)
@@ -103,9 +102,7 @@ class EditList:
         """
         A generator for all of the sources in the list
         """
-        
+
         for stmt in self.event_statements:
             if type(stmt) is StmtSourceUMID:
                 yield stmt
-
-
