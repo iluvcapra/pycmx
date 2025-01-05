@@ -7,23 +7,27 @@ from .channel_map import ChannelMap
 
 from typing import Optional
 
+
 class Edit:
     """
-    An individual source-to-record operation, with a source roll, source and 
+    An individual source-to-record operation, with a source roll, source and
     recorder timecode in and out, a transition and channels.
     """
-    def __init__(self, edit_statement, audio_ext_statement, clip_name_statement, source_file_statement, trans_name_statement = None):
+
+    def __init__(self, edit_statement, audio_ext_statement,
+                 clip_name_statement, source_file_statement,
+                 trans_name_statement=None):
         self.edit_statement = edit_statement
         self.audio_ext = audio_ext_statement
         self.clip_name_statement = clip_name_statement
         self.source_file_statement = source_file_statement
-        self.trans_name_statement = trans_name_statement 
+        self.trans_name_statement = trans_name_statement
 
     @property
     def line_number(self) -> int:
         """
         Get the line number for the "standard form" statement associated with
-        this edit. Line numbers a zero-indexed, such that the 
+        this edit. Line numbers a zero-indexed, such that the
         "TITLE:" record is line zero.
         """
         return self.edit_statement.line_number
@@ -35,7 +39,7 @@ class Edit:
         """
         cm = ChannelMap()
         cm._append_event(self.edit_statement.channels)
-        if self.audio_ext != None:
+        if self.audio_ext is not None:
             cm._append_ext(self.audio_ext)
         return cm
 
@@ -45,10 +49,13 @@ class Edit:
         Get the :obj:`Transition` object associated with this edit.
         """
         if self.trans_name_statement:
-            return Transition(self.edit_statement.trans, self.edit_statement.trans_op, self.trans_name_statement.name)
+            return Transition(self.edit_statement.trans,
+                              self.edit_statement.trans_op,
+                              self.trans_name_statement.name)
         else:
-            return Transition(self.edit_statement.trans, self.edit_statement.trans_op, None)
-    
+            return Transition(self.edit_statement.trans,
+                              self.edit_statement.trans_op, None)
+
     @property
     def source_in(self) -> str:
         """
@@ -116,7 +123,7 @@ class Edit:
     @property
     def clip_name(self) -> Optional[str]:
         """
-        Get the clip name, as attested by a "* FROM CLIP NAME" or "* TO CLIP 
+        Get the clip name, as attested by a "* FROM CLIP NAME" or "* TO CLIP
         NAME" remark on the EDL. This will return None if the information is
         not present.
         """
@@ -124,5 +131,3 @@ class Edit:
             return None
         else:
             return self.clip_name_statement.name
-
-

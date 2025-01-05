@@ -6,7 +6,8 @@
 from .parse_cmx_statements import (parse_cmx3600_statements)
 from .edit_list import EditList
 
-from typing import TextIO 
+from typing import TextIO
+
 
 def parse_cmx3600(f: TextIO) -> EditList:
     """
@@ -17,4 +18,3 @@ def parse_cmx3600(f: TextIO) -> EditList:
     """
     statements = parse_cmx3600_statements(f)
     return EditList(statements)
-    
