@@ -12,22 +12,20 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
-import pycmx
 
 # -- Project information -----------------------------------------------------
 
 project = u'pycmx'
-copyright = u'(c) 2023, Jamie Hardt'
+copyright = u'(c) 2025, Jamie Hardt'
 author = u'Jamie Hardt'
 
 # The short X.Y version
-version = pycmx.__version__
 # The full version, including alpha/beta/rc tags
-release = pycmx.__version__
 
 
 # -- General configuration ---------------------------------------------------

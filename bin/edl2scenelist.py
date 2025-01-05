@@ -36,9 +36,9 @@ def output_cmx(outfile, out_list):
     outfile.write("TITLE:  SCENE LIST\r\n")
     outfile.write("FCM: NON-DROP FRAME\r\n")
 
-    for o in out_list:
-        line = "%03i  AX       V     C        00:00:00:00 00:00:00:00 %s %s\r\n" % (
-            0, o['start'], o['end'])
+    for i, o in enumerate(out_list):
+        line = '%03i  AX       V     C        ' % (i)
+        line += '00:00:00:00 00:00:00:00 %s %s\r\n' % (o['start'], o['end'])
         outfile.write(line)
         outfile.write("* FROM CLIP NAME: %s\r\n" % (o['scene']))
 
@@ -85,15 +85,20 @@ def scene_list(infile, outfile, out_format, pattern):
 
 def scene_list_cli():
     parser = argparse.ArgumentParser(
-        description='Read video events from an input CMX EDL and output events merged into scenes.')
-    parser.add_argument('-o', '--outfile', default=sys.stdout, type=argparse.FileType('w'),
+        description='Read video events from an input CMX EDL and output '
+        'events merged into scenes.')
+    parser.add_argument('-o', '--outfile', default=sys.stdout,
+                        type=argparse.FileType('w'),
                         help='Output file. Default is stdout.')
     parser.add_argument('-f', '--format', default='cmx', type=str,
-                        help='Output format. Options are cols and cmx, cmx is the default.')
+                        help='Output format. Options are cols and cmx, cmx '
+                        'is the default.')
     parser.add_argument('-p', '--pattern', default='V?([A-Z]*[0-9]+)',
-                        help='RE pattern for extracting scene name from clip name. The default is "V?([A-Z]*[0-9]+)". ' +
+                        help='RE pattern for extracting scene name from clip '
+                        'name. The default is "V?([A-Z]*[0-9]+)". ' +
                         'This pattern will be matched case-insensitively.')
-    parser.add_argument('input_edl', default=sys.stdin, type=argparse.FileType('r'), nargs='?',
+    parser.add_argument('input_edl', default=sys.stdin,
+                        type=argparse.FileType('r'), nargs='?',
                         help='Input file. Default is stdin.')
     args = parser.parse_args()
 
