@@ -20,6 +20,8 @@ class EditList:
         """
         The detected format of the EDL. Possible values are: "3600", "File32",
         "File128", and "unknown".
+
+        Adobe EDLs with more than 999 events will be reported as "3600".
         """
         first_event = next( (s for s in self.event_statements if type(s) is StmtEvent), None)
 
