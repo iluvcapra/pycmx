@@ -61,33 +61,32 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
     long_event_num_p = re.compile("^[0-9]{6} ")
     short_event_num_p = re.compile("^[0-9]{3} ")
 
-    if isinstance(line, str):
-        if line.startswith("TITLE:"):
-            return _parse_title(line, line_number)
-        elif line.startswith("FCM:"):
-            return _parse_fcm(line, line_number)
-        elif long_event_num_p.match(line) is not None:
-            length_file_128 = sum(_edl_column_widths(6, 128))
-            if len(line) < length_file_128:
-                return _parse_long_standard_form(line, 32, line_number)
-            else:
-                return _parse_long_standard_form(line, 128, line_number)
-        elif short_event_num_p.match(line) is not None:
-            return _parse_standard_form(line, line_number)
-        elif line.startswith("AUD"):
-            return _parse_extended_audio_channels(line, line_number)
-        elif line.startswith("*"):
-            return _parse_remark(line[1:].strip(), line_number)
-        elif line.startswith(">>> SOURCE"):
-            return _parse_source_umid_statement(line, line_number)
-        elif line.startswith("EFFECTS NAME IS"):
-            return _parse_effects_name(line, line_number)
-        elif line.startswith("SPLIT:"):
-            return _parse_split(line, line_number)
-        elif line.startswith("M2"):
-            return _parse_motion_memory(line, line_number)
+    if line.startswith("TITLE:"):
+        return _parse_title(line, line_number)
+    elif line.startswith("FCM:"):
+        return _parse_fcm(line, line_number)
+    elif long_event_num_p.match(line) is not None:
+        length_file_128 = sum(_edl_column_widths(6, 128))
+        if len(line) < length_file_128:
+            return _parse_long_standard_form(line, 32, line_number)
         else:
-            return _parse_unrecognized(line, line_number)
+            return _parse_long_standard_form(line, 128, line_number)
+    elif short_event_num_p.match(line) is not None:
+        return _parse_standard_form(line, line_number)
+    elif line.startswith("AUD"):
+        return _parse_extended_audio_channels(line, line_number)
+    elif line.startswith("*"):
+        return _parse_remark(line[1:].strip(), line_number)
+    elif line.startswith(">>> SOURCE"):
+        return _parse_source_umid_statement(line, line_number)
+    elif line.startswith("EFFECTS NAME IS"):
+        return _parse_effects_name(line, line_number)
+    elif line.startswith("SPLIT:"):
+        return _parse_split(line, line_number)
+    elif line.startswith("M2"):
+        return _parse_motion_memory(line, line_number)
+    else:
+        return _parse_unrecognized(line, line_number)
 
 
 def _parse_title(line, line_num) -> StmtTitle:
