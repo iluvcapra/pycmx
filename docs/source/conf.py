@@ -25,7 +25,7 @@ copyright = u'(c) 2025, Jamie Hardt'
 author = u'Jamie Hardt'
 
 release = importlib.metadata.version("pycmx")
-version = release.split(".")[0:2]
+version = release
 # The short X.Y version
 # The full version, including alpha/beta/rc tags
 
