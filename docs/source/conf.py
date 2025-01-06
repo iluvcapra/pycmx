@@ -12,7 +12,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-
+import importlib
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
@@ -24,6 +24,8 @@ project = u'pycmx'
 copyright = u'(c) 2025, Jamie Hardt'
 author = u'Jamie Hardt'
 
+release = importlib.metadata.version("pycmx")
+version = release
 # The short X.Y version
 # The full version, including alpha/beta/rc tags
 
