@@ -5,12 +5,13 @@
 
 # pycmx
 
-The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and its most most common variations.
+The `pycmx` package provides a basic interface for parsing a CMX 3600 EDL and 
+its most most common variations.
 
 ## Features
 
-* The major variations of the CMX 3600: the standard, "File32" and "File128" 
-  formats are automatically detected and properly read.
+* The major variations of the CMX 3600: the standard, "File32", "File128" and 
+  long Adobe Premiere formats are automatically detected and properly read.
 * Preserves relationship between events and individual edits/clips.
 * Remark or comment fields with common recognized forms are read and 
   available to the client, including clip name and source file data.
@@ -83,5 +84,3 @@ Audio channel 7 is present
 >>> events[2].edits[0].channels.video
 False
 ```
-
-

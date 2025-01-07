@@ -113,3 +113,10 @@ class TestParse(TestCase):
             events = list(edl.events)
             self.assertEqual(
                 events[4].edits[1].transition.name,  "CROSS DISSOLVE")
+
+    def test_adobe_wide(self):
+        with open("tests/edls/adobe_dai109_test.txt", 'r',
+                  encoding='ISO-8859-1') as f:
+            edl = pycmx.parse_cmx3600(f)
+            events = list(edl.events)
+            self.assertEqual(len(events), 2839)

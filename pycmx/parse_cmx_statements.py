@@ -60,6 +60,7 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
     """
     long_event_num_p = re.compile("^[0-9]{6} ")
     short_event_num_p = re.compile("^[0-9]{3} ")
+    x_event_form_p = re.compile("^([0-9]{4,5}) ")
 
     if line.startswith("TITLE:"):
         return _parse_title(line, line_number)
@@ -71,6 +72,11 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
             return _parse_long_standard_form(line, 32, line_number)
         else:
             return _parse_long_standard_form(line, 128, line_number)
+    elif (m := x_event_form_p.match(line)) is not None:
+        assert m is not None
+        event_field_length = len(m[1])
+        return _parse_columns_for_standard_form(line, event_field_length,
+                                                8, line_number)
     elif short_event_num_p.match(line) is not None:
         return _parse_standard_form(line, line_number)
     elif line.startswith("AUD"):
