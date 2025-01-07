@@ -11,7 +11,8 @@ its most most common variations.
 ## Features
 
 * The major variations of the CMX 3600: the standard, "File32", "File128" and 
-  long Adobe Premiere formats are automatically detected and properly read.
+  long Adobe Premiere event numbers are automatically detected and properly
+  read.
 * Preserves relationship between events and individual edits/clips.
 * Remark or comment fields with common recognized forms are read and 
   available to the client, including clip name and source file data.
