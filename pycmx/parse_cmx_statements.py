@@ -60,7 +60,7 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
     """
     event_num_p = re.compile(r"^(\d+)  ")
     line_matcher = event_num_p.match(line)
-    
+
     if line.startswith("TITLE:"):
         return _parse_title(line, line_number)
     elif line.startswith("FCM:"):
@@ -109,13 +109,14 @@ def _parse_fcm(line, line_num) -> StmtFCM:
 
 def _parse_extended_audio_channels(line, line_number):
     content = line.strip()
-    audio3 = True if "3" in content else False 
+    audio3 = True if "3" in content else False
     audio4 = True if "4" in content else False
-    
+
     if audio3 or audio4:
         return StmtAudioExt(audio3, audio4, line_number)
     else:
         return StmtUnrecognized(line, line_number)
+
 
 def _parse_remark(line, line_number) -> object:
     if line.startswith("FROM CLIP NAME:"):

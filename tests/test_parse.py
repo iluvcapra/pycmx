@@ -39,9 +39,9 @@ class TestParse(TestCase):
             with open(path, 'r') as f:
                 edl = pycmx.parse_cmx3600(f)
                 for index, event in enumerate(edl.events):
-                    self.assertTrue(len(event.edits) > 0, 
+                    self.assertTrue(len(event.edits) > 0,
                                     f"Failed for {path}")
-                    self.assertEqual(event.number, index + 1, 
+                    self.assertEqual(event.number, index + 1,
                                      f"Failed for {path}")
 
     def test_events(self):
