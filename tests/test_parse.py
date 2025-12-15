@@ -39,8 +39,10 @@ class TestParse(TestCase):
             with open(path, 'r') as f:
                 edl = pycmx.parse_cmx3600(f)
                 for index, event in enumerate(edl.events):
-                    self.assertTrue(len(event.edits) > 0)
-                    self.assertTrue(event.number == index + 1)
+                    self.assertTrue(len(event.edits) > 0, 
+                                    f"Failed for {path}")
+                    self.assertEqual(event.number, index + 1, 
+                                     f"Failed for {path}")
 
     def test_events(self):
         with open("tests/edls/TEST.edl", 'r') as f:
@@ -119,4 +121,5 @@ class TestParse(TestCase):
                   encoding='ISO-8859-1') as f:
             edl = pycmx.parse_cmx3600(f)
             events = list(edl.events)
+
             self.assertEqual(len(events), 2839)
