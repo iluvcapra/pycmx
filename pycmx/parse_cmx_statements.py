@@ -68,7 +68,8 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
     elif line_matcher is not None:
         event_field_len = len(line_matcher.group(1))
         source_field_len = len(line) - (event_field_len + 65)
-        return _parse_columns_for_standard_form(line, event_field_len, source_field_len, line_number)
+        return _parse_columns_for_standard_form(line, event_field_len,
+                                                source_field_len, line_number)
     elif line.startswith("AUD"):
         return _parse_extended_audio_channels(line, line_number)
     elif line.startswith("*"):
@@ -96,15 +97,6 @@ def _parse_fcm(line, line_num) -> StmtFCM:
         return StmtFCM(drop=True, line_number=line_num)
     else:
         return StmtFCM(drop=False, line_number=line_num)
-
-
-# def _parse_long_standard_form(line, event_field_length, source_field_length, line_number):
-#     return _parse_columns_for_standard_form(line, , source_field_length,
-#                                             line_number)
-
-
-# def _parse_standard_form(line, line_number):
-#     return _parse_columns_for_standard_form(line, 3, 8, line_number)
 
 
 def _parse_extended_audio_channels(line, line_number):
