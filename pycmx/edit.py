@@ -1,6 +1,7 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
+from pycmx.statements import StmtCdlSat, StmtCdlSop
 from .transition import Transition
 from .channel_map import ChannelMap
 # from .parse_cmx_statements import StmtEffectsName
@@ -16,12 +17,17 @@ class Edit:
 
     def __init__(self, edit_statement, audio_ext_statement,
                  clip_name_statement, source_file_statement,
-                 trans_name_statement=None):
+                 trans_name_statement=None, asc_sop_statement=None,
+                 asc_sat_statement=None, frmc_statement=None):
+
         self.edit_statement = edit_statement
         self.audio_ext = audio_ext_statement
         self.clip_name_statement = clip_name_statement
         self.source_file_statement = source_file_statement
         self.trans_name_statement = trans_name_statement
+        self.asc_sop_statement: Optional[StmtCdlSop] = asc_sop_statement
+        self.asc_sat_statement: Optional[StmtCdlSat] = asc_sat_statement
+        self.frmc_statement = frmc_statement
 
     @property
     def line_number(self) -> int:
@@ -131,3 +137,17 @@ class Edit:
             return None
         else:
             return self.clip_name_statement.name
+
+    @property 
+    def asc_sop(self) -> Optional[StmtCdlSop]:
+        """
+        Get ASC CDL Slope-Offset-Power transfer function for clip, if present
+        """
+        return self.asc_sop_statement
+
+    @property 
+    def asc_sat(self) -> Optional[StmtCdlSat]:
+        """
+        Get ASC CDL saturation value for clip, if present
+        """
+        return self.asc_sat_statement

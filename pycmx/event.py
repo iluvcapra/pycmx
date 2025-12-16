@@ -75,7 +75,9 @@ class Event:
                      audio_ext_statement=e1[1],
                      clip_name_statement=n1,
                      source_file_statement=s1,
-                     trans_name_statement=u1)
+                     trans_name_statement=u1, 
+                     asc_sop_statement=self._asc_sop_statement(), 
+                     asc_sat_statement=self._asc_sat_statement())
                 for (e1, n1, s1, u1) in zip(*the_zip)]
 
     @property
@@ -108,5 +110,10 @@ class Event:
             elif type(s1) is StmtEvent:
                 yield (s1, None)
 
-    def _asc_sop_statements(self) -> list[StmtCdlSop]:
-        return [s for s in self.statements if type(s) == StmtCdlSop]
+    def _asc_sop_statement(self) -> Optional[StmtCdlSop]:
+        return next((s for s in self.statements if type(s) == StmtCdlSop),
+                    None)
+
+    def _asc_sat_statement(self) -> Optional[StmtCdlSat]:
+        return next((s for s in self.statements if type(s) == StmtCdlSat),
+                    None)
