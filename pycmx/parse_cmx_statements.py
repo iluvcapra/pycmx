@@ -3,7 +3,7 @@
 
 import re
 from collections import namedtuple
-from typing import TextIO, List
+from typing import Any, TextIO, List
 
 from .statements import *
 from .util import collimate
@@ -104,6 +104,26 @@ def _parse_remark(line, line_number) -> object:
     elif line.startswith("SOURCE FILE:"):
         return StmtSourceFile(filename=line[12:].strip(),
                               line_number=line_number)
+    elif line.startswith("ASC_SOP"):
+        group_patterns: list[str] = re.findall(r'\((.*?)\)', line)
+        
+        v: list[list[str]] = [re.findall(r'-?\d+(\.\d+)?', a) for
+                                           a in group_patterns]
+
+        if len(v) != 3 or any([len(a) != 3 for a in v]):
+            return StmtRemark(line, line_number)
+
+        else:
+            return StmtCdlSop(slope_r=v[0][0], slope_g=v[0][1],
+                              slope_b=v[0][2], offset_r=v[1][0],
+                              offset_g=v[1][1], offset_b=v[1][2],
+                              power_r=v[2][0], power_g=v[2][1],
+                              power_b=v[2][2], line_number=line_number)
+
+    elif line.startswith("ASC_SAT"):
+        ...
+    elif line.startswith("FRMC"):
+        ...
     else:
         return StmtRemark(text=line, line_number=line_number)
 
