@@ -1,9 +1,7 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from pycmx.statements import StmtTitle
-from .parse_cmx_statements import (
-    StmtUnrecognized, StmtEvent, StmtSourceUMID)
+from pycmx.statements import StmtTitle, StmtEvent, StmtUnrecognized
 from .event import Event
 from .channel_map import ChannelMap
 
