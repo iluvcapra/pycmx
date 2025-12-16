@@ -110,9 +110,9 @@ class Event:
                 yield (s1, None)
 
     def _asc_sop_statement(self) -> Optional[StmtCdlSop]:
-        return next((s for s in self.statements if type(s) == StmtCdlSop),
+        return next((s for s in self.statements if type(s) is StmtCdlSop),
                     None)
 
     def _asc_sat_statement(self) -> Optional[StmtCdlSat]:
-        return next((s for s in self.statements if type(s) == StmtCdlSat),
+        return next((s for s in self.statements if type(s) is StmtCdlSat),
                     None)

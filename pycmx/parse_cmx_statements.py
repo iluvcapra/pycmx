@@ -109,8 +109,8 @@ def _parse_remark(line, line_number) -> object:
     elif line.startswith("ASC_SOP"):
         group_patterns: list[str] = re.findall(r'\((.*?)\)', line)
 
-        v1: list[list[tuple[str, str]]] = [re.findall(r'(-?\d+(\.\d+)?)', a) for
-                                           a in group_patterns]
+        v1: list[list[tuple[str, str]]] = \
+                [re.findall(r'(-?\d+(\.\d+)?)', a) for a in group_patterns]
 
         v: list[list[str]] = [[a[0] for a in b] for b in v1]
 
