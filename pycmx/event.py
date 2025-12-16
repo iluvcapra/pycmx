@@ -1,9 +1,10 @@
 # pycmx
 # (c) 2023 Jamie Hardt
 
+from pycmx.statements import StmtFrmc
 from .parse_cmx_statements import (
     StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized,
-    StmtEffectsName)
+    StmtEffectsName, StmtCdlSop, StmtCdlSat)
 from .edit import Edit
 
 from typing import List, Generator, Optional, Tuple, Any
@@ -74,7 +75,10 @@ class Event:
                      audio_ext_statement=e1[1],
                      clip_name_statement=n1,
                      source_file_statement=s1,
-                     trans_name_statement=u1)
+                     trans_name_statement=u1,
+                     asc_sop_statement=self._asc_sop_statement(),
+                     asc_sat_statement=self._asc_sat_statement(),
+                     frmc_statement=self._frmc_statement())
                 for (e1, n1, s1, u1) in zip(*the_zip)]
 
     @property
@@ -106,3 +110,14 @@ class Event:
                 yield (s1, s2)
             elif type(s1) is StmtEvent:
                 yield (s1, None)
+
+    def _asc_sop_statement(self) -> Optional[StmtCdlSop]:
+        return next((s for s in self.statements if type(s) is StmtCdlSop),
+                    None)
+
+    def _asc_sat_statement(self) -> Optional[StmtCdlSat]:
+        return next((s for s in self.statements if type(s) is StmtCdlSat),
+                    None)
+
+    def _frmc_statement(self) -> Optional[StmtFrmc]:
+        return next((s for s in self.statements if type(s) is StmtFrmc), None)

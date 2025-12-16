@@ -2,28 +2,14 @@
 # (c) 2018 Jamie Hardt
 
 import re
-from collections import namedtuple
 from typing import TextIO, List
 
-
+from .statements import (StmtCdlSat, StmtCdlSop, StmtFrmc, StmtRemark,
+                         StmtTitle, StmtUnrecognized, StmtFCM, StmtAudioExt,
+                         StmtClipName, StmtEffectsName, StmtEvent,
+                         StmtSourceFile, StmtSplitEdit, StmtMotionMemory,
+                         StmtSourceUMID)
 from .util import collimate
-
-StmtTitle = namedtuple("Title", ["title", "line_number"])
-StmtFCM = namedtuple("FCM", ["drop", "line_number"])
-StmtEvent = namedtuple("Event", ["event", "source", "channels", "trans",
-                                 "trans_op", "source_in", "source_out",
-                                 "record_in", "record_out", "format",
-                                 "line_number"])
-StmtAudioExt = namedtuple("AudioExt", ["audio3", "audio4", "line_number"])
-StmtClipName = namedtuple("ClipName", ["name", "affect", "line_number"])
-StmtSourceFile = namedtuple("SourceFile", ["filename", "line_number"])
-StmtRemark = namedtuple("Remark", ["text", "line_number"])
-StmtEffectsName = namedtuple("EffectsName", ["name", "line_number"])
-StmtSourceUMID = namedtuple("Source", ["name", "umid", "line_number"])
-StmtSplitEdit = namedtuple("SplitEdit", ["video", "magnitude", "line_number"])
-StmtMotionMemory = namedtuple(
-    "MotionMemory", ["source", "fps"])  # FIXME needs more fields
-StmtUnrecognized = namedtuple("Unrecognized", ["content", "line_number"])
 
 
 def parse_cmx3600_statements(file: TextIO) -> List[object]:
@@ -120,6 +106,45 @@ def _parse_remark(line, line_number) -> object:
     elif line.startswith("SOURCE FILE:"):
         return StmtSourceFile(filename=line[12:].strip(),
                               line_number=line_number)
+    elif line.startswith("ASC_SOP"):
+        group_patterns: list[str] = re.findall(r'\((.*?)\)', line)
+
+        v1: list[list[tuple[str, str]]] = \
+                [re.findall(r'(-?\d+(\.\d+)?)', a) for a in group_patterns]
+
+        v: list[list[str]] = [[a[0] for a in b] for b in v1]
+
+        if len(v) != 3 or any([len(a) != 3 for a in v]):
+            return StmtRemark(line, line_number)
+
+        else:
+            return StmtCdlSop(slope_r=v[0][0], slope_g=v[0][1],
+                              slope_b=v[0][2], offset_r=v[1][0],
+                              offset_g=v[1][1], offset_b=v[1][2],
+                              power_r=v[2][0], power_g=v[2][1],
+                              power_b=v[2][2], line_number=line_number)
+
+    elif line.startswith("ASC_SAT"):
+        value = re.findall(r'(-?\d+(\.\d+)?)', line)
+
+        if len(value) != 1:
+            return StmtRemark(line, line_number)
+
+        else:
+            return StmtCdlSat(value=value[0][0], line_number=line_number)
+
+    elif line.startswith("FRMC"):
+        match = re.match(
+            r'^FRMC START:\s*(\d+)\s+FRMC END:\s*(\d+)'
+            r'\s+FRMC DURATION:\s*(\d+)', line, re.IGNORECASE)
+
+        if match is None:
+            return StmtRemark(line, line_number)
+
+        else:
+            return StmtFrmc(start=match.group(1), end=match.group(2),
+                            duration=match.group(3), line_number=line_number)
+
     else:
         return StmtRemark(text=line, line_number=line_number)
 
