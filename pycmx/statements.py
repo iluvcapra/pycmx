@@ -1,3 +1,6 @@
+# pycmx
+# (c) 2025 Jamie Hardt
+
 from collections import namedtuple
 
 from typing import NamedTuple

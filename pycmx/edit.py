@@ -1,5 +1,5 @@
 # pycmx
-# (c) 2018 Jamie Hardt
+# (c) 2018-2025 Jamie Hardt
 
 from pycmx.statements import StmtCdlSat, StmtCdlSop, StmtFrmc
 from .transition import Transition

@@ -1,5 +1,5 @@
 # pycmx
-# (c) 2018 Jamie Hardt
+# (c) 2018-2025 Jamie Hardt
 
 import re
 from typing import TextIO, List

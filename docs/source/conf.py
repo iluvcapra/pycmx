@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = u'pycmx'
-copyright = u'(c) 2025, Jamie Hardt'
+copyright = u'(c) 2018-2025, Jamie Hardt'
 author = u'Jamie Hardt'
 
 release = importlib.metadata.version("pycmx")

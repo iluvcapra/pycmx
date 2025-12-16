@@ -1,5 +1,5 @@
 # pycmx
-# (c) 2025 Jamie Hardt
+# (c) 2018-2025 Jamie Hardt
 
 from typing import TextIO
 
