@@ -196,4 +196,5 @@ def _parse_columns_for_standard_form(line: str, event_field_length: int,
 
 def _parse_source_umid_statement(line, line_number):
     # trimmed = line[3:].strip()
-    return StmtSourceUMID(name=None, umid=None, line_number=line_number)
+    # return StmtSourceUMID(name=None, umid=None, line_number=line_number)
+    ...
