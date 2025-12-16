@@ -10,12 +10,15 @@ its most most common variations.
 
 ## Features
 
-* The major variations of the CMX 3600: the standard, "File32", "File128" and 
+* The major variations of the CMX 3600: the standard, "File32", "File128" and
   long Adobe Premiere event numbers are automatically detected and properly
-  read.
+  read. Event number field and source name field sizes are determined
+  dynamically for each statement for a high level of compliance at the expense
+  of strictness.
 * Preserves relationship between events and individual edits/clips.
 * Remark or comment fields with common recognized forms are read and 
   available to the client, including clip name and source file data.
+* ASC SOP, Saturation and FRMC statements are parsed and decoded.
 * Symbolically decodes transitions and audio channels.
 * Does not parse or validate timecodes, does not enforce framerates, does not
   parameterize timecode or framerates in any way. This makes the parser more
