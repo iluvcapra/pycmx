@@ -1,6 +1,7 @@
 # pycmx
 # (c) 2023 Jamie Hardt
 
+from pycmx.statements import StmtFrmc
 from .parse_cmx_statements import (
     StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized,
     StmtEffectsName, StmtCdlSop, StmtCdlSat)
@@ -76,7 +77,8 @@ class Event:
                      source_file_statement=s1,
                      trans_name_statement=u1,
                      asc_sop_statement=self._asc_sop_statement(),
-                     asc_sat_statement=self._asc_sat_statement())
+                     asc_sat_statement=self._asc_sat_statement(),
+                     frmc_statement=self._frmc_statement())
                 for (e1, n1, s1, u1) in zip(*the_zip)]
 
     @property
@@ -116,3 +118,6 @@ class Event:
     def _asc_sat_statement(self) -> Optional[StmtCdlSat]:
         return next((s for s in self.statements if type(s) is StmtCdlSat),
                     None)
+
+    def _frmc_statement(self) -> Optional[StmtFrmc]:
+        return next((s for s in self.statements if type(s) is StmtFrmc), None)

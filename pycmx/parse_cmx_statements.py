@@ -136,8 +136,7 @@ def _parse_remark(line, line_number) -> object:
     elif line.startswith("FRMC"):
         match = re.match(
             r'^FRMC START:\s*(\d+)\s+FRMC END:\s*(\d+)'
-            r'\s+FRMC DURATION:\s*(\d+)',
-            line)
+            r'\s+FRMC DURATION:\s*(\d+)', line, re.IGNORECASE)
 
         if match is None:
             return StmtRemark(line, line_number)

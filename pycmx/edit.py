@@ -1,7 +1,7 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
-from pycmx.statements import StmtCdlSat, StmtCdlSop
+from pycmx.statements import StmtCdlSat, StmtCdlSop, StmtFrmc
 from .transition import Transition
 from .channel_map import ChannelMap
 
@@ -26,7 +26,7 @@ class Edit:
         self.trans_name_statement = trans_name_statement
         self.asc_sop_statement: Optional[StmtCdlSop] = asc_sop_statement
         self.asc_sat_statement: Optional[StmtCdlSat] = asc_sat_statement
-        self.frmc_statement = frmc_statement
+        self.frmc_statement: Optional[StmtFrmc] = frmc_statement
 
     @property
     def line_number(self) -> int:
@@ -150,3 +150,10 @@ class Edit:
         Get ASC CDL saturation value for clip, if present
         """
         return self.asc_sat_statement
+
+    @property 
+    def frmc(self) -> Optional[StmtFrmc]:
+        """
+        Get FRMC data
+        """
+        return self.frmc_statement
