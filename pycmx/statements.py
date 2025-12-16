@@ -89,7 +89,7 @@ class StmtSourceUMID(NamedTuple):
 
 
 class StmtSplitEdit(NamedTuple):
-    video: str
+    video: bool
     magnitude: str
     line_number: int
 

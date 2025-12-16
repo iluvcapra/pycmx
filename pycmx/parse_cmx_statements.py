@@ -154,11 +154,9 @@ def _parse_effects_name(line, line_number) -> StmtEffectsName:
     return StmtEffectsName(name=name, line_number=line_number)
 
 
-def _parse_split(line, line_number):
+def _parse_split(line: str, line_number):
     split_type = line[10:21]
-    is_video = False
-    if split_type.startswith("VIDEO"):
-        is_video = True
+    is_video = split_type.startswith("VIDEO")
 
     split_mag = line[24:35]
     return StmtSplitEdit(video=is_video, magnitude=split_mag,
@@ -192,7 +190,8 @@ def _parse_columns_for_standard_form(line: str, event_field_length: int,
                      source_out=column_strings[12].strip(),
                      record_in=column_strings[14].strip(),
                      record_out=column_strings[16].strip(),
-                     line_number=line_number, source_field_size=source_field_length)
+                     line_number=line_number,
+                     source_field_size=source_field_length)
 
 
 def _parse_source_umid_statement(line, line_number):
