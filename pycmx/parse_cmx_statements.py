@@ -7,8 +7,7 @@ from typing import TextIO, List
 from .statements import (StmtCdlSat, StmtCdlSop, StmtFrmc, StmtRemark,
                          StmtTitle, StmtUnrecognized, StmtFCM, StmtAudioExt,
                          StmtClipName, StmtEffectsName, StmtEvent,
-                         StmtSourceFile, StmtSplitEdit, StmtMotionMemory,
-                         StmtSourceUMID)
+                         StmtSourceFile, StmtSplitEdit, StmtMotionMemory)
 from .util import collimate
 
 
