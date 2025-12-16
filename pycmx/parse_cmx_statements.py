@@ -9,7 +9,6 @@ from .statements import *
 from .util import collimate
 
 
-
 def parse_cmx3600_statements(file: TextIO) -> List[object]:
     """
     Return a list of every statement in the file argument.
@@ -106,9 +105,9 @@ def _parse_remark(line, line_number) -> object:
                               line_number=line_number)
     elif line.startswith("ASC_SOP"):
         group_patterns: list[str] = re.findall(r'\((.*?)\)', line)
-        
+
         v: list[list[str]] = [re.findall(r'-?\d+(\.\d+)?', a) for
-                                           a in group_patterns]
+                              a in group_patterns]
 
         if len(v) != 3 or any([len(a) != 3 for a in v]):
             return StmtRemark(line, line_number)
@@ -122,15 +121,26 @@ def _parse_remark(line, line_number) -> object:
 
     elif line.startswith("ASC_SAT"):
         value = re.findall(r'-?\d+(\.\d+)?', line)
-        
+
         if len(value) != 1:
             return StmtRemark(line, line_number)
-    
+
         else:
-            return StmtCdlSat(value=value[0])
+            return StmtCdlSat(value=value[0], line_number=line_number)
 
     elif line.startswith("FRMC"):
-        ...
+        match = re.match(
+            r'^FRMC START:\s*(\d+)\s+FRMC END:\s*(\d+)'
+            r'\s+FRMC DURATION:\s*(\d+)',
+            line)
+
+        if match is None:
+            return StmtRemark(line, line_number)
+
+        else:
+            return StmtFrmc(start=match.group(1), end=match.group(2),
+                            duration=match.group(3), line_number=line_number)
+
     else:
         return StmtRemark(text=line, line_number=line_number)
 
