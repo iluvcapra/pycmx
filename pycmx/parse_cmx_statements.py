@@ -58,27 +58,18 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
     :param line: A single EDL line.
     :param line_number: The index of this line in the file.
     """
-    long_event_num_p = re.compile("^[0-9]{6} ")
-    short_event_num_p = re.compile("^[0-9]{3} ")
-    x_event_form_p = re.compile("^([0-9]{4,5}) ")
+    event_num_p = re.compile(r"^(\d+)  ")
+    line_matcher = event_num_p.match(line)
 
     if line.startswith("TITLE:"):
         return _parse_title(line, line_number)
     elif line.startswith("FCM:"):
         return _parse_fcm(line, line_number)
-    elif long_event_num_p.match(line) is not None:
-        length_file_128 = sum(_edl_column_widths(6, 128))
-        if len(line) < length_file_128:
-            return _parse_long_standard_form(line, 32, line_number)
-        else:
-            return _parse_long_standard_form(line, 128, line_number)
-    elif (m := x_event_form_p.match(line)) is not None:
-        assert m is not None
-        event_field_length = len(m[1])
-        return _parse_columns_for_standard_form(line, event_field_length,
-                                                8, line_number)
-    elif short_event_num_p.match(line) is not None:
-        return _parse_standard_form(line, line_number)
+    elif line_matcher is not None:
+        event_field_len = len(line_matcher.group(1))
+        source_field_len = len(line) - (event_field_len + 65)
+        return _parse_columns_for_standard_form(line, event_field_len,
+                                                source_field_len, line_number)
     elif line.startswith("AUD"):
         return _parse_extended_audio_channels(line, line_number)
     elif line.startswith("*"):
@@ -108,25 +99,15 @@ def _parse_fcm(line, line_num) -> StmtFCM:
         return StmtFCM(drop=False, line_number=line_num)
 
 
-def _parse_long_standard_form(line, source_field_length, line_number):
-    return _parse_columns_for_standard_form(line, 6, source_field_length,
-                                            line_number)
-
-
-def _parse_standard_form(line, line_number):
-    return _parse_columns_for_standard_form(line, 3, 8, line_number)
-
-
 def _parse_extended_audio_channels(line, line_number):
     content = line.strip()
-    if content == "AUD   3":
-        return StmtAudioExt(audio3=True, audio4=False, line_number=line_number)
-    elif content == "AUD   4":
-        return StmtAudioExt(audio3=False, audio4=True, line_number=line_number)
-    elif content == "AUD   3     4":
-        return StmtAudioExt(audio3=True, audio4=True, line_number=line_number)
+    audio3 = True if "3" in content else False
+    audio4 = True if "4" in content else False
+
+    if audio3 or audio4:
+        return StmtAudioExt(audio3, audio4, line_number)
     else:
-        return StmtUnrecognized(content=line, line_number=line_number)
+        return StmtUnrecognized(line, line_number)
 
 
 def _parse_remark(line, line_number) -> object:
