@@ -1,9 +1,10 @@
 # pycmx
 # (c) 2023 Jamie Hardt
 
-from .parse_cmx_statements import (
-    StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized,
-    StmtEffectsName)
+from pycmx.statements import *
+# from .parse_cmx_statements import (
+#     StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized,
+#     StmtEffectsName)
 from .edit import Edit
 
 from typing import List, Generator, Optional, Tuple, Any
@@ -106,3 +107,6 @@ class Event:
                 yield (s1, s2)
             elif type(s1) is StmtEvent:
                 yield (s1, None)
+
+    def _asc_sop_statements(self) -> list[StmtCdlSop]:
+        return [s for s in self.statements if type(s) == StmtCdlSop]

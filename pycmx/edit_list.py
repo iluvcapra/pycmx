@@ -1,6 +1,7 @@
 # pycmx
 # (c) 2018 Jamie Hardt
 
+from pycmx.statements import StmtTitle
 from .parse_cmx_statements import (
     StmtUnrecognized, StmtEvent, StmtSourceUMID)
 from .event import Event
@@ -16,7 +17,7 @@ class EditList:
     """
 
     def __init__(self, statements):
-        self.title_statement = statements[0]
+        self.title_statement: StmtTitle = statements[0]
         self.event_statements = statements[1:]
 
     @property
@@ -90,8 +91,6 @@ class EditList:
                     else:
                         event_statements.append(stmt)
 
-            elif type(stmt) is StmtSourceUMID:
-                break
             else:
                 event_statements.append(stmt)
 

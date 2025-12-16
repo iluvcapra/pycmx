@@ -121,7 +121,14 @@ def _parse_remark(line, line_number) -> object:
                               power_b=v[2][2], line_number=line_number)
 
     elif line.startswith("ASC_SAT"):
-        ...
+        value = re.findall(r'-?\d+(\.\d+)?', line)
+        
+        if len(value) != 1:
+            return StmtRemark(line, line_number)
+    
+        else:
+            return StmtCdlSat(value=value[0])
+
     elif line.startswith("FRMC"):
         ...
     else:
