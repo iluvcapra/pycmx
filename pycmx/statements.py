@@ -12,10 +12,21 @@ class StmtFCM(NamedTuple):
     drop: bool
     line_number: int
 
-StmtEvent = namedtuple("Event", ["event", "source", "channels", "trans",
-                                 "trans_op", "source_in", "source_out",
-                                 "record_in", "record_out", "format",
-                                 "line_number"])
+
+class StmtEvent(NamedTuple):
+    event: int
+    source: str
+    channels: str 
+    trans: str
+    trans_op: str
+    source_in: str
+    source_out: str
+    record_in: str
+    record_out: str
+    format: int
+    line_number: int
+
+
 StmtAudioExt = namedtuple("AudioExt", ["audio3", "audio4", "line_number"])
 StmtClipName = namedtuple("ClipName", ["name", "affect", "line_number"])
 StmtSourceFile = namedtuple("SourceFile", ["filename", "line_number"])

@@ -173,8 +173,9 @@ def _parse_unrecognized(line, line_number):
     return StmtUnrecognized(content=line, line_number=line_number)
 
 
-def _parse_columns_for_standard_form(line, event_field_length,
-                                     source_field_length, line_number):
+def _parse_columns_for_standard_form(line: str, event_field_length: int,
+                                     source_field_length: int,
+                                     line_number: int):
     col_widths = _edl_column_widths(event_field_length, source_field_length)
 
     if sum(col_widths) > len(line):
