@@ -138,7 +138,6 @@ class TestParse(TestCase):
                     self.assertEqual(event.edits[0].source_in,
                                      "18:44:20:12")
 
-
     def test_cdl(self):
         with open("tests/edls/cdl_example01.edl", "r") as f:
             edl = pycmx.parse_cmx3600(f)
@@ -149,7 +148,6 @@ class TestParse(TestCase):
     def test_frmc(self):
         with open("tests/edls/cdl_frmc_example01.edl", "r") as f:
             edl = pycmx.parse_cmx3600(f)
-            for event in edl.events: 
+            for event in edl.events:
                 if event.number == 1:
                     ...
-

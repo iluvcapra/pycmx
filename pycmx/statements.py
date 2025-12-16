@@ -1,4 +1,4 @@
-from collections import namedtuple 
+from collections import namedtuple
 
 StmtTitle = namedtuple("Title", ["title", "line_number"])
 StmtFCM = namedtuple("FCM", ["drop", "line_number"])
@@ -9,9 +9,9 @@ StmtEvent = namedtuple("Event", ["event", "source", "channels", "trans",
 StmtAudioExt = namedtuple("AudioExt", ["audio3", "audio4", "line_number"])
 StmtClipName = namedtuple("ClipName", ["name", "affect", "line_number"])
 StmtSourceFile = namedtuple("SourceFile", ["filename", "line_number"])
-StmtCdlSop = namedtuple("CdlSop", ['slope_r','slope_g','slope_b', 
-                                   'offset_r', 'offset_g', 'offset_b', 
-                                   'power_r', 'power_g', 'power_b', 
+StmtCdlSop = namedtuple("CdlSop", ['slope_r', 'slope_g', 'slope_b',
+                                   'offset_r', 'offset_g', 'offset_b',
+                                   'power_r', 'power_g', 'power_b',
                                    'line_number'])
 StmtCdlSat = namedtuple("SdlSat", ['value', 'line_number'])
 StmtFrmc = namedtuple("Frmc", ['start', 'end', 'duration', 'line_number'])
