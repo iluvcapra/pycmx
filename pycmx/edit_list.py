@@ -32,11 +32,11 @@ class EditList:
             (s for s in self.event_statements if type(s) is StmtEvent), None)
 
         if first_event:
-            if first_event.format == 8:
+            if first_event.source_field_size == 8:
                 return '3600'
-            elif first_event.format == 32:
+            elif first_event.source_field_size == 32:
                 return 'File32'
-            elif first_event.format == 128:
+            elif first_event.source_field_size == 128:
                 return 'File128'
             else:
                 return 'unknown'

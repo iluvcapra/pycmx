@@ -192,7 +192,7 @@ def _parse_columns_for_standard_form(line: str, event_field_length: int,
                      source_out=column_strings[12].strip(),
                      record_in=column_strings[14].strip(),
                      record_out=column_strings[16].strip(),
-                     line_number=line_number, format=source_field_length)
+                     line_number=line_number, source_field_size=source_field_length)
 
 
 def _parse_source_umid_statement(line, line_number):

@@ -23,7 +23,7 @@ class StmtEvent(NamedTuple):
     source_out: str
     record_in: str
     record_out: str
-    format: int
+    source_field_size: int
     line_number: int
 
 
