@@ -123,3 +123,17 @@ class TestParse(TestCase):
             events = list(edl.events)
 
             self.assertEqual(len(events), 2839)
+
+    def test_issue14(self):
+        with open("tests/edls/ISSUE_14_conform_edl_issue_03.edl", "r") as f:
+            edl = pycmx.parse_cmx3600(f)
+
+            for event in edl.events:
+                if event.number == 42:
+                    self.assertEqual(len(event.edits), 1)
+                    self.assertEqual(event.edits[0].source,
+                                     "M018C0005_240925_1F4L13")
+                    self.assertEqual(event.edits[0].transition.kind,
+                                     pycmx.Transition.Cut)
+                    self.assertEqual(event.edits[0].source_in,
+                                     "18:44:20:12")
