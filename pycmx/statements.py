@@ -8,7 +8,10 @@ class StmtTitle(NamedTuple):
     line_number: int
 
 
-StmtFCM = namedtuple("FCM", ["drop", "line_number"])
+class StmtFCM(NamedTuple):
+    drop: bool
+    line_number: int
+
 StmtEvent = namedtuple("Event", ["event", "source", "channels", "trans",
                                  "trans_op", "source_in", "source_out",
                                  "record_in", "record_out", "format",
