@@ -4,7 +4,6 @@
 from pycmx.statements import StmtCdlSat, StmtCdlSop
 from .transition import Transition
 from .channel_map import ChannelMap
-# from .parse_cmx_statements import StmtEffectsName
 
 from typing import Optional
 

@@ -1,10 +1,9 @@
 # pycmx
 # (c) 2023 Jamie Hardt
 
-from pycmx.statements import *
-# from .parse_cmx_statements import (
-#     StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized,
-#     StmtEffectsName)
+from .parse_cmx_statements import (
+    StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized,
+    StmtEffectsName, StmtCdlSop, StmtCdlSat)
 from .edit import Edit
 
 from typing import List, Generator, Optional, Tuple, Any
@@ -75,8 +74,8 @@ class Event:
                      audio_ext_statement=e1[1],
                      clip_name_statement=n1,
                      source_file_statement=s1,
-                     trans_name_statement=u1, 
-                     asc_sop_statement=self._asc_sop_statement(), 
+                     trans_name_statement=u1,
+                     asc_sop_statement=self._asc_sop_statement(),
                      asc_sat_statement=self._asc_sat_statement())
                 for (e1, n1, s1, u1) in zip(*the_zip)]
 
