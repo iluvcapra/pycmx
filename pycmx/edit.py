@@ -151,7 +151,7 @@ class Edit:
         """
         return self.asc_sat_statement
 
-    @property 
+    @property
     def frmc(self) -> Optional[StmtFrmc]:
         """
         Get FRMC data
