@@ -141,8 +141,13 @@ def _parse_remark(line, line_number) -> object:
             return StmtRemark(line, line_number)
 
         else:
-            return StmtFrmc(start=match.group(1), end=match.group(2),
-                            duration=match.group(3), line_number=line_number)
+            try:
+                return StmtFrmc(start=int(match.group(1)), 
+                                end=int(match.group(2)),
+                                duration=int(match.group(3)), 
+                                line_number=line_number)
+            except ValueError:
+                return StmtRemark(line, line_number)
 
     else:
         return StmtRemark(text=line, line_number=line_number)

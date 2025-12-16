@@ -66,9 +66,9 @@ class StmtCdlSat(NamedTuple):
 
 
 class StmtFrmc(NamedTuple):
-    start: str
-    end: str
-    duration: str
+    start: int 
+    end: int
+    duration: int
     line_number: int
 
 

@@ -143,36 +143,36 @@ class TestParse(TestCase):
             edl = pycmx.parse_cmx3600(f)
             for event in edl.events:
                 if event.number == 1:
-                    sop = event.edits[0].asc_sop_statement
+                    sop = event.edits[0].asc_sop
                     self.assertIsNotNone(sop)
                     assert sop
-                    self.assertEqual(sop.slope_r, "0.9405")
-                    self.assertEqual(sop.offset_g, "-0.0276")
+                    self.assertEqual(sop.slope.red, "0.9405")
+                    self.assertEqual(sop.offset.green, "-0.0276")
 
-                    sat = event.edits[0].asc_sat_statement
+                    sat = event.edits[0].asc_sat
                     self.assertIsNotNone(sat)
                     assert sat
-                    self.assertEqual(sat.value, '0.9640')
+                    self.assertEqual(sat, '0.9640')
 
     def test_frmc(self):
         with open("tests/edls/cdl_frmc_example01.edl", "r") as f:
             edl = pycmx.parse_cmx3600(f)
             for event in edl.events:
                 if event.number == 1:
-                    frmc = event.edits[0].frmc_statement
+                    frmc = event.edits[0]._frmc_statement
                     self.assertIsNotNone(frmc)
                     assert frmc
-                    self.assertEqual(frmc.start, "1001")
-                    self.assertEqual(frmc.end, "1102")
-                    self.assertEqual(frmc.duration, "102")
+                    self.assertEqual(frmc.start, 1001)
+                    self.assertEqual(frmc.end, 1102)
+                    self.assertEqual(frmc.duration, 102)
 
         with open("tests/edls/cdl_frmc_example02.edl", "r") as f:
             edl = pycmx.parse_cmx3600(f)
             for event in edl.events:
                 if event.number == 6:
-                    frmc = event.edits[0].frmc_statement
+                    frmc = event.edits[0]._frmc_statement
                     self.assertIsNotNone(frmc)
                     assert frmc
-                    self.assertEqual(frmc.start, "1001")
-                    self.assertEqual(frmc.end, "1486")
-                    self.assertEqual(frmc.duration, "486")
+                    self.assertEqual(frmc.start, 1001)
+                    self.assertEqual(frmc.end, 1486)
+                    self.assertEqual(frmc.duration, 486)
