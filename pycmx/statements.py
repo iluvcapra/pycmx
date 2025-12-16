@@ -1,6 +1,13 @@
 from collections import namedtuple
 
-StmtTitle = namedtuple("Title", ["title", "line_number"])
+from typing import NamedTuple
+
+
+class StmtTitle(NamedTuple):
+    title: str
+    line_number: int
+
+
 StmtFCM = namedtuple("FCM", ["drop", "line_number"])
 StmtEvent = namedtuple("Event", ["event", "source", "channels", "trans",
                                  "trans_op", "source_in", "source_out",

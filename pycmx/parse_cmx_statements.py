@@ -49,27 +49,27 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
 
     if line.startswith("TITLE:"):
         return _parse_title(line, line_number)
-    elif line.startswith("FCM:"):
+    if line.startswith("FCM:"):
         return _parse_fcm(line, line_number)
-    elif line_matcher is not None:
+    if line_matcher is not None:
         event_field_len = len(line_matcher.group(1))
         source_field_len = len(line) - (event_field_len + 65)
         return _parse_columns_for_standard_form(line, event_field_len,
                                                 source_field_len, line_number)
-    elif line.startswith("AUD"):
+    if line.startswith("AUD"):
         return _parse_extended_audio_channels(line, line_number)
-    elif line.startswith("*"):
+    if line.startswith("*"):
         return _parse_remark(line[1:].strip(), line_number)
-    elif line.startswith(">>> SOURCE"):
+    if line.startswith(">>> SOURCE"):
         return _parse_source_umid_statement(line, line_number)
-    elif line.startswith("EFFECTS NAME IS"):
+    if line.startswith("EFFECTS NAME IS"):
         return _parse_effects_name(line, line_number)
-    elif line.startswith("SPLIT:"):
+    if line.startswith("SPLIT:"):
         return _parse_split(line, line_number)
-    elif line.startswith("M2"):
+    if line.startswith("M2"):
         return _parse_motion_memory(line, line_number)
-    else:
-        return _parse_unrecognized(line, line_number)
+
+    return _parse_unrecognized(line, line_number)
 
 
 def _parse_title(line, line_num) -> StmtTitle:
@@ -81,14 +81,14 @@ def _parse_fcm(line, line_num) -> StmtFCM:
     val = line[4:].strip()
     if val == "DROP FRAME":
         return StmtFCM(drop=True, line_number=line_num)
-    else:
-        return StmtFCM(drop=False, line_number=line_num)
+
+    return StmtFCM(drop=False, line_number=line_num)
 
 
 def _parse_extended_audio_channels(line, line_number):
     content = line.strip()
-    audio3 = True if "3" in content else False
-    audio4 = True if "4" in content else False
+    audio3 = "3" in content
+    audio4 = "4" in content
 
     if audio3 or audio4:
         return StmtAudioExt(audio3, audio4, line_number)
