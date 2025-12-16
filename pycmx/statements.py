@@ -13,7 +13,7 @@ StmtCdlSop = namedtuple("CdlSop", ['slope_r', 'slope_g', 'slope_b',
                                    'offset_r', 'offset_g', 'offset_b',
                                    'power_r', 'power_g', 'power_b',
                                    'line_number'])
-StmtCdlSat = namedtuple("SdlSat", ['value', 'line_number'])
+StmtCdlSat = namedtuple("CdlSat", ['value', 'line_number'])
 StmtFrmc = namedtuple("Frmc", ['start', 'end', 'duration', 'line_number'])
 StmtRemark = namedtuple("Remark", ["text", "line_number"])
 StmtEffectsName = namedtuple("EffectsName", ["name", "line_number"])
