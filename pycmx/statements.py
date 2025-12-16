@@ -16,7 +16,7 @@ class StmtFCM(NamedTuple):
 class StmtEvent(NamedTuple):
     event: int
     source: str
-    channels: str 
+    channels: str
     trans: str
     trans_op: str
     source_in: str
@@ -27,19 +27,74 @@ class StmtEvent(NamedTuple):
     line_number: int
 
 
-StmtAudioExt = namedtuple("AudioExt", ["audio3", "audio4", "line_number"])
-StmtClipName = namedtuple("ClipName", ["name", "affect", "line_number"])
-StmtSourceFile = namedtuple("SourceFile", ["filename", "line_number"])
-StmtCdlSop = namedtuple("CdlSop", ['slope_r', 'slope_g', 'slope_b',
-                                   'offset_r', 'offset_g', 'offset_b',
-                                   'power_r', 'power_g', 'power_b',
-                                   'line_number'])
-StmtCdlSat = namedtuple("CdlSat", ['value', 'line_number'])
-StmtFrmc = namedtuple("Frmc", ['start', 'end', 'duration', 'line_number'])
-StmtRemark = namedtuple("Remark", ["text", "line_number"])
-StmtEffectsName = namedtuple("EffectsName", ["name", "line_number"])
-StmtSourceUMID = namedtuple("Source", ["name", "umid", "line_number"])
-StmtSplitEdit = namedtuple("SplitEdit", ["video", "magnitude", "line_number"])
+class StmtAudioExt(NamedTuple):
+    audio3: bool
+    audio4: bool
+    line_number: int
+
+
+class StmtClipName(NamedTuple):
+    name: str
+    affect: str
+    line_number: int
+
+
+class StmtSourceFile(NamedTuple):
+    filename: str
+    line_number: int
+
+
+class StmtCdlSop(NamedTuple):
+    slope_r: str
+    slope_g: str
+    slope_b: str
+    offset_r: str
+    offset_g: str
+    offset_b: str
+    power_r: str
+    power_g: str
+    power_b: str
+    line_number: int
+
+
+class StmtCdlSat(NamedTuple):
+    value: str
+    line_number: int
+
+
+class StmtFrmc(NamedTuple):
+    start: str
+    end: str
+    duration: str
+    line_number: int
+
+
+class StmtRemark(NamedTuple):
+    text: str
+    line_number: int
+
+
+class StmtEffectsName(NamedTuple):
+    name: str
+    line_number: int
+
+
+class StmtSourceUMID(NamedTuple):
+    name: str
+    umid: str
+    line_number: int
+
+
+class StmtSplitEdit(NamedTuple):
+    video: str
+    magnitude: str
+    line_number: int
+
+
+class StmtUnrecognized(NamedTuple):
+    content: str
+    line_number: int
+
+
 StmtMotionMemory = namedtuple(
     "MotionMemory", ["source", "fps"])  # FIXME needs more fields
-StmtUnrecognized = namedtuple("Unrecognized", ["content", "line_number"])
