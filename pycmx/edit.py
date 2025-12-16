@@ -138,14 +138,14 @@ class Edit:
         else:
             return self.clip_name_statement.name
 
-    @property 
+    @property
     def asc_sop(self) -> Optional[StmtCdlSop]:
         """
         Get ASC CDL Slope-Offset-Power transfer function for clip, if present
         """
         return self.asc_sop_statement
 
-    @property 
+    @property
     def asc_sat(self) -> Optional[StmtCdlSat]:
         """
         Get ASC CDL saturation value for clip, if present

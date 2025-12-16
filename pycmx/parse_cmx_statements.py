@@ -2,10 +2,13 @@
 # (c) 2018 Jamie Hardt
 
 import re
-from collections import namedtuple
-from typing import Any, TextIO, List
+from typing import TextIO, List
 
-from .statements import *
+from .statements import (StmtCdlSat, StmtCdlSop, StmtFrmc, StmtRemark,
+                         StmtTitle, StmtUnrecognized, StmtFCM, StmtAudioExt,
+                         StmtClipName, StmtEffectsName, StmtEvent,
+                         StmtSourceFile, StmtSplitEdit, StmtMotionMemory,
+                         StmtSourceUMID)
 from .util import collimate
 
 
@@ -107,7 +110,7 @@ def _parse_remark(line, line_number) -> object:
         group_patterns: list[str] = re.findall(r'\((.*?)\)', line)
 
         v1: list[list[tuple[str, str]]] = [re.findall(r'(-?\d+(\.\d+)?)', a) for
-                                          a in group_patterns]
+                                           a in group_patterns]
 
         v: list[list[str]] = [[a[0] for a in b] for b in v1]
 

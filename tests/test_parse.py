@@ -160,4 +160,3 @@ class TestParse(TestCase):
             for event in edl.events:
                 if event.number == 1:
                     ...
-                    
