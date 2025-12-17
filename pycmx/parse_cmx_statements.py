@@ -177,8 +177,8 @@ def _parse_split(line: str, line_number):
     split_type = line[10:21]
     is_video = split_type.startswith("VIDEO")
 
-    split_mag = line[24:35]
-    return StmtSplitEdit(video=is_video, magnitude=split_mag,
+    split_delay = line[24:35]
+    return StmtSplitEdit(video=is_video, delay=split_delay,
                          line_number=line_number)
 
 
