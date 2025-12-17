@@ -125,14 +125,16 @@ class Edit:
     @property
     def black(self) -> bool:
         """
-        Black video or silence should be used as the source for this event.
+        The source field for thie edit was "BL". Black video or silence should
+        be used as the source for this event.
         """
         return self.source == "BL"
 
     @property
     def aux_source(self) -> bool:
         """
-        An auxiliary source is the source of this event.
+        The source field for this edit was "AX". An auxiliary source is the
+        source for this event.
         """
         return self.source == "AX"
 
@@ -162,13 +164,13 @@ class Edit:
     @property
     def asc_sop(self) -> Optional[AscSopComponents[float]]:
         """
-        Get ASC CDL Slope-Offset-Power transfer function for the edit, 
+        Get ASC CDL Slope-Offset-Power color transfer function for the edit,
         if present. The ASC SOP is a transfer function of the form:
         
         :math:`y = (ax + b)^p`
 
         for each color component the source, where the `slope` is `a`, `offset`
-        is `b` and `power` is `c`.
+        is `b` and `power` is `p`.
         """
         if self._asc_sop_statement is None:
             return None
