@@ -4,6 +4,8 @@
 import re
 from typing import TextIO, List
 
+from pycmx.cdl import AscSopComponents, Rgb
+
 from .statements import (StmtCdlSat, StmtCdlSop, StmtFrmc, StmtRemark,
                          StmtTitle, StmtUnrecognized, StmtFCM, StmtAudioExt,
                          StmtClipName, StmtEffectsName, StmtEvent,
@@ -117,11 +119,19 @@ def _parse_remark(line, line_number) -> object:
             return StmtRemark(line, line_number)
 
         else:
-            return StmtCdlSop(slope_r=v[0][0], slope_g=v[0][1],
-                              slope_b=v[0][2], offset_r=v[1][0],
-                              offset_g=v[1][1], offset_b=v[1][2],
-                              power_r=v[2][0], power_g=v[2][1],
-                              power_b=v[2][2], line_number=line_number)
+            try:
+                return StmtCdlSop(cdl_sop=AscSopComponents(
+                    slope=Rgb(red=float(v[0][0]), green=float(v[0][1]),
+                              blue=float(v[0][2])),
+                    offset=Rgb(red=float(v[1][0]), green=float(v[1][1]),
+                               blue=float(v[1][2])),
+                    power=Rgb(red=float(v[2][0]), green=float(v[2][1]),
+                              blue=float(v[2][2]))
+                ),
+                    line_number=line_number)
+
+            except ValueError:
+                return StmtRemark(line, line_number)
 
     elif line.startswith("ASC_SAT"):
         value = re.findall(r'(-?\d+(\.\d+)?)', line)
@@ -130,7 +140,12 @@ def _parse_remark(line, line_number) -> object:
             return StmtRemark(line, line_number)
 
         else:
-            return StmtCdlSat(value=value[0][0], line_number=line_number)
+            try:
+                return StmtCdlSat(value=float(value[0][0]),
+                                  line_number=line_number)
+
+            except ValueError:
+                return StmtRemark(line, line_number)
 
     elif line.startswith("FRMC"):
         match = re.match(
@@ -142,9 +157,9 @@ def _parse_remark(line, line_number) -> object:
 
         else:
             try:
-                return StmtFrmc(start=int(match.group(1)), 
+                return StmtFrmc(start=int(match.group(1)),
                                 end=int(match.group(2)),
-                                duration=int(match.group(3)), 
+                                duration=int(match.group(3)),
                                 line_number=line_number)
             except ValueError:
                 return StmtRemark(line, line_number)

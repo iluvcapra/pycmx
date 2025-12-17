@@ -146,13 +146,13 @@ class TestParse(TestCase):
                     sop = event.edits[0].asc_sop
                     self.assertIsNotNone(sop)
                     assert sop
-                    self.assertEqual(sop.slope.red, "0.9405")
-                    self.assertEqual(sop.offset.green, "-0.0276")
+                    self.assertEqual(sop.slope.red, float("0.9405"))
+                    self.assertEqual(sop.offset.green, float("-0.0276"))
 
                     sat = event.edits[0].asc_sat
                     self.assertIsNotNone(sat)
                     assert sat
-                    self.assertEqual(sat, '0.9640')
+                    self.assertEqual(sat, float('0.9640'))
 
     def test_frmc(self):
         with open("tests/edls/cdl_frmc_example01.edl", "r") as f:

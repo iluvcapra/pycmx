@@ -139,26 +139,17 @@ class Edit:
             return self._clip_name_statement.name
 
     @property
-    def asc_sop(self) -> Optional[AscSopComponents[str]]:
+    def asc_sop(self) -> Optional[AscSopComponents[float]]:
         """
         Get ASC CDL Slope-Offset-Power transfer function for clip, if present
         """
         if self._asc_sop_statement is None:
             return None
 
-        s = self._asc_sop_statement
-
-        return AscSopComponents(
-            slope=Rgb(red=s.slope_r, green=s.slope_g,
-                      blue=s.slope_b),
-            offset=Rgb(red=s.offset_r, green=s.offset_g,
-                       blue=s.offset_g),
-            power=Rgb(red=s.power_r, green=s.power_g,
-                      blue=s.power_b)
-        )
+        return self._asc_sop_statement.cdl_sop 
 
     @property
-    def asc_sat(self) -> Optional[str]:
+    def asc_sat(self) -> Optional[float]:
         """
         Get ASC CDL saturation value for clip, if present
         """

@@ -5,6 +5,8 @@ from collections import namedtuple
 
 from typing import NamedTuple
 
+from pycmx.cdl import AscSopComponents
+
 
 class StmtTitle(NamedTuple):
     title: str
@@ -48,20 +50,12 @@ class StmtSourceFile(NamedTuple):
 
 
 class StmtCdlSop(NamedTuple):
-    slope_r: str
-    slope_g: str
-    slope_b: str
-    offset_r: str
-    offset_g: str
-    offset_b: str
-    power_r: str
-    power_g: str
-    power_b: str
+    cdl_sop: AscSopComponents[float]
     line_number: int
 
 
 class StmtCdlSat(NamedTuple):
-    value: str
+    value: float
     line_number: int
 
 
