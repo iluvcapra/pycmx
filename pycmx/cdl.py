@@ -9,9 +9,14 @@ T = TypeVar('T')
 
 @dataclass
 class Rgb(Generic[T]):
-    red: T
-    green: T
-    blue: T
+    """
+    A tuple of three `T`s, where each is the respective red, green and blue
+    values of interest. 
+    """
+
+    red: T #: Red component
+    green: T #: Green component
+    blue: T #: Blue component
 
 
 @dataclass
@@ -27,9 +32,10 @@ class AscSopComponents(Generic[T]):
     for each color component the source, where the `slope` is `a`, `offset`
     is `b` and `power` is `p`.
     """
-    slope: Rgb[T]
-    offset: Rgb[T]
-    power: Rgb[T]
+
+    slope: Rgb[T] #: The component
+    offset: Rgb[T] #: The constant component
+    power: Rgb[T] #: The exponential component
 
 
 class FramecountTriple(NamedTuple):
