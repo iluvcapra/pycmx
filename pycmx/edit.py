@@ -167,7 +167,8 @@ class Edit:
         
         $ y = (ax + b)^p $
 
-        for each color component the source.
+        for each color component the source, where the `slope` is `a`, `offset`
+        is `b` and `power` is `c`.
         """
         if self._asc_sop_statement is None:
             return None
