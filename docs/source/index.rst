@@ -19,7 +19,7 @@ Features
 * Preserves relationship between events and individual edits/clips.
 * Remark or comment fields with common recognized forms are read and 
   available to the client, including clip name and source file data.
-* ASC SOP, Saturation and FRMC statements are parsed and decoded.
+* `ASC CDL`_ and FRMC statements are parsed and decoded.
 * Symbolically decodes transitions and audio channels.
 * Does not parse or validate timecodes, does not enforce framerates, does not
   parameterize timecode or framerates in any way. This makes the parser more
@@ -28,6 +28,24 @@ Features
   along with the line numbers, to help the client diagnose problems with a
   list and give the client the ability to extend the package with their own
   parsing code.
+
+.. _ASC CDL: https://en.wikipedia.org/wiki/ASC_CDL
+
+Getting Started
+----------------
+
+Install `pycmx` with pip.
+
+.. code-block:: sh
+   pip install pycmx
+
+`pycmx` parses an EDL with the `parse_cmx3600` function:
+
+.. code-block:: python
+   import pycmx
+   
+   with open("tests/edls/TEST.edl") as f
+... 	edl = pycmx.parse_cmx3600(f)
 
 
 .. toctree::
