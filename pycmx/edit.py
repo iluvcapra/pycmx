@@ -22,9 +22,9 @@ class Edit:
 
         self._edit_statement = edit_statement
         self._audio_ext = audio_ext_statement
-        self.clip_name_statement = clip_name_statement
-        self.source_file_statement = source_file_statement
-        self.trans_name_statement = trans_name_statement
+        self._clip_name_statement = clip_name_statement
+        self._source_file_statement = source_file_statement
+        self._trans_name_statement = trans_name_statement
         self._asc_sop_statement: Optional[StmtCdlSop] = asc_sop_statement
         self._asc_sat_statement: Optional[StmtCdlSat] = asc_sat_statement
         self._frmc_statement: Optional[StmtFrmc] = frmc_statement
@@ -54,10 +54,10 @@ class Edit:
         """
         Get the :obj:`Transition` object associated with this edit.
         """
-        if self.trans_name_statement:
+        if self._trans_name_statement:
             return Transition(self._edit_statement.trans,
                               self._edit_statement.trans_op,
-                              self.trans_name_statement.name)
+                              self._trans_name_statement.name)
         else:
             return Transition(self._edit_statement.trans,
                               self._edit_statement.trans_op, None)
@@ -121,10 +121,10 @@ class Edit:
         Get the source file, as attested by a "* SOURCE FILE" remark on the
         EDL. This will return None if the information is not present.
         """
-        if self.source_file_statement is None:
+        if self._source_file_statement is None:
             return None
         else:
-            return self.source_file_statement.filename
+            return self._source_file_statement.filename
 
     @property
     def clip_name(self) -> Optional[str]:
@@ -133,10 +133,10 @@ class Edit:
         NAME" remark on the EDL. This will return None if the information is
         not present.
         """
-        if self.clip_name_statement is None:
+        if self._clip_name_statement is None:
             return None
         else:
-            return self.clip_name_statement.name
+            return self._clip_name_statement.name
 
     @property
     def asc_sop(self) -> Optional[AscSopComponents[str]]:
