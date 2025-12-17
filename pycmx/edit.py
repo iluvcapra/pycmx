@@ -52,7 +52,7 @@ class Edit:
     @property
     def transition(self) -> Transition:
         """
-        Get the :obj:`Transition` object associated with this edit.
+        Get the :obj:`Transition` that initiates this edit.
         """
         if self._trans_name_statement:
             return Transition(self._edit_statement.trans,

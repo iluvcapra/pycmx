@@ -34,13 +34,14 @@ Features
 Getting Started
 ----------------
 
-Install `pycmx` with pip.
+Install `pycmx` with pip, or add it with `uv` or your favorite tool.
 
 .. code-block:: sh
 
    pip install pycmx
 
-`pycmx` parses an EDL with the :func:`pycmx.parse_cmx_events.parse_cmx3600` function:
+`pycmx` parses an EDL with the :func:`~pycmx.parse_cmx_events.parse_cmx3600` 
+function:
 
 .. code-block:: python
    
@@ -48,6 +49,10 @@ Install `pycmx` with pip.
    
   with open("tests/edls/TEST.edl") as f:
     edl = pycmx.parse_cmx3600(f)
+
+This returns a generator tha will yield each :class:`~pycmx.event.Event`. 
+Events can have multiple edits, if they are a part of a cross-dissolve oe a 
+key.
 
 
 .. toctree::
