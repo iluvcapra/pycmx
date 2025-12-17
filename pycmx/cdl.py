@@ -14,9 +14,9 @@ class Rgb(Generic[T]):
     values of interest. 
     """
 
-    red: T #: Red component
-    green: T #: Green component
-    blue: T #: Blue component
+    red: T  # : Red component
+    green: T  # : Green component
+    blue: T  # : Blue component
 
 
 @dataclass
@@ -33,9 +33,9 @@ class AscSopComponents(Generic[T]):
     is `b` and `power` is `p`.
     """
 
-    slope: Rgb[T] #: The linear/slope component `a`
-    offset: Rgb[T] #: The constant/offset component `b`
-    power: Rgb[T] #: The exponential/power component `p`
+    slope: Rgb[T]  # : The linear/slope component `a`
+    offset: Rgb[T]  # : The constant/offset component `b`
+    power: Rgb[T]  # : The exponential/power component `p`
 
 
 class FramecountTriple(NamedTuple):
