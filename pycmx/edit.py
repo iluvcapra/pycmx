@@ -2,7 +2,16 @@
 # (c) 2018-2025 Jamie Hardt
 
 from pycmx.cdl import AscSopComponents, FramecountTriple
-from pycmx.statements import StmtCdlSat, StmtCdlSop, StmtFrmc
+from pycmx.statements import (
+    StmtCdlSat,
+    StmtCdlSop,
+    StmtFrmc,
+    StmtEvent,
+    StmtAudioExt,
+    StmtClipName,
+    StmtSourceFile,
+    StmtEffectsName,
+)
 from .transition import Transition
 from .channel_map import ChannelMap
 
@@ -15,16 +24,25 @@ class Edit:
     recorder timecode in and out, a transition and channels.
     """
 
-    def __init__(self, edit_statement, audio_ext_statement,
-                 clip_name_statement, source_file_statement,
-                 trans_name_statement=None, asc_sop_statement=None,
-                 asc_sat_statement=None, frmc_statement=None):
-
-        self._edit_statement = edit_statement
-        self._audio_ext = audio_ext_statement
-        self._clip_name_statement = clip_name_statement
-        self._source_file_statement = source_file_statement
-        self._trans_name_statement = trans_name_statement
+    def __init__(
+        self,
+        edit_statement: StmtEvent,
+        audio_ext_statement: Optional[StmtAudioExt],
+        clip_name_statement: Optional[StmtClipName],
+        source_file_statement: Optional[StmtSourceFile],
+        trans_name_statement: Optional[StmtEffectsName] = None,
+        asc_sop_statement: Optional[StmtCdlSop] = None,
+        asc_sat_statement: Optional[StmtCdlSat] = None,
+        frmc_statement: Optional[StmtFrmc] = None,
+    ) -> None:
+        # Assigning types for the attributes explicitly
+        self._edit_statement: StmtEvent = edit_statement
+        self._audio_ext: Optional[StmtAudioExt] = audio_ext_statement
+        self._clip_name_statement: Optional[StmtClipName] = clip_name_statement
+        self._source_file_statement: Optional[StmtSourceFile] = \
+            source_file_statement
+        self._trans_name_statement: Optional[StmtEffectsName] = \
+            trans_name_statement
         self._asc_sop_statement: Optional[StmtCdlSop] = asc_sop_statement
         self._asc_sat_statement: Optional[StmtCdlSat] = asc_sat_statement
         self._frmc_statement: Optional[StmtFrmc] = frmc_statement
@@ -55,12 +73,15 @@ class Edit:
         Get the :obj:`Transition` that initiates this edit.
         """
         if self._trans_name_statement:
-            return Transition(self._edit_statement.trans,
-                              self._edit_statement.trans_op,
-                              self._trans_name_statement.name)
+            return Transition(
+                self._edit_statement.trans,
+                self._edit_statement.trans_op,
+                self._trans_name_statement.name,
+            )
         else:
-            return Transition(self._edit_statement.trans,
-                              self._edit_statement.trans_op, None)
+            return Transition(
+                self._edit_statement.trans, self._edit_statement.trans_op, None
+            )
 
     @property
     def source_in(self) -> str:
@@ -166,6 +187,8 @@ class Edit:
         if not self._frmc_statement:
             return None
 
-        return FramecountTriple(start=self._frmc_statement.start,
-                                end=self._frmc_statement.end,
-                                duration=self._frmc_statement.duration)
+        return FramecountTriple(
+            start=self._frmc_statement.start,
+            end=self._frmc_statement.end,
+            duration=self._frmc_statement.duration,
+        )
