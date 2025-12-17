@@ -6,10 +6,10 @@ from typing import TextIO, List
 
 from pycmx.cdl import AscSopComponents, Rgb
 
-from .statements import (StmtCdlSat, StmtCdlSop, StmtCorruptRemark, StmtFrmc, StmtRemark,
-                         StmtTitle, StmtUnrecognized, StmtFCM, StmtAudioExt,
-                         StmtClipName, StmtEffectsName, StmtEvent,
-                         StmtSourceFile, StmtSplitEdit)
+from .statements import (StmtCdlSat, StmtCdlSop, StmtCorruptRemark, StmtFrmc,
+                         StmtRemark, StmtTitle, StmtUnrecognized, StmtFCM,
+                         StmtAudioExt, StmtClipName, StmtEffectsName,
+                         StmtEvent, StmtSourceFile, StmtSplitEdit)
 from .util import collimate
 
 

@@ -1,7 +1,7 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from pycmx.cdl import AscSopComponents, FramecountTriple, Rgb
+from pycmx.cdl import AscSopComponents, FramecountTriple
 from pycmx.statements import StmtCdlSat, StmtCdlSop, StmtFrmc
 from .transition import Transition
 from .channel_map import ChannelMap
@@ -146,7 +146,7 @@ class Edit:
         if self._asc_sop_statement is None:
             return None
 
-        return self._asc_sop_statement.cdl_sop 
+        return self._asc_sop_statement.cdl_sop
 
     @property
     def asc_sat(self) -> Optional[float]:
