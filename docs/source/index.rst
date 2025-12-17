@@ -58,7 +58,7 @@ any remark lines, including clip names, and CDL color commands.
 .. code-block:: python
 
   for event in edl.events:
-    print("- - - Event Info - - - ")
+    print("- - - Event Info - - -")
     print("Event No:", event.number)
     for edit in event.edits:
       print("On Line No:", edit.line_number)
