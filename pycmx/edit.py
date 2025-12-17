@@ -39,8 +39,10 @@ class Edit:
         self._edit_statement: StmtEvent = edit_statement
         self._audio_ext: Optional[StmtAudioExt] = audio_ext_statement
         self._clip_name_statement: Optional[StmtClipName] = clip_name_statement
-        self._source_file_statement: Optional[StmtSourceFile] = source_file_statement
-        self._trans_name_statement: Optional[StmtEffectsName] = trans_name_statement
+        self._source_file_statement: Optional[StmtSourceFile] = \
+            source_file_statement
+        self._trans_name_statement: Optional[StmtEffectsName] = \
+            trans_name_statement
         self._asc_sop_statement: Optional[StmtCdlSop] = asc_sop_statement
         self._asc_sat_statement: Optional[StmtCdlSat] = asc_sat_statement
         self._frmc_statement: Optional[StmtFrmc] = frmc_statement
