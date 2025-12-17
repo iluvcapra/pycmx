@@ -1,12 +1,12 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from pycmx.statements import (StmtTitle, StmtEvent, StmtUnrecognized,
+from pycmx.statements import (StmtCorruptRemark, StmtTitle, StmtEvent, StmtUnrecognized,
                               StmtSourceUMID)
 from .event import Event
 from .channel_map import ChannelMap
 
-from typing import Generator
+from typing import Any, Generator
 
 
 class EditList:
@@ -63,13 +63,15 @@ class EditList:
         return self.title_statement.title
 
     @property
-    def unrecognized_statements(self) -> Generator[StmtUnrecognized,
-                                                   None, None]:
+    def unrecognized_statements(self) -> Generator[Any, None, None]:
         """
-        A generator for all the unrecognized statements in the list.
+        A generator for all the unrecognized statements and 
+        corrupt remarks in the list.
+        :yields: either a :class:`StmtUnrecognized` or 
+            :class:`StmtCorruptRemark`
         """
         for s in self.event_statements:
-            if type(s) is StmtUnrecognized:
+            if type(s) is StmtUnrecognized or type(s) in StmtCorruptRemark:
                 yield s
 
     @property
