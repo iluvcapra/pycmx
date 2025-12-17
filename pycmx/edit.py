@@ -175,4 +175,6 @@ class Edit:
         if not self._frmc_statement:
             return None
 
-        return FramecountTriple(int())
+        return FramecountTriple(start=self._frmc_statement.start,
+                                end=self._frmc_statement.end,
+                                duration=self._frmc_statement.duration)

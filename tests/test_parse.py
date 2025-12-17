@@ -159,7 +159,7 @@ class TestParse(TestCase):
             edl = pycmx.parse_cmx3600(f)
             for event in edl.events:
                 if event.number == 1:
-                    frmc = event.edits[0]._frmc_statement
+                    frmc = event.edits[0].frmc
                     self.assertIsNotNone(frmc)
                     assert frmc
                     self.assertEqual(frmc.start, 1001)

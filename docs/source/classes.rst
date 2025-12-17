@@ -20,5 +20,6 @@ pycmx Classes
 .. autoclass:: pycmx.channel_map.ChannelMap
    :members:
 
-
+.. automodule:: pycmx.cdl 
+   :members:
 
