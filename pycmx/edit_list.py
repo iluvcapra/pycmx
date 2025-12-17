@@ -65,9 +65,9 @@ class EditList:
     @property
     def unrecognized_statements(self) -> Generator[Any, None, None]:
         """
-        A generator for all the unrecognized statements and 
+        A generator for all the unrecognized statements and
         corrupt remarks in the list.
-        :yields: either a :class:`StmtUnrecognized` or 
+        :yields: either a :class:`StmtUnrecognized` or
             :class:`StmtCorruptRemark`
         """
         for s in self.event_statements:
