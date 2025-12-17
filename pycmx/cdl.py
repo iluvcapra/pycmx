@@ -33,15 +33,16 @@ class AscSopComponents(Generic[T]):
     is `b` and `power` is `p`.
     """
 
-    slope: Rgb[T] #: The component
-    offset: Rgb[T] #: The constant component
-    power: Rgb[T] #: The exponential component
+    slope: Rgb[T] #: The linear/slope component `a`
+    offset: Rgb[T] #: The constant/offset component `b`
+    power: Rgb[T] #: The exponential/power component `p`
 
 
 class FramecountTriple(NamedTuple):
     """
     Fields in an FRMC statement
     """
+
     start: int
     end: int
     duration: int
