@@ -1,7 +1,7 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from pycmx.statements import (StmtCorruptRemark, StmtTitle, StmtEvent,
+from .statements import (StmtCorruptRemark, StmtTitle, StmtEvent,
                               StmtUnrecognized, StmtSourceUMID)
 from .event import Event
 from .channel_map import ChannelMap

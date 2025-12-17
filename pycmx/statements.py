@@ -3,7 +3,7 @@
 
 from typing import Any, NamedTuple
 
-from pycmx.cdl import AscSopComponents
+from .cdl import AscSopComponents
 
 # type str = str
 

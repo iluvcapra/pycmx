@@ -1,10 +1,9 @@
 # pycmx
 # (c) 2023-2025 Jamie Hardt
 
-from pycmx.statements import StmtFrmc
-from .parse_cmx_statements import (
-    StmtEvent, StmtClipName, StmtSourceFile, StmtAudioExt, StmtUnrecognized,
-    StmtEffectsName, StmtCdlSop, StmtCdlSat)
+from .statements import (StmtFrmc, StmtEvent, StmtClipName, StmtSourceFile,
+                         StmtAudioExt, StmtUnrecognized, StmtEffectsName,
+                         StmtCdlSop, StmtCdlSat)
 from .edit import Edit
 
 from typing import List, Generator, Optional, Tuple, Any

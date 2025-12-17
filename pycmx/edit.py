@@ -1,8 +1,8 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from pycmx.cdl import AscSopComponents, FramecountTriple
-from pycmx.statements import (
+from .cdl import AscSopComponents, FramecountTriple
+from .statements import (
     StmtCdlSat,
     StmtCdlSop,
     StmtFrmc,
