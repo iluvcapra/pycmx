@@ -2,7 +2,7 @@
 # (c) 2018-2025 Jamie Hardt
 
 from .statements import (StmtCorruptRemark, StmtTitle, StmtEvent,
-                              StmtUnrecognized, StmtSourceUMID)
+                         StmtUnrecognized, StmtSourceUMID)
 from .event import Event
 from .channel_map import ChannelMap
 
