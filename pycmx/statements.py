@@ -3,7 +3,7 @@
 
 from collections import namedtuple
 
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 from pycmx.cdl import AscSopComponents
 
@@ -60,7 +60,7 @@ class StmtCdlSat(NamedTuple):
 
 
 class StmtFrmc(NamedTuple):
-    start: int 
+    start: int
     end: int
     duration: int
     line_number: int
@@ -93,5 +93,11 @@ class StmtUnrecognized(NamedTuple):
     line_number: int
 
 
-StmtMotionMemory = namedtuple(
-    "MotionMemory", ["source", "fps"])  # FIXME needs more fields
+class StmtCorruptRemark(NamedTuple):
+    selector: str
+    exception: Any
+    line_number: int
+
+
+# StmtMotionMemory = namedtuple(
+#     "MotionMemory", ["source", "fps"])  # FIXME needs more fields

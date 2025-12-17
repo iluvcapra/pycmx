@@ -6,10 +6,10 @@ from typing import TextIO, List
 
 from pycmx.cdl import AscSopComponents, Rgb
 
-from .statements import (StmtCdlSat, StmtCdlSop, StmtFrmc, StmtRemark,
+from .statements import (StmtCdlSat, StmtCdlSop, StmtCorruptRemark, StmtFrmc, StmtRemark,
                          StmtTitle, StmtUnrecognized, StmtFCM, StmtAudioExt,
                          StmtClipName, StmtEffectsName, StmtEvent,
-                         StmtSourceFile, StmtSplitEdit, StmtMotionMemory)
+                         StmtSourceFile, StmtSplitEdit)
 from .util import collimate
 
 
@@ -68,7 +68,8 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
     if line.startswith("SPLIT:"):
         return _parse_split(line, line_number)
     if line.startswith("M2"):
-        return _parse_motion_memory(line, line_number)
+        pass
+        # return _parse_motion_memory(line, line_number)
 
     return _parse_unrecognized(line, line_number)
 
@@ -130,8 +131,8 @@ def _parse_remark(line, line_number) -> object:
                 ),
                     line_number=line_number)
 
-            except ValueError:
-                return StmtRemark(line, line_number)
+            except ValueError as e:
+                return StmtCorruptRemark('ASC_SOP', e, line_number)
 
     elif line.startswith("ASC_SAT"):
         value = re.findall(r'(-?\d+(\.\d+)?)', line)
@@ -144,16 +145,15 @@ def _parse_remark(line, line_number) -> object:
                 return StmtCdlSat(value=float(value[0][0]),
                                   line_number=line_number)
 
-            except ValueError:
-                return StmtRemark(line, line_number)
+            except ValueError as e:
+                return StmtCorruptRemark('ASC_SAT', e, line_number) 
 
     elif line.startswith("FRMC"):
-        match = re.match(
-            r'^FRMC START:\s*(\d+)\s+FRMC END:\s*(\d+)'
-            r'\s+FRMC DURATION:\s*(\d+)', line, re.IGNORECASE)
+        match = re.match(r'^FRMC START:\s*(\d+)\s+FRMC END:\s*(\d+)'
+                         r'\s+FRMC DURATION:\s*(\d+)', line, re.IGNORECASE)
 
         if match is None:
-            return StmtRemark(line, line_number)
+            return StmtCorruptRemark('FRMC', None, line_number)
 
         else:
             try:
@@ -161,8 +161,8 @@ def _parse_remark(line, line_number) -> object:
                                 end=int(match.group(2)),
                                 duration=int(match.group(3)),
                                 line_number=line_number)
-            except ValueError:
-                return StmtRemark(line, line_number)
+            except ValueError as e:
+                return StmtCorruptRemark('FRMC', e, line_number)
 
     else:
         return StmtRemark(text=line, line_number=line_number)
@@ -182,9 +182,9 @@ def _parse_split(line: str, line_number):
                          line_number=line_number)
 
 
-def _parse_motion_memory(line, line_number):
-    return StmtMotionMemory(source="", fps="")
-
+# def _parse_motion_memory(line, line_number):
+#     return StmtMotionMemory(source="", fps="")
+#
 
 def _parse_unrecognized(line, line_number):
     return StmtUnrecognized(content=line, line_number=line_number)
