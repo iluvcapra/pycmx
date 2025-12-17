@@ -5,7 +5,7 @@ from typing import Any, NamedTuple
 
 from pycmx.cdl import AscSopComponents
 
-type TimecodeStr = str
+# type str = str
 
 
 class StmtTitle(NamedTuple):
@@ -24,10 +24,10 @@ class StmtEvent(NamedTuple):
     channels: str
     trans: str
     trans_op: str
-    source_in: TimecodeStr
-    source_out: TimecodeStr
-    record_in: TimecodeStr
-    record_out: TimecodeStr
+    source_in: str
+    source_out: str
+    record_in: str
+    record_out: str
     source_field_size: int
     line_number: int
 
@@ -84,7 +84,7 @@ class StmtSourceUMID(NamedTuple):
 
 class StmtSplitEdit(NamedTuple):
     video: bool
-    delay: TimecodeStr
+    delay: str
     line_number: int
 
 

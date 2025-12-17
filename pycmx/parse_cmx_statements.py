@@ -146,7 +146,7 @@ def _parse_remark(line, line_number) -> object:
                                   line_number=line_number)
 
             except ValueError as e:
-                return StmtCorruptRemark('ASC_SAT', e, line_number) 
+                return StmtCorruptRemark('ASC_SAT', e, line_number)
 
     elif line.startswith("FRMC"):
         match = re.match(r'^FRMC START:\s*(\d+)\s+FRMC END:\s*(\d+)'
