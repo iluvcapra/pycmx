@@ -37,15 +37,17 @@ Getting Started
 Install `pycmx` with pip.
 
 .. code-block:: sh
+
    pip install pycmx
 
 `pycmx` parses an EDL with the `parse_cmx3600` function:
 
 .. code-block:: python
-   import pycmx
    
-   with open("tests/edls/TEST.edl") as f
-... 	edl = pycmx.parse_cmx3600(f)
+  import pycmx
+   
+  with open("tests/edls/TEST.edl") as f:
+    edl = pycmx.parse_cmx3600(f)
 
 
 .. toctree::
