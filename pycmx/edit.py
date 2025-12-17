@@ -166,7 +166,7 @@ class Edit:
         """
         Get ASC CDL Slope-Offset-Power color transfer function for the edit,
         if present. The ASC SOP is a transfer function of the form:
-        
+
         :math:`y = (ax + b)^p`
 
         for each color component the source, where the `slope` is `a`, `offset`

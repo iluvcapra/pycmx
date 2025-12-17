@@ -22,7 +22,7 @@ class AscSopComponents(Generic[T]):
 
     The ASC SOP is a transfer function of the form:
 
-    :math:`y_color = (ax_color + b)^p`
+    :math:`y_{color} = (ax_{color} + b)^p`
 
     for each color component the source, where the `slope` is `a`, `offset`
     is `b` and `power` is `p`.
