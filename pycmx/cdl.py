@@ -11,7 +11,7 @@ T = TypeVar('T')
 class Rgb(Generic[T]):
     """
     A tuple of three `T`s, where each is the respective red, green and blue
-    values of interest. 
+    values of interest.
     """
 
     red: T  # : Red component
