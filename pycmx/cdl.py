@@ -6,11 +6,13 @@ from typing import Generic, NamedTuple, TypeVar
 
 T = TypeVar('T')
 
+
 @dataclass
 class Rgb(Generic[T]):
     red: T
     green: T
     blue: T
+
 
 @dataclass
 class AscSopComponents(Generic[T]):
