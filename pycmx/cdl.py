@@ -14,7 +14,7 @@ class Rgb(NamedTuple, Generic[T]):
 
 class AscSopComponents(NamedTuple, Generic[T]):
     """
-    Fields in an ASC SOP (Slope-Offset-Power) color transfer function 
+    Fields in an ASC SOP (Slope-Offset-Power) color transfer function
     statement
     """
     slope: Rgb[T]
