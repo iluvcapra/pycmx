@@ -15,7 +15,7 @@ class EditList:
     :func:`~pycmx.parse_cmx3600()`.
     """
 
-    def __init__(self, statements):
+    def __init__(self, statements: list):
         self.title_statement: StmtTitle = statements[0]
         self.event_statements = statements[1:]
 
@@ -78,9 +78,11 @@ class EditList:
     @property
     def events(self) -> Generator[Event, None, None]:
         'A generator for all the events in the edit list'
+        # breakpoint()
         current_event_num = None
         event_statements = []
         for stmt in self.event_statements:
+            breakpoint()
             if type(stmt) is StmtEvent:
                 if current_event_num is None:
                     current_event_num = stmt.event

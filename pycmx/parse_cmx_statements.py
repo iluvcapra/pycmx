@@ -54,7 +54,12 @@ def _parse_cmx3600_line(line: str, line_number: int) -> object:
         return _parse_fcm(line, line_number)
     if line_matcher is not None:
         event_field_len = len(line_matcher.group(1))
-        source_field_len = len(line) - (event_field_len + 65)
+        source_in_match = re.search(r'\d\d\:\d\d\:\d\d\:\d\d', line)
+        if not source_in_match:
+            return _parse_unrecognized(line, line_number)
+        
+        source_field_len = source_in_match.start() - (event_field_len + 18)
+        # breakpoint()
         return _parse_columns_for_standard_form(line, event_field_len,
                                                 source_field_len, line_number)
     if line.startswith("AUD"):
@@ -193,6 +198,7 @@ def _parse_unrecognized(line, line_number):
 def _parse_columns_for_standard_form(line: str, event_field_length: int,
                                      source_field_length: int,
                                      line_number: int):
+    # breakpoint()
     col_widths = _edl_column_widths(event_field_length, source_field_length)
 
     if sum(col_widths) > len(line):
