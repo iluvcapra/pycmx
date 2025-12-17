@@ -67,6 +67,7 @@ class EditList:
         """
         A generator for all the unrecognized statements and
         corrupt remarks in the list.
+        
         :yields: either a :class:`StmtUnrecognized` or
             :class:`StmtCorruptRemark`
         """
