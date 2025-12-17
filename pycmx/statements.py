@@ -50,6 +50,7 @@ class StmtSourceFile(NamedTuple):
 
 
 class StmtCdlSop(NamedTuple):
+    line: str
     cdl_sop: AscSopComponents[float]
     line_number: int
 

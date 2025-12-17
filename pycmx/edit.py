@@ -178,6 +178,16 @@ class Edit:
         return self._asc_sop_statement.cdl_sop
 
     @property
+    def asc_sop_raw(self) -> Optional[str]:
+        """
+        ASC CDL Slope-Offset-Power statement raw line
+        """
+        if self._asc_sop_statement is None:
+            return None
+
+        return self._asc_sop_statement.line
+
+    @property
     def asc_sat(self) -> Optional[float]:
         """
         Get ASC CDL saturation value for clip, if present

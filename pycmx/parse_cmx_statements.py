@@ -121,15 +121,19 @@ def _parse_remark(line, line_number) -> object:
 
         else:
             try:
-                return StmtCdlSop(cdl_sop=AscSopComponents(
-                    slope=Rgb(red=float(v[0][0]), green=float(v[0][1]),
-                              blue=float(v[0][2])),
-                    offset=Rgb(red=float(v[1][0]), green=float(v[1][1]),
-                               blue=float(v[1][2])),
-                    power=Rgb(red=float(v[2][0]), green=float(v[2][1]),
-                              blue=float(v[2][2]))
-                ),
-                    line_number=line_number)
+                return StmtCdlSop(line=line,
+                                  cdl_sop=AscSopComponents(
+                                      slope=Rgb(red=float(v[0][0]),
+                                                green=float(v[0][1]),
+                                                blue=float(v[0][2])),
+                                      offset=Rgb(red=float(v[1][0]),
+                                                 green=float(v[1][1]),
+                                                 blue=float(v[1][2])),
+                                      power=Rgb(red=float(v[2][0]),
+                                                green=float(v[2][1]),
+                                                blue=float(v[2][2]))
+                                  ),
+                                  line_number=line_number)
 
             except ValueError as e:
                 return StmtCorruptRemark('ASC_SOP', e, line_number)
