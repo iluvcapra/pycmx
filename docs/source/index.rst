@@ -50,10 +50,9 @@ function:
   with open("tests/edls/TEST.edl") as f:
     edl = pycmx.parse_cmx3600(f)
 
-This returns a generator tha will yield each :class:`~pycmx.event.Event`. 
-Events can have multiple edits, if they are a part of a cross-dissolve oe a 
+This returns a generator that will yield each :class:`~pycmx.event.Event`. 
+Events can have multiple edits, if they are a part of a cross-dissolve or a 
 key.
-
 
 .. toctree::
    :maxdepth: 5
