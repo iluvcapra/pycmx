@@ -162,7 +162,12 @@ class Edit:
     @property
     def asc_sop(self) -> Optional[AscSopComponents[float]]:
         """
-        Get ASC CDL Slope-Offset-Power transfer function for clip, if present
+        Get ASC CDL Slope-Offset-Power transfer function for the edit, 
+        if present. The ASC SOP is a transfer function of the form:
+        
+        $ y = (ax + b)^p $
+
+        for each color component the source.
         """
         if self._asc_sop_statement is None:
             return None
@@ -180,9 +185,11 @@ class Edit:
         return self._asc_sat_statement.value
 
     @property
-    def frmc(self) -> Optional[FramecountTriple]:
+    def framecounts(self) -> Optional[FramecountTriple]:
         """
-        Get FRMC data
+        Get frame count offset data, if it exists. If an FRMC statement exists
+        in the EDL for the event it will give an integer frame count for the
+        edit's source in and out times.
         """
         if not self._frmc_statement:
             return None
