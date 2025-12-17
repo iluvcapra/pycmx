@@ -40,7 +40,7 @@ Install `pycmx` with pip.
 
    pip install pycmx
 
-`pycmx` parses an EDL with the :func:`pycmx.parse_cmx3600` function:
+`pycmx` parses an EDL with the :func:`pycmx.parse_cmx_events.parse_cmx3600` function:
 
 .. code-block:: python
    
