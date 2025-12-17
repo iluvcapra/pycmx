@@ -1,7 +1,7 @@
 .. pycmx documentation master file, created by
    sphinx-quickstart on Wed Dec 26 21:51:43 2018.
    You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+contain the root `toctree` directive.
 
 pycmx -  A CMX EDL Parser in Python
 ====================================
@@ -40,7 +40,7 @@ Install `pycmx` with pip, or add it with `uv` or your favorite tool.
 
    pip install pycmx
 
-`pycmx` parses an EDL with the :func:`~pycmx.parse_cmx_events.parse_cmx3600` 
+`pycmx` parses an EDL with the :func:`~pycmx.parse_cmx_events.parse_cmx3600`
 function:
 
 .. code-block:: python
@@ -50,9 +50,26 @@ function:
   with open("tests/edls/TEST.edl") as f:
     edl = pycmx.parse_cmx3600(f)
 
-This returns a generator that will yield each :class:`~pycmx.event.Event`. 
-Events can have multiple edits, if they are a part of a cross-dissolve or a 
-key.
+The `pycmx` parser reads each line from the input EDL and collects them into
+`~pycmx.event.Event` objects. All individual edit actions that share the same
+event number will be collected into a single Event, along with transitions and
+any remark lines, including clip names, and CDL color commands.
+
+.. code-block:: python
+
+  for event in edl.events:
+    print("- - - Event Info - - - ")
+    print("Event No:", event.number)
+    for edit in event.edits:
+      print("On Line No:", edit.line_number)
+      print("Transition In:", edit.transition.kind)
+      print("Source Name:", edit.source)
+      print("Source In:", edit.source_in)
+      print("Source Out:", edit.source_out)
+      print("Rec In:", edit.record_in)
+      print("Rec Out:", edit.record_out)
+      print("ASC SOP:", edit.asc_sop)
+
 
 .. toctree::
    :maxdepth: 5
