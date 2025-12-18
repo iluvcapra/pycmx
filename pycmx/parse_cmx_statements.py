@@ -13,7 +13,8 @@ from .statements import (StmtCdlSat, StmtCdlSop, StmtCorruptRemark, StmtFrmc,
 from .util import collimate
 
 
-def parse_cmx3600_statements(file: TextIO, tolerant: bool = False) -> List[object]:
+def parse_cmx3600_statements(file: TextIO,
+                             tolerant: bool = False) -> List[object]:
     """
     Return a list of every statement in the file argument.
     """
@@ -38,7 +39,8 @@ def _edl_column_widths(event_field_length, source_field_length) -> List[int]:
 #             8,8,1,4,2,1,4,13,3,1,1]
 
 
-def _parse_cmx3600_line(line: str, line_number: int, tolerant: bool = False) -> object:
+def _parse_cmx3600_line(line: str, line_number: int,
+                        tolerant: bool = False) -> object:
     """
     Parses a single CMX EDL line.
 
