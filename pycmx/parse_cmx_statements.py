@@ -65,7 +65,6 @@ def _parse_cmx3600_line(line: str, line_number: int,
                                                     line_number)
 
         except EventFormError:
-            # breakpoint()
             if tolerant:
                 return _parse_columns_tolerant(line, line_number)
             else:
@@ -239,7 +238,6 @@ def _parse_columns_for_standard_form(line: str, event_field_length: int,
 
 
 def _parse_columns_tolerant(line: str, line_number: int):
-    # breakpoint()
     pattern = re.compile(r'^\s*(\d+)\s+(.{8,128}?)\s+'
                          r'(V|A|A2|AA|NONE|AA/V|A2/V|B)\s+'
                          r'(C|D|W|KB|K|KO)\s+(\d*)\s+(\d\d.\d\d.\d\d.\d\d)\s'

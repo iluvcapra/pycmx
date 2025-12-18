@@ -87,7 +87,6 @@ class EditList:
                     event_statements.append(stmt)
                 else:
                     if current_event_num != stmt.event:
-                        # breakpoint()
                         yield Event(statements=event_statements)
                         event_statements = [stmt]
                         current_event_num = stmt.event
