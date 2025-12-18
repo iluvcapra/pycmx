@@ -69,7 +69,6 @@ class Event:
             the_zip.append(trans_names)
         except IndexError:
             the_zip.append([None] * len(edits_audio))
-
         return [Edit(edit_statement=e1[0],
                      audio_ext_statement=e1[1],
                      clip_name_statement=n1,
@@ -104,11 +103,16 @@ class Event:
 
     def _statements_with_audio_ext(self) -> Generator[
             Tuple[StmtEvent, Optional[StmtAudioExt]], None, None]:
-        for (s1, s2) in zip(self.statements, self.statements[1:]):
-            if type(s1) is StmtEvent and type(s2) is StmtAudioExt:
-                yield (s1, s2)
-            elif type(s1) is StmtEvent:
-                yield (s1, None)
+
+        if len(self.statements) == 1 and type(self.statements[0]) is StmtEvent:
+            yield (self.statements[0], None)
+
+        else:
+            for (s1, s2) in zip(self.statements, self.statements[1:]):
+                if type(s1) is StmtEvent and type(s2) is StmtAudioExt:
+                    yield (s1, s2)
+                elif type(s1) is StmtEvent:
+                    yield (s1, None)
 
     def _asc_sop_statement(self) -> Optional[StmtCdlSop]:
         return next((s for s in self.statements if type(s) is StmtCdlSop),

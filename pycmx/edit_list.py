@@ -15,7 +15,7 @@ class EditList:
     :func:`~pycmx.parse_cmx3600()`.
     """
 
-    def __init__(self, statements):
+    def __init__(self, statements: list):
         self.title_statement: StmtTitle = statements[0]
         self.event_statements = statements[1:]
 

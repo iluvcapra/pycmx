@@ -1,7 +1,7 @@
 .. pycmx documentation master file, created by
    sphinx-quickstart on Wed Dec 26 21:51:43 2018.
    You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive.
+   contain the root `toctree` directive.
 
 pycmx -  A CMX EDL Parser in Python
 ====================================
@@ -16,6 +16,8 @@ The `pycmx` package parses a CMX 3600 EDL and its most most common variations.
   read. Event number field and source name field sizes are determined
   dynamically for each statement for a high level of compliance at the expense
   of strictness.
+* An more relaxed "tolerant" mode allows parsing of an EDL file where columns
+  use non-standard widths.
 * Preserves relationship between events and individual edits/clips.
 * Remark or comment fields with common recognized forms are read and 
   available to the client, including clip name and source file data.
