@@ -59,7 +59,7 @@ def _parse_cmx3600_line(line: str, line_number: int, tolerant: bool = False) -> 
 
         try:
             return _parse_columns_for_standard_form(line, event_field_len,
-                                                    source_field_len, 
+                                                    source_field_len,
                                                     line_number)
 
         except EventFormError:
@@ -201,6 +201,7 @@ def _parse_split(line: str, line_number):
 class EventFormError(RuntimeError):
     pass
 
+
 def _parse_unrecognized(line, line_number):
     return StmtUnrecognized(content=line, line_number=line_number)
 
@@ -218,7 +219,7 @@ def _parse_columns_for_standard_form(line: str, event_field_length: int,
 
     channels = column_strings[4].strip()
     trans = column_strings[6].strip()
-    
+
     if len(channels) == 0 or len(trans) == 0:
         raise EventFormError()
 
@@ -246,7 +247,7 @@ def _parse_columns_tolerant(line: str, line_number: int):
 
     match = pattern.match(line)
     if match:
-        return StmtEvent(event=int(match.group(1)), source=match.group(2), 
+        return StmtEvent(event=int(match.group(1)), source=match.group(2),
                          channels=match.group(3), trans=match.group(4),
                          trans_op=match.group(5), source_in=match.group(6),
                          source_out=match.group(7), record_in=match.group(8),

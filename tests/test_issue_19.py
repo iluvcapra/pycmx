@@ -1,12 +1,12 @@
-from unittest import TestCase 
+from unittest import TestCase
 
 from pycmx import parse_cmx3600
+
 
 class Issue19Test(TestCase):
     def setUp(self):
         self.f = open("tests/edls/ISSUE_19_unusual01.edl")
 
-    
     def test_parse(self):
         edl = parse_cmx3600(self.f, tolerant=True)
         for event in edl.events:
@@ -20,7 +20,6 @@ class Issue19Test(TestCase):
                 self.assertEqual(event.edits[0].source_in, "15:51:58:10")
                 self.assertEqual(event.edits[0].record_out, "00:00:04:06")
                 break
-        
 
     def tearDown(self):
         self.f.close()

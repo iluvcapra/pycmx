@@ -104,7 +104,7 @@ class Event:
 
     def _statements_with_audio_ext(self) -> Generator[
             Tuple[StmtEvent, Optional[StmtAudioExt]], None, None]:
-        
+
         if len(self.statements) == 1 and type(self.statements[0]) is StmtEvent:
             yield (self.statements[0], None)
 
