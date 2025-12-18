@@ -78,17 +78,16 @@ class EditList:
     @property
     def events(self) -> Generator[Event, None, None]:
         'A generator for all the events in the edit list'
-        # breakpoint()
         current_event_num = None
         event_statements = []
         for stmt in self.event_statements:
-            breakpoint()
             if type(stmt) is StmtEvent:
                 if current_event_num is None:
                     current_event_num = stmt.event
                     event_statements.append(stmt)
                 else:
                     if current_event_num != stmt.event:
+                        # breakpoint()
                         yield Event(statements=event_statements)
                         event_statements = [stmt]
                         current_event_num = stmt.event
