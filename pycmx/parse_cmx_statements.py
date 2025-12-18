@@ -60,9 +60,8 @@ def _parse_cmx3600_line(line: str, line_number: int,
         source_field_len = len(line) - (event_field_len + 65)
 
         try:
-            return _parse_columns_for_standard_form(line, event_field_len,
-                                                    source_field_len,
-                                                    line_number)
+            return _parse_columns_for_standard_form(
+                    line, event_field_len, source_field_len, line_number)
 
         except EventFormError:
             if tolerant:

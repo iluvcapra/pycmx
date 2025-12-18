@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycmx"
-version = "1.4.0"
+version = "1.5.0"
 description = "Python CMX 3600 Edit Decision List Parser"
 authors = ["Jamie Hardt <jamiehardt@me.com>"]
 license = "MIT"
