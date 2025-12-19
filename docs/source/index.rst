@@ -16,7 +16,7 @@ The `pycmx` package parses a CMX 3600 EDL and its most most common variations.
   read. Event number field and source name field sizes are determined
   dynamically for each statement for a high level of compliance at the expense
   of strictness.
-* An more relaxed "tolerant" mode allows parsing of an EDL file where columns
+* A more relaxed "tolerant" mode allows parsing of an EDL file where columns
   use non-standard widths.
 * Preserves relationship between events and individual edits/clips.
 * Remark or comment fields with common recognized forms are read and 
