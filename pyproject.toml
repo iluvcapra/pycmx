@@ -29,10 +29,11 @@ classifiers = [
 [project.optional-dependencies]
 doc = [
   'sphinx >= 5.3.0',
-  'sphinx_rtd_theme >= 1.1.1'
+  'sphinx_rtd_theme >= 1.1.1',
 ]
 dev = [
   'pytest',
+  'ruff>=0.14.10'
 ]
 
 [project.urls]
@@ -42,9 +43,7 @@ Repository = "https://github.com/iluvcapra/pycmx.git"
 Tracker = "https://github.com/iluvcapra/pycmx/issues" 
 
 [dependency-groups]
-dev = [
-    "ruff>=0.14.10",
-]
+dev = ['ruff']
 doc = ['sphinx', 'sphinx_rtd_theme']
 
 
