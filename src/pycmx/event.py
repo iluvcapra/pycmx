@@ -68,7 +68,7 @@ class Event:
             trans_names.append(trans_statement)
             the_zip.append(trans_names)
         except IndexError:
-            the_zip.append([None] * len(edits_audio))
+           the_zip.append([None] * len(edits_audio))
         return [Edit(edit_statement=e1[0],
                      audio_ext_statement=e1[1],
                      clip_name_statement=n1,
