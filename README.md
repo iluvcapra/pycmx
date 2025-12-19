@@ -37,7 +37,7 @@ The `pycmx` package parses a CMX 3600 EDL and its most most common variations.
 ### Opening and Parsing EDL Files
 ```
 >>> import pycmx
->>> with open("tests/edls/TEST.edl") as f
+>>> with open("tests/edls/TEST.edl") as f:
 ... 	edl = pycmx.parse_cmx3600(f)
 ...
 >>> edl.title
