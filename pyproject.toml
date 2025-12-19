@@ -43,7 +43,7 @@ Repository = "https://github.com/iluvcapra/pycmx.git"
 Tracker = "https://github.com/iluvcapra/pycmx/issues" 
 
 [dependency-groups]
-dev = ['ruff']
+dev = ['ruff', 'pytest']
 doc = ['sphinx', 'sphinx_rtd_theme']
 
 
