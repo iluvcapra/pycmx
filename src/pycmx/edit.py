@@ -35,7 +35,6 @@ class Edit:
         asc_sat_statement: Optional[StmtCdlSat] = None,
         frmc_statement: Optional[StmtFrmc] = None,
     ) -> None:
-        # Assigning types for the attributes explicitly
         self._edit_statement: StmtEvent = edit_statement
         self._audio_ext: Optional[StmtAudioExt] = audio_ext_statement
         self._clip_name_statement: Optional[StmtClipName] = clip_name_statement

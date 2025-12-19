@@ -24,7 +24,7 @@ class Transition:
     @property
     def kind(self) -> Optional[str]:
         """
-        Return the kind of transition: Cut, Wipe, etc
+        Return the kind of transition: Cut, Wipe, etc.
         """
         if self.cut:
             return Transition.Cut
@@ -56,7 +56,8 @@ class Transition:
 
     @property
     def effect_duration(self) -> int:
-        """The duration of this transition, in frames of the record target.
+        """
+        The duration of this transition, in frames of the record target.
 
         In the event of a key event, this is the duration of the fade in.
         """
