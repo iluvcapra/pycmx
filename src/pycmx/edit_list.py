@@ -12,7 +12,7 @@ from typing import Any, Generator
 class EditList:
     """
     Represents an entire edit decision list as returned by
-    :func:`~pycmx.parse_cmx3600()`.
+    :func:`~pycmx.parse_cmx_events.parse_cmx3600()`.
     """
 
     def __init__(self, statements: list):

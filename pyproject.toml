@@ -1,15 +1,16 @@
-[tool.poetry]
+[project]
 name = "pycmx"
 version = "1.5.0"
 description = "Python CMX 3600 Edit Decision List Parser"
-authors = ["Jamie Hardt <jamiehardt@me.com>"]
-license = "MIT"
+authors = [{name = "Jamie Hardt", email= "<jamiehardt@me.com>"}]
+license-files = ["LICENSE"]
 readme = "README.md"
 keywords = [
   'parser',
   'film', 
   'broadcast' 
 ]
+requires-python = '>3.8'
 classifiers = [
   'Development Status :: 5 - Production/Stable',
   'License :: OSI Approved :: MIT License',
@@ -21,20 +22,29 @@ classifiers = [
   'Programming Language :: Python :: 3.10',
   'Programming Language :: Python :: 3.11',
   'Programming Language :: Python :: 3.12',
-  'Programming Language :: Python :: 3.13'
+  'Programming Language :: Python :: 3.13',
+  'Programming Language :: Python :: 3.14'
 ]
-homepage = "https://github.com/iluvcapra/pycmx"
-documentation = "https://pycmx.readthedocs.io/"
-repository = "https://github.com/iluvcapra/pycmx.git"
-urls.Tracker = "https://github.com/iluvcapra/pycmx/issues" 
 
-[tool.poetry.extras]
+[project.optional-dependencies]
+doc = [
+  'sphinx >= 5.3.0',
+  'sphinx_rtd_theme >= 1.1.1'
+]
+dev = [
+  'flake8',
+  'pytest'
+]
+
+[project.urls]
+Homepage = "https://github.com/iluvcapra/pycmx"
+Documentation = "https://pycmx.readthedocs.io/"
+Repository = "https://github.com/iluvcapra/pycmx.git"
+Tracker = "https://github.com/iluvcapra/pycmx/issues" 
+
+[dependency-groups]
 doc = ['sphinx', 'sphinx_rtd_theme']
 
-[tool.poetry.dependencies]
-python = "^3.8"
-sphinx = { version='>= 5.3.0', optional=true}
-sphinx_rtd_theme = {version ='>= 1.1.1', optional=true}
 
 [tool.pyright]
 typeCheckingMode = "basic"
@@ -52,5 +62,5 @@ disable = [
 ]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"

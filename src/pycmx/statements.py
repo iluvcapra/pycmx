@@ -5,8 +5,6 @@ from typing import Any, NamedTuple
 
 from .cdl import AscSopComponents
 
-# type str = str
-
 
 class StmtTitle(NamedTuple):
     title: str

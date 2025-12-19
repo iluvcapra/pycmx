@@ -35,7 +35,6 @@ class Edit:
         asc_sat_statement: Optional[StmtCdlSat] = None,
         frmc_statement: Optional[StmtFrmc] = None,
     ) -> None:
-        # Assigning types for the attributes explicitly
         self._edit_statement: StmtEvent = edit_statement
         self._audio_ext: Optional[StmtAudioExt] = audio_ext_statement
         self._clip_name_statement: Optional[StmtClipName] = clip_name_statement
@@ -51,8 +50,8 @@ class Edit:
     def line_number(self) -> int:
         """
         Get the line number for the "standard form" statement associated with
-        this edit. Line numbers a zero-indexed, such that the
-        "TITLE:" record is line zero.
+        this edit. Line numbers a zero-indexed, such that the "TITLE:" record
+        is line zero.
         """
         return self._edit_statement.line_number
 
@@ -180,7 +179,7 @@ class Edit:
     @property
     def asc_sop_raw(self) -> Optional[str]:
         """
-        ASC CDL Slope-Offset-Power statement raw line
+        ASC CDL Slope-Offset-Power statement raw line.
         """
         if self._asc_sop_statement is None:
             return None
@@ -190,7 +189,7 @@ class Edit:
     @property
     def asc_sat(self) -> Optional[float]:
         """
-        Get ASC CDL saturation value for clip, if present
+        Get ASC CDL saturation value for clip, if present.
         """
         if self._asc_sat_statement is None:
             return None

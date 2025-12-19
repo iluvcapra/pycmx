@@ -1,5 +1,5 @@
 [flake8]
 per-file-ignores =
-    pycmx/__init__.py: F401
+    src/pycmx/__init__.py: F401
     tests/__init__.py: F401
     
