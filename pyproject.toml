@@ -32,8 +32,7 @@ doc = [
   'sphinx_rtd_theme >= 1.1.1'
 ]
 dev = [
-  'flake8',
-  'pytest'
+  'pytest',
 ]
 
 [project.urls]
@@ -43,6 +42,9 @@ Repository = "https://github.com/iluvcapra/pycmx.git"
 Tracker = "https://github.com/iluvcapra/pycmx/issues" 
 
 [dependency-groups]
+dev = [
+    "ruff>=0.14.10",
+]
 doc = ['sphinx', 'sphinx_rtd_theme']
 
 

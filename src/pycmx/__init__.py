@@ -11,3 +11,5 @@ from .parse_cmx_events import parse_cmx3600
 from .transition import Transition
 from .event import Event
 from .edit import Edit
+
+__all__ = ("parse_cmx3600", "Transition", "Event", "Edit")
