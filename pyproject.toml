@@ -2,7 +2,7 @@
 name = "pycmx"
 version = "1.5.0"
 description = "Python CMX 3600 Edit Decision List Parser"
-authors = [{name = "Jamie Hardt", email= "<jamiehardt@me.com>"}]
+authors = [{name = "Jamie Hardt", email= "jamiehardt@me.com"}]
 license-files = ["LICENSE"]
 readme = "README.md"
 keywords = [

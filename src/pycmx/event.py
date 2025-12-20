@@ -31,12 +31,27 @@ class Event:
         will have multiple edits when a dissolve, wipe or key transition needs
         to be performed.
         """
+
+        # FTR this is a totall bonkers way of doing this, I wrote this when
+        # I was still learning Python and I'm sure there's easier ways to do
+        # it. The job is complicated because multiple edits can occur in one
+        # event and then other statements can modify the event in different
+        # ways.
+
         edits_audio = list(self._statements_with_audio_ext())
         clip_names = self._clip_name_statements()
         source_files = self._source_file_statements()
 
+        # We first get the edit events combined with their extra audio
+        # channel statements, if any.
+
+        # The list the_zip contains one element for each initialization
+        # parameter in Edit()
         the_zip: List[List[Any]] = [edits_audio]
 
+        # If there are two Clip Name statements and two edits, we look for
+        # "FROM" and "TO" clip name lines. Otherwise we just look for on
+        # each per edit.
         if len(edits_audio) == 2:
             start_name: Optional[StmtClipName] = None
             end_name: Optional[StmtClipName] = None
@@ -54,6 +69,10 @@ class Event:
             else:
                 the_zip.append([None] * len(edits_audio))
 
+        # if there's one source file statemnent per clip, we allocate them to
+        # each edit in order. Otherwise if there's only one, we assign the one
+        # to all the edits. If there's no source_file statements, we provide
+        # None.
         if len(edits_audio) == len(source_files):
             the_zip.append(source_files)
         elif len(source_files) == 1:
@@ -61,14 +80,15 @@ class Event:
         else:
             the_zip.append([None] * len(edits_audio))
 
-        # attach trans name to last event
+        # attach effects name to last event
         try:
             trans_statement = self._trans_name_statements()[0]
             trans_names: List[Optional[Any]] = [None] * (len(edits_audio) - 1)
             trans_names.append(trans_statement)
             the_zip.append(trans_names)
         except IndexError:
-           the_zip.append([None] * len(edits_audio))
+            the_zip.append([None] * len(edits_audio))
+
         return [Edit(edit_statement=e1[0],
                      audio_ext_statement=e1[1],
                      clip_name_statement=n1,
