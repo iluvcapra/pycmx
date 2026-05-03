@@ -13,7 +13,7 @@ through [Github].
 
 ## Regarding use of Agents
 
-`bwavfile` is an open-source project that is offered free for no commerical gain, and 
+`pycmx` is an open-source project that is offered free for no commerical gain, and 
 is developed and maintained for educational and creative reasons.
 
 If you use an agent or LLM to produce code for it you are missing out on the benefits 
