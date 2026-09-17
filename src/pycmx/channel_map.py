@@ -12,8 +12,8 @@ class ChannelMap:
     Represents a set of all the channels to which an event applies.
     """
 
-    def __init__(self, v=False, audio_channels=set()):
-        self._audio_channel_set = audio_channels
+    def __init__(self, v=False, audio_channels=None):
+        self._audio_channel_set = audio_channels or set()
         self.v = v
         self._chan_map: dict[str, tuple] = {
             "V": (True, False, False),

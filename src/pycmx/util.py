@@ -3,8 +3,10 @@
 
 # Utility functions
 
+from __future__ import annotations
 
-def collimate(a_string, column_widths):
+
+def collimate(a_string, column_widths) -> list[str]:
     """
     Split a list-type thing, like a string, into slices that are column_widths
     length.

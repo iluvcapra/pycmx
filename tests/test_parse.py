@@ -4,38 +4,42 @@ import pycmx
 
 
 class TestParse(TestCase):
-    files = [
-        "INS4_R1_010417.edl",
-        "INS4_R1_DX_092117.edl",
-        "STP R1 v082517.edl",
-        "ToD_R4_LOCK3.1_030618_Video.edl",
-        "TEST.edl",
-        "test_edl_cdl.edl",
-        "INS4_R1_DX_092117.edl",
-    ]
+
+    def setUp(self) -> None:
+        self.files = [
+            "INS4_R1_010417.edl",
+            "INS4_R1_DX_092117.edl",
+            "STP R1 v082517.edl",
+            "ToD_R4_LOCK3.1_030618_Video.edl",
+            "TEST.edl",
+            "test_edl_cdl.edl",
+            "INS4_R1_DX_092117.edl",
+        ]
+
+        return super().setUp()
 
     def test_event_counts(self):
 
         counts = [287, 466, 250, 376, 120, 3, 466]
 
-        for fn, count in zip(type(self).files, counts):
+        for fn, count in zip(self.files, counts):
             with open("tests/edls/" + fn, "r") as f:
                 edl = pycmx.parse_cmx3600(f)
                 actual = len(list(edl.events))
                 self.assertTrue(
                     actual == count,
-                    "expected %i in file %s but found %i" % (count, fn, actual),
+                    f"expected {count} in file {fn} but found {actual}"
                 )
 
     def test_list_sanity(self):
-        for fn in type(self).files:
+        for fn in self.files:
             with open("tests/edls/" + fn, "r") as f:
                 edl = pycmx.parse_cmx3600(f)
                 self.assertTrue(type(edl.title) is str)
                 self.assertTrue(len(edl.title) > 0)
 
     def test_event_sanity(self):
-        for fn in type(self).files:
+        for fn in self.files:
             path = "tests/edls/" + fn
             with open(path, "r") as f:
                 edl = pycmx.parse_cmx3600(f)

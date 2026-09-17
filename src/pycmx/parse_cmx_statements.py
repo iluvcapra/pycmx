@@ -1,8 +1,10 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
+from __future__ import annotations
+
 import re
-from typing import List, TextIO
+from typing import TextIO
 
 from .cdl import AscSopComponents, Rgb
 from .statements import (
@@ -24,7 +26,7 @@ from .statements import (
 from .util import collimate
 
 
-def parse_cmx3600_statements(file: TextIO, tolerant: bool = False) -> List[object]:
+def parse_cmx3600_statements(file: TextIO, tolerant: bool = False) -> list[object]:
     """
     Return a list of every statement in the file argument.
     """
@@ -35,7 +37,7 @@ def parse_cmx3600_statements(file: TextIO, tolerant: bool = False) -> List[objec
     ]
 
 
-def _edl_column_widths(event_field_length, source_field_length) -> List[int]:
+def _edl_column_widths(event_field_length, source_field_length) -> list[int]:
     return [
         event_field_length,
         2,
@@ -154,7 +156,7 @@ def _parse_remark(line, line_number) -> object:
 
         v: list[list[str]] = [[a[0] for a in b] for b in v1]
 
-        if len(v) != 3 or any([len(a) != 3 for a in v]):
+        if len(v) != 3 or any(len(a) != 3 for a in v):
             return StmtRemark(line, line_number)
 
         else:
@@ -267,7 +269,7 @@ def _parse_columns_for_standard_form(
         raise EventFormError()
 
     return StmtEvent(
-        event=column_strings[0],
+        event=int(column_strings[0]),
         source=column_strings[2].strip(),
         channels=channels,
         trans=trans,

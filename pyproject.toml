@@ -13,7 +13,6 @@ keywords = [
 requires-python = '>3.8'
 classifiers = [
   'Development Status :: 5 - Production/Stable',
-  'License :: OSI Approved :: MIT License',
   'Topic :: Multimedia',
   'Topic :: Multimedia :: Video',
   'Topic :: Text Processing',
@@ -59,19 +58,6 @@ indent-width = 4
 
 [tool.ruff.format]
 docstring-code-line-length = 88
-
-# [tool.pylint]
-# max-line-length = 88
-# disable = [
-#     "C0103", # (invalid-name)
-#     "C0114", # (missing-module-docstring)
-#     "C0115", # (missing-class-docstring)
-#     "C0116", # (missing-function-docstring)
-#     "R0903", # (too-few-public-methods)
-#     "R0913", # (too-many-arguments)
-#     "W0105", # (pointless-string-statement)
-# ]
-#
 
 [build-system]
 requires = ["uv_build>=0.9.18,<0.12"]

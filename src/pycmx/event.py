@@ -1,7 +1,8 @@
 # pycmx
 # (c) 2023-2025 Jamie Hardt
+from __future__ import annotations
 
-from typing import Any, Generator, List, Optional, Tuple
+from typing import Any, Generator
 
 from .edit import Edit
 from .statements import (
@@ -33,7 +34,7 @@ class Event:
         return int(self._edit_statements()[0].event)
 
     @property
-    def edits(self) -> List[Edit]:
+    def edits(self) -> list[Edit]:
         """
         Returns the edits. Most events will have a single edit, a single event
         will have multiple edits when a dissolve, wipe or key transition needs
@@ -55,14 +56,14 @@ class Event:
 
         # The list the_zip contains one element for each initialization
         # parameter in Edit()
-        the_zip: List[List[Any]] = [edits_audio]
+        the_zip: list[list[Any]] = [edits_audio]
 
         # If there are two Clip Name statements and two edits, we look for
         # "FROM" and "TO" clip name lines. Otherwise we just look for on
         # each per edit.
         if len(edits_audio) == 2:
-            start_name: Optional[StmtClipName] = None
-            end_name: Optional[StmtClipName] = None
+            start_name: StmtClipName | None = None
+            end_name: StmtClipName | None = None
 
             for clip_name in clip_names:
                 if clip_name.affect == "from":
@@ -91,7 +92,7 @@ class Event:
         # attach effects name to last event
         try:
             trans_statement = self._trans_name_statements()[0]
-            trans_names: List[Optional[Any]] = [None] * (len(edits_audio) - 1)
+            trans_names: list[Any] = [None] * (len(edits_audio) - 1)
             trans_names.append(trans_statement)
             the_zip.append(trans_names)
         except IndexError:
@@ -120,21 +121,21 @@ class Event:
             if type(s) is StmtUnrecognized:
                 yield s
 
-    def _trans_name_statements(self) -> List[StmtEffectsName]:
+    def _trans_name_statements(self) -> list[StmtEffectsName]:
         return [s for s in self.statements if type(s) is StmtEffectsName]
 
-    def _edit_statements(self) -> List[StmtEvent]:
+    def _edit_statements(self) -> list[StmtEvent]:
         return [s for s in self.statements if type(s) is StmtEvent]
 
-    def _clip_name_statements(self) -> List[StmtClipName]:
+    def _clip_name_statements(self) -> list[StmtClipName]:
         return [s for s in self.statements if type(s) is StmtClipName]
 
-    def _source_file_statements(self) -> List[StmtSourceFile]:
+    def _source_file_statements(self) -> list[StmtSourceFile]:
         return [s for s in self.statements if type(s) is StmtSourceFile]
 
     def _statements_with_audio_ext(
         self,
-    ) -> Generator[Tuple[StmtEvent, Optional[StmtAudioExt]], None, None]:
+    ) -> Generator[tuple[StmtEvent, StmtAudioExt | None], None, None]:
 
         if len(self.statements) == 1 and type(self.statements[0]) is StmtEvent:
             yield (self.statements[0], None)
@@ -146,11 +147,11 @@ class Event:
                 elif type(s1) is StmtEvent:
                     yield (s1, None)
 
-    def _asc_sop_statement(self) -> Optional[StmtCdlSop]:
+    def _asc_sop_statement(self) -> StmtCdlSop | None:
         return next((s for s in self.statements if type(s) is StmtCdlSop), None)
 
-    def _asc_sat_statement(self) -> Optional[StmtCdlSat]:
+    def _asc_sat_statement(self) -> StmtCdlSat | None:
         return next((s for s in self.statements if type(s) is StmtCdlSat), None)
 
-    def _frmc_statement(self) -> Optional[StmtFrmc]:
+    def _frmc_statement(self) -> StmtFrmc | None:
         return next((s for s in self.statements if type(s) is StmtFrmc), None)
