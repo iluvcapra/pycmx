@@ -3,6 +3,7 @@
 
 # Utility functions
 
+
 def collimate(a_string, column_widths):
     """
     Split a list-type thing, like a string, into slices that are column_widths

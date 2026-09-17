@@ -5,7 +5,7 @@ import sys
 
 import pycmx
 
-FORMAT = '%(asctime)-15s %(message)s'
+FORMAT = "%(asctime)-15s %(message)s"
 logging.basicConfig(format=FORMAT)
 
 
@@ -36,16 +36,15 @@ def output_cmx(outfile, out_list):
     outfile.write("FCM: NON-DROP FRAME\r\n")
 
     for i, o in enumerate(out_list):
-        line = '%03i  AX       V     C        ' % (i)
-        line += '00:00:00:00 00:00:00:00 %s %s\r\n' % (o['start'], o['end'])
+        line = "%03i  AX       V     C        " % (i)
+        line += "00:00:00:00 00:00:00:00 %s %s\r\n" % (o["start"], o["end"])
         outfile.write(line)
-        outfile.write("* FROM CLIP NAME: %s\r\n" % (o['scene']))
+        outfile.write("* FROM CLIP NAME: %s\r\n" % (o["scene"]))
 
 
 def output_cols(outfile, out_list):
     for o in out_list:
-        outfile.write("%-12s\t%-12s\t%s\n" %
-                      (o['start'], o['end'], o['scene']))
+        outfile.write("%-12s\t%-12s\t%s\n" % (o["start"], o["end"], o["scene"]))
 
 
 def scene_list(infile, outfile, out_format, pattern):
@@ -67,15 +66,17 @@ def scene_list(infile, outfile, out_format, pattern):
 
     out_list = []
     for group in grouped_edits:
-        out_list.append({
-            'start': group[0].record_in,
-            'end': group[-1].record_out,
-            'scene': get_scene_name(group[0], pattern)}
+        out_list.append(
+            {
+                "start": group[0].record_in,
+                "end": group[-1].record_out,
+                "scene": get_scene_name(group[0], pattern),
+            }
         )
 
-    if out_format == 'cmx':
+    if out_format == "cmx":
         output_cmx(outfile, out_list)
-    if out_format == 'cols':
+    if out_format == "cols":
         output_cols(outfile, out_list)
     else:
         log.warning(f"Format {out_format} unrecognized. Will use cmx.\n")
@@ -84,28 +85,49 @@ def scene_list(infile, outfile, out_format, pattern):
 
 def scene_list_cli():
     parser = argparse.ArgumentParser(
-        description='Read video events from an input CMX EDL and output '
-        'events merged into scenes.')
-    parser.add_argument('-o', '--outfile', default=sys.stdout,
-                        type=argparse.FileType('w'),
-                        help='Output file. Default is stdout.')
-    parser.add_argument('-f', '--format', default='cmx', type=str,
-                        help='Output format. Options are cols and cmx, cmx '
-                        'is the default.')
-    parser.add_argument('-p', '--pattern', default='V?([A-Z]*[0-9]+)',
-                        help='RE pattern for extracting scene name from clip '
-                        'name. The default is "V?([A-Z]*[0-9]+)". ' +
-                        'This pattern will be matched case-insensitively.')
-    parser.add_argument('input_edl', default=sys.stdin,
-                        type=argparse.FileType('r'), nargs='?',
-                        help='Input file. Default is stdin.')
+        description="Read video events from an input CMX EDL and output "
+        "events merged into scenes."
+    )
+    parser.add_argument(
+        "-o",
+        "--outfile",
+        default=sys.stdout,
+        type=argparse.FileType("w"),
+        help="Output file. Default is stdout.",
+    )
+    parser.add_argument(
+        "-f",
+        "--format",
+        default="cmx",
+        type=str,
+        help="Output format. Options are cols and cmx, cmx is the default.",
+    )
+    parser.add_argument(
+        "-p",
+        "--pattern",
+        default="V?([A-Z]*[0-9]+)",
+        help="RE pattern for extracting scene name from clip "
+        'name. The default is "V?([A-Z]*[0-9]+)". '
+        + "This pattern will be matched case-insensitively.",
+    )
+    parser.add_argument(
+        "input_edl",
+        default=sys.stdin,
+        type=argparse.FileType("r"),
+        nargs="?",
+        help="Input file. Default is stdin.",
+    )
     args = parser.parse_args()
 
     infile = args.input_edl
 
-    scene_list(infile=infile, outfile=args.outfile,
-               out_format=args.format, pattern=args.pattern)
+    scene_list(
+        infile=infile,
+        outfile=args.outfile,
+        out_format=args.format,
+        pattern=args.pattern,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     scene_list_cli()

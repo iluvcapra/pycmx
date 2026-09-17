@@ -42,17 +42,17 @@ class Transition:
     @property
     def cut(self) -> bool:
         "`True` if this transition is a cut."
-        return self.transition == 'C'
+        return self.transition == "C"
 
     @property
     def dissolve(self) -> bool:
         "`True` if this traansition is a dissolve."
-        return self.transition == 'D'
+        return self.transition == "D"
 
     @property
     def wipe(self) -> bool:
         "`True` if this transition is a wipe."
-        return self.transition.startswith('W')
+        return self.transition.startswith("W")
 
     @property
     def effect_duration(self) -> int:

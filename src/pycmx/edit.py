@@ -1,7 +1,7 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from typing import Optional
+from __future__ import annotations
 
 from .cdl import AscSopComponents, FramecountTriple
 from .channel_map import ChannelMap
@@ -27,24 +27,22 @@ class Edit:
     def __init__(
         self,
         edit_statement: StmtEvent,
-        audio_ext_statement: Optional[StmtAudioExt],
-        clip_name_statement: Optional[StmtClipName],
-        source_file_statement: Optional[StmtSourceFile],
-        trans_name_statement: Optional[StmtEffectsName] = None,
-        asc_sop_statement: Optional[StmtCdlSop] = None,
-        asc_sat_statement: Optional[StmtCdlSat] = None,
-        frmc_statement: Optional[StmtFrmc] = None,
+        audio_ext_statement: StmtAudioExt | None,
+        clip_name_statement: StmtClipName | None,
+        source_file_statement: StmtSourceFile | None,
+        trans_name_statement: StmtEffectsName | None = None,
+        asc_sop_statement: StmtCdlSop | None = None,
+        asc_sat_statement: StmtCdlSat | None = None,
+        frmc_statement: StmtFrmc | None = None,
     ) -> None:
         self._edit_statement: StmtEvent = edit_statement
-        self._audio_ext: Optional[StmtAudioExt] = audio_ext_statement
-        self._clip_name_statement: Optional[StmtClipName] = clip_name_statement
-        self._source_file_statement: Optional[StmtSourceFile] = \
-            source_file_statement
-        self._trans_name_statement: Optional[StmtEffectsName] = \
-            trans_name_statement
-        self._asc_sop_statement: Optional[StmtCdlSop] = asc_sop_statement
-        self._asc_sat_statement: Optional[StmtCdlSat] = asc_sat_statement
-        self._frmc_statement: Optional[StmtFrmc] = frmc_statement
+        self._audio_ext: StmtAudioExt | None = audio_ext_statement
+        self._clip_name_statement: StmtClipName | None = clip_name_statement
+        self._source_file_statement: StmtSourceFile | None = source_file_statement
+        self._trans_name_statement: StmtEffectsName | None = trans_name_statement
+        self._asc_sop_statement: StmtCdlSop | None = asc_sop_statement
+        self._asc_sat_statement: StmtCdlSat | None = asc_sat_statement
+        self._frmc_statement: StmtFrmc | None = frmc_statement
 
     @property
     def line_number(self) -> int:
@@ -138,7 +136,7 @@ class Edit:
         return self.source == "AX"
 
     @property
-    def source_file(self) -> Optional[str]:
+    def source_file(self) -> str | None:
         """
         Get the source file, as attested by a "* SOURCE FILE" remark on the
         EDL. This will return None if the information is not present.
@@ -149,7 +147,7 @@ class Edit:
             return self._source_file_statement.filename
 
     @property
-    def clip_name(self) -> Optional[str]:
+    def clip_name(self) -> str | None:
         """
         Get the clip name, as attested by a "* FROM CLIP NAME" or "* TO CLIP
         NAME" remark on the EDL. This will return None if the information is
@@ -161,7 +159,7 @@ class Edit:
             return self._clip_name_statement.name
 
     @property
-    def asc_sop(self) -> Optional[AscSopComponents[float]]:
+    def asc_sop(self) -> AscSopComponents[float] | None:
         """
         Get ASC CDL Slope-Offset-Power color transfer function for the edit,
         if present. The ASC SOP is a transfer function of the form:
@@ -177,7 +175,7 @@ class Edit:
         return self._asc_sop_statement.cdl_sop
 
     @property
-    def asc_sop_raw(self) -> Optional[str]:
+    def asc_sop_raw(self) -> str | None:
         """
         ASC CDL Slope-Offset-Power statement raw line.
         """
@@ -187,7 +185,7 @@ class Edit:
         return self._asc_sop_statement.line
 
     @property
-    def asc_sat(self) -> Optional[float]:
+    def asc_sat(self) -> float | None:
         """
         Get ASC CDL saturation value for clip, if present.
         """
@@ -197,7 +195,7 @@ class Edit:
         return self._asc_sat_statement.value
 
     @property
-    def framecounts(self) -> Optional[FramecountTriple]:
+    def framecounts(self) -> FramecountTriple | None:
         """
         Get frame count offset data, if it exists. If an FRMC statement exists
         in the EDL for the event it will give an integer frame count for the
