@@ -33,7 +33,7 @@ doc = [
 ]
 dev = [
   'pytest',
-  'ruff>=0.14.10'
+  'ruff>=0.16.8'
 ]
 
 [project.urls]
@@ -73,8 +73,6 @@ docstring-code-line-length = 88
 # ]
 #
 
-
-
 [build-system]
-requires = ["uv_build>=0.9.18,<0.10.0"]
+requires = ["uv_build>=0.9.18,<0.12"]
 build-backend = "uv_build"
