@@ -1,12 +1,20 @@
 # pycmx
 # (c) 2023-2025 Jamie Hardt
 
-from .statements import (StmtFrmc, StmtEvent, StmtClipName, StmtSourceFile,
-                         StmtAudioExt, StmtUnrecognized, StmtEffectsName,
-                         StmtCdlSop, StmtCdlSat)
-from .edit import Edit
+from typing import Any, Generator, List, Optional, Tuple
 
-from typing import List, Generator, Optional, Tuple, Any
+from .edit import Edit
+from .statements import (
+    StmtAudioExt,
+    StmtCdlSat,
+    StmtCdlSop,
+    StmtClipName,
+    StmtEffectsName,
+    StmtEvent,
+    StmtFrmc,
+    StmtSourceFile,
+    StmtUnrecognized,
+)
 
 
 class Event:

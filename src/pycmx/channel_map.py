@@ -1,8 +1,8 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from re import (compile, match)
-from typing import Dict, Tuple, Generator
+from re import compile, match
+from typing import Dict, Generator, Tuple
 
 
 class ChannelMap:

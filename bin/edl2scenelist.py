@@ -1,10 +1,9 @@
-import pycmx
-import re
 import argparse
+import logging
+import re
 import sys
 
-import logging
-
+import pycmx
 
 FORMAT = '%(asctime)-15s %(message)s'
 logging.basicConfig(format=FORMAT)
@@ -21,7 +20,7 @@ def all_video_edits(edl):
 
 
 def get_scene_name(edit, pattern):
-    scene_extractor = re.compile(pattern, re.I)
+    scene_extractor = re.compile(pattern, re.IGNORECASE)
     if edit.clip_name is None:
         return None
     else:

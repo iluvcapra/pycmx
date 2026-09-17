@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Configuration file for the Sphinx documentation builder.
 #
@@ -15,14 +14,15 @@
 import importlib
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('../..'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = u'pycmx'
-copyright = u'(c) 2018-2025, Jamie Hardt'
-author = u'Jamie Hardt'
+project = 'pycmx'
+copyright = '(c) 2018-2025, Jamie Hardt'
+author = 'Jamie Hardt'
 
 release = importlib.metadata.version("pycmx")
 version = release
@@ -134,8 +134,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'pycmx.tex', u'pycmx Documentation',
-     u'Jamie Hardt', 'manual'),
+    (master_doc, 'pycmx.tex', 'pycmx Documentation',
+     'Jamie Hardt', 'manual'),
 ]
 
 
@@ -144,7 +144,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pycmx', u'pycmx Documentation',
+    (master_doc, 'pycmx', 'pycmx Documentation',
      [author], "3p")
 ]
 
@@ -155,7 +155,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'pycmx', u'pycmx Documentation',
+    (master_doc, 'pycmx', 'pycmx Documentation',
      author, 'pycmx', 'One line description of project.',
      'Miscellaneous'),
 ]

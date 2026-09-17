@@ -1,12 +1,17 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from .statements import (StmtCorruptRemark, StmtTitle, StmtEvent,
-                         StmtUnrecognized, StmtSourceUMID)
-from .event import Event
-from .channel_map import ChannelMap
-
 from typing import Any, Generator
+
+from .channel_map import ChannelMap
+from .event import Event
+from .statements import (
+    StmtCorruptRemark,
+    StmtEvent,
+    StmtSourceUMID,
+    StmtTitle,
+    StmtUnrecognized,
+)
 
 
 class EditList:

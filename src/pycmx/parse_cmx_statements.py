@@ -2,14 +2,25 @@
 # (c) 2018-2025 Jamie Hardt
 
 import re
-from typing import TextIO, List
+from typing import List, TextIO
 
 from .cdl import AscSopComponents, Rgb
-
-from .statements import (StmtCdlSat, StmtCdlSop, StmtCorruptRemark, StmtFrmc,
-                         StmtRemark, StmtTitle, StmtUnrecognized, StmtFCM,
-                         StmtAudioExt, StmtClipName, StmtEffectsName,
-                         StmtEvent, StmtSourceFile, StmtSplitEdit)
+from .statements import (
+    StmtAudioExt,
+    StmtCdlSat,
+    StmtCdlSop,
+    StmtClipName,
+    StmtCorruptRemark,
+    StmtEffectsName,
+    StmtEvent,
+    StmtFCM,
+    StmtFrmc,
+    StmtRemark,
+    StmtSourceFile,
+    StmtSplitEdit,
+    StmtTitle,
+    StmtUnrecognized,
+)
 from .util import collimate
 
 

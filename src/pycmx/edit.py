@@ -1,21 +1,21 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
+from typing import Optional
+
 from .cdl import AscSopComponents, FramecountTriple
+from .channel_map import ChannelMap
 from .statements import (
+    StmtAudioExt,
     StmtCdlSat,
     StmtCdlSop,
-    StmtFrmc,
-    StmtEvent,
-    StmtAudioExt,
     StmtClipName,
-    StmtSourceFile,
     StmtEffectsName,
+    StmtEvent,
+    StmtFrmc,
+    StmtSourceFile,
 )
 from .transition import Transition
-from .channel_map import ChannelMap
-
-from typing import Optional
 
 
 class Edit:
