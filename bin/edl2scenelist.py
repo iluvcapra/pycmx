@@ -36,15 +36,15 @@ def output_cmx(outfile, out_list):
     outfile.write("FCM: NON-DROP FRAME\r\n")
 
     for i, o in enumerate(out_list):
-        line = "%03i  AX       V     C        " % (i)
-        line += "00:00:00:00 00:00:00:00 %s %s\r\n" % (o["start"], o["end"])
+        line = "{i: 03d}  AX       V     C        "
+        line += f"00:00:00:00 00:00:00:00 {o['start']} {o['end']}\r\n"
         outfile.write(line)
-        outfile.write("* FROM CLIP NAME: %s\r\n" % (o["scene"]))
+        outfile.write(f"* FROM CLIP NAME: {o['scene']}\r\n")
 
 
 def output_cols(outfile, out_list):
     for o in out_list:
-        outfile.write("%-12s\t%-12s\t%s\n" % (o["start"], o["end"], o["scene"]))
+        outfile.write(f"{o['start']:>12}\t{o['end']:>12}\t{o['scene']}")
 
 
 def scene_list(infile, outfile, out_format, pattern):
