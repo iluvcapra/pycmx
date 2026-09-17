@@ -1,7 +1,7 @@
 # pycmx
 # (c) 2023 Jamie Hardt
 
-from typing import Optional
+from __future__ import annotations
 
 
 class Transition:
@@ -22,7 +22,7 @@ class Transition:
         self.name = name
 
     @property
-    def kind(self) -> Optional[str]:
+    def kind(self) -> str | None:
         """
         Return the kind of transition: Cut, Wipe, etc.
         """
@@ -42,17 +42,17 @@ class Transition:
     @property
     def cut(self) -> bool:
         "`True` if this transition is a cut."
-        return self.transition == 'C'
+        return self.transition == "C"
 
     @property
     def dissolve(self) -> bool:
         "`True` if this traansition is a dissolve."
-        return self.transition == 'D'
+        return self.transition == "D"
 
     @property
     def wipe(self) -> bool:
         "`True` if this transition is a wipe."
-        return self.transition.startswith('W')
+        return self.transition.startswith("W")
 
     @property
     def effect_duration(self) -> int:
@@ -64,7 +64,7 @@ class Transition:
         return int(self.operand)
 
     @property
-    def wipe_number(self) -> Optional[int]:
+    def wipe_number(self) -> int | None:
         "Wipes are identified by a particular number."
         if self.wipe:
             return int(self.transition[1:])

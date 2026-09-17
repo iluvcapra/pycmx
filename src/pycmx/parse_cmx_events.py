@@ -3,8 +3,8 @@
 
 from typing import TextIO
 
-from .parse_cmx_statements import (parse_cmx3600_statements)
 from .edit_list import EditList
+from .parse_cmx_statements import parse_cmx3600_statements
 
 
 def parse_cmx3600(f: TextIO, tolerant: bool = False) -> EditList:

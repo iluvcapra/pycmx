@@ -1,3 +1,4 @@
+# ruff: noqa: SIM115 
 from unittest import TestCase
 
 from pycmx import parse_cmx3600

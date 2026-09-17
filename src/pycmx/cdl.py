@@ -4,7 +4,7 @@
 from dataclasses import dataclass
 from typing import Generic, NamedTuple, TypeVar
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 @dataclass

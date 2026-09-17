@@ -1,12 +1,19 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from .statements import (StmtCorruptRemark, StmtTitle, StmtEvent,
-                         StmtUnrecognized, StmtSourceUMID)
-from .event import Event
-from .channel_map import ChannelMap
+from __future__ import annotations
 
 from typing import Any, Generator
+
+from .channel_map import ChannelMap
+from .event import Event
+from .statements import (
+    StmtCorruptRemark,
+    StmtEvent,
+    StmtSourceUMID,
+    StmtTitle,
+    StmtUnrecognized,
+)
 
 
 class EditList:
@@ -28,19 +35,20 @@ class EditList:
         Adobe EDLs with more than 999 events will be reported as "3600".
         """
         first_event = next(
-            (s for s in self.event_statements if type(s) is StmtEvent), None)
+            (s for s in self.event_statements if type(s) is StmtEvent), None
+        )
 
         if first_event:
             if first_event.source_field_size == 8:
-                return '3600'
+                return "3600"
             elif first_event.source_field_size == 32:
-                return 'File32'
+                return "File32"
             elif first_event.source_field_size == 128:
-                return 'File128'
+                return "File128"
             else:
-                return 'unknown'
+                return "unknown"
         else:
-            return 'unknown'
+            return "unknown"
 
     @property
     def channels(self) -> ChannelMap:
@@ -72,12 +80,12 @@ class EditList:
             :class:`StmtCorruptRemark`
         """
         for s in self.event_statements:
-            if type(s) is StmtUnrecognized or type(s) in StmtCorruptRemark:
+            if type(s) is StmtUnrecognized or type(s) is StmtCorruptRemark:
                 yield s
 
     @property
     def events(self) -> Generator[Event, None, None]:
-        'A generator for all the events in the edit list'
+        "A generator for all the events in the edit list"
         current_event_num = None
         event_statements = []
         for stmt in self.event_statements:

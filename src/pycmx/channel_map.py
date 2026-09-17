@@ -1,8 +1,10 @@
 # pycmx
 # (c) 2018-2025 Jamie Hardt
 
-from re import (compile, match)
-from typing import Dict, Tuple, Generator
+from __future__ import annotations
+
+from re import compile, match
+from typing import Generator
 
 
 class ChannelMap:
@@ -10,35 +12,33 @@ class ChannelMap:
     Represents a set of all the channels to which an event applies.
     """
 
-    _chan_map: Dict[str, Tuple] = {
-        "V":    (True,   False,   False),
-        "A":    (False,  True,    False),
-        "A2":   (False,  False,   True),
-        "AA":   (False,  True,    True),
-        "B":    (True,   True,    False),
-        "AA/V": (True,   True,    True),
-        "A2/V": (True,   False,   True)
-    }
-
-    def __init__(self, v=False, audio_channels=set()):
-        self._audio_channel_set = audio_channels
+    def __init__(self, v=False, audio_channels=None):
+        self._audio_channel_set = audio_channels or set()
         self.v = v
+        self._chan_map: dict[str, tuple] = {
+            "V": (True, False, False),
+            "A": (False, True, False),
+            "A2": (False, False, True),
+            "AA": (False, True, True),
+            "B": (True, True, False),
+            "AA/V": (True, True, True),
+            "A2/V": (True, False, True),
+        }
 
     @property
     def video(self) -> bool:
-        'True if video is included'
+        "True if video is included"
         return self.v
 
     @property
     def audio(self) -> bool:
-        'True if an audio channel is included'
+        "True if an audio channel is included"
         return len(self._audio_channel_set) > 0
 
     @property
     def channels(self) -> Generator[int, None, None]:
-        'A generator for each audio channel'
-        for c in self._audio_channel_set:
-            yield c
+        "A generator for each audio channel"
+        yield from self._audio_channel_set
 
     @property
     def a1(self) -> bool:
@@ -78,7 +78,7 @@ class ChannelMap:
 
     def get_audio_channel(self, chan_num) -> bool:
         """True if chan_num is included"""
-        return (chan_num in self._audio_channel_set)
+        return chan_num in self._audio_channel_set
 
     def set_audio_channel(self, chan_num, enabled: bool):
         """If enabled is true, chan_num will be included"""
@@ -88,7 +88,7 @@ class ChannelMap:
             self._audio_channel_set.remove(chan_num)
 
     def _append_event(self, event_str):
-        alt_channel_re = compile(r'^A(\d+)')
+        alt_channel_re = compile(r"^A(\d+)")
         if event_str in self._chan_map:
             channels = self._chan_map[event_str]
             self.v = channels[0]
